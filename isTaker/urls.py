@@ -9,4 +9,7 @@ urlpatterns = [
     path('', include('hospital.urls')),
     path('', include('service.urls')),
     path('service_boy', include('service_boy.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.STATICFILES_DIRS[0])
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
