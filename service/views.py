@@ -368,7 +368,7 @@ def search(request, myid):
 
 
 def customer_dashboard(request, myid):
-    print( request.session['wrong'])
+    # print( request.session['wrong'])
     package_count = Package.objects.count()
     package_dict = covnert_Set_to_dict(package_count)
     request.session['Services'] = package_dict
@@ -399,7 +399,7 @@ def customer_dashboard(request, myid):
     else:
         return redirect('users:Login')
     return render(request, 'service/customer_dashboard.html', {
-        'wrong': request.session['wrong'],
+        # 'wrong': request.session['wrong'],
         'package_dict': package_dict,
         'hospital': Hospital_Detail.objects.all(),
         'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
