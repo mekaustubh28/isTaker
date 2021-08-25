@@ -374,12 +374,13 @@ def customer_dashboard(request, myid):
     request.session['Services'] = package_dict
 
     Active_Service = request.session.get('Active_Service')
-
+    print(Active_Service, type(Active_Service))
     Active_User = request.session.get('Active_User')
 
-    if Active_User['customer_id'] != Active_Service['customer_id']:
+    if Active_Service == None or Active_User['customer_id'] != Active_Service['customer_id']:
         Create_Session(request, '', [], ['0'], myid, '', '')
-
+        Active_Service = request.session.get('Active_Service')
+    
     cart = Cart(Customer.objects.filter(
         customer_id=Active_Service['customer_id'])[0])
     customer = Customer.objects.filter(

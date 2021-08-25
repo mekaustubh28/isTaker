@@ -109,8 +109,8 @@ def service_boy_dashboard(request, ID):
                 #     customer=Customer.objects.filter(
                 #         customer_id=confirm_order['customer_id'])[0],
                 #     service_boy=service_boy[0],
-                #     service_chosen=Service_Chosen.objects.filter(
-                #         service_chosen_id=confirm_order['service_chosen_id'])[0],
+                    # service_chosen=Service_Chosen.objects.filter(
+                    #     service_chosen_id=confirm_order['service_chosen_id'])[0],
                 #     pickup_address=confirm_order['pickup_address'],
                 #     drop_address=hospital.hospital_address,
                 #     hospital=hospital,
@@ -157,6 +157,8 @@ def service_boy_dashboard(request, ID):
                 )
                 print(5)
                 service_boy.update(available=False)
+                service_chosen=Service_Chosen.objects.filter(
+                        service_chosen_id=confirm_order['service_chosen_id']).update(status='accepted')
                 service_boy_order.save()
                 request.session['order_already_placed_status'] = False
                 print(6)
@@ -214,7 +216,7 @@ def start_ride(request, ID):
             convert_services = convert_services.replace(
                 character, "")
         convert_services = convert_String_to_List(convert_services)
-        if dt_string == date_of_service:
+        if dt_string != date_of_service:
             request.session['date_not_yet'] = True
             return redirect('/service_boy/' + str(ID))
         customer = Customer.objects.filter(
