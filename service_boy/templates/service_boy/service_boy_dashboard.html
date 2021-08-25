@@ -1,0 +1,158 @@
+{% extends 'service_boy/base.html' %}
+
+{% block title %} Service-Boy {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<style>
+    div.service_boy_container {
+        width: 100%;
+        height: 90vh;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    div.top,
+    div.bottom {
+        margin: 10px 10px 10px 0;
+        padding-top: 10px;
+        height: 50%;
+        width: 100%;
+        border: 3px solid blue;
+        border-radius: 10px;
+        position: relative;
+    }
+
+    div.service_request {
+        overflow: hidden;
+        overflow-y: scroll;
+        height: 75%;
+    }
+
+    form.confirm_service {
+        position: absolute;
+        right: 20px;
+        bottom: 10px;
+    }
+
+    .select {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    tr.order:hover,
+    tr.assignorder:hover {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        transition: 0.15s ease-in-out;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+{% if order_already_placed_status %}
+<div class="alert alert-danger" role="alert">
+    Sorry, Other Service-Boy had Placed the Order!
+</div>
+{% endif %}
+
+{% if date_not_yet %}
+<div class="alert alert-danger" role="alert">
+    Still Few Days Left for this Order!!
+</div>
+{% endif %}
+<div class="service_boy_container">
+    <div class="top">
+        <h5>New Service Request Details</h5>
+        <div class="service_request">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Cust. Name</th>
+                        <th scope="col">services</th>
+                        <th scope="col">pick-up</th>
+                        <th scope="col">drop</th>
+                        <th scope="col">date of booking</th>
+                        <th scope="col">date of service</th>
+                        <th scope="col">price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in Order %}
+                    <tr id="{{order.Order_ID}}" class="order">
+                        <td>{{order.customer}}</td>
+                        <td>{{order.service_chosen}}</td>
+                        <td>{{order.pickup_address}}</td>
+                        <td>{{order.drop_address}}</td>
+                        <td>{{order.order_date}}</td>
+                        <td>{{order.service_date_time}}</td>
+                        <td>₹{{order.price}}/-</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <form action="/service_boy/{{Active_Service_Boy.ID}}" method="post" class="confirm_service">
+            {% csrf_token %}
+            <input type="hidden" value="" name="newService" id="newService">
+            <button type="submit" id="newServiceButton" class="btn btn-primary mx-2" disabled>Confirm</button>
+        </form>
+    </div>
+    <div class="top">
+        <h5>Your Services Details</h5>
+        <div class="service_request">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Cust. Name</th>
+                        <th scope="col">services</th>
+                        <th scope="col">pick-up</th>
+                        <th scope="col">drop</th>
+                        <th scope="col">date of booking</th>
+                        <th scope="col">date of service</th>
+                        <th scope="col">price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in Assinged_Order %}
+                    <tr id="orders{{order.Order_ID}}" class="assignorder">
+                        <td>{{order.customer}}</td>
+                        <td>{{order.service_chosen}}</td>
+                        <td>{{order.pickup_address}}</td>
+                        <td>{{order.drop_address}}</td>
+                        <td>{{order.order_date}}</td>
+                        <td>{{order.service_date_time}}</td>
+                        <td>₹{{order.price}}/-</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <form action="/service_boy/{{Active_Service_Boy.ID}}/start_ride" method="post" class="confirm_service">
+            {% csrf_token %}
+            <input type="hidden" value="" name="assignService" id="assignService">
+            <button type="submit" id="assignServiceButton" class="btn btn-primary mx-2" disabled>Confirm</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    $('tr.order').click(function () {
+        $('tr.order').removeClass('select')
+        $(this).addClass('select')
+        id = $(this).attr('id')
+        $('input#newService').attr('value', id)
+        $('button#newServiceButton').attr('disabled', false)
+    })
+    $('tr.assignorder').click(function () {
+        $('tr.assignorder').removeClass('select')
+        $(this).addClass('select')
+        id = $(this).attr('id')
+        $('input#assignService').attr('value', id.substring(6,))
+        $('button#assignServiceButton   ').attr('disabled', false)
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,228 @@
+{% extends 'service_boy/base.html' %}
+
+{% block title %} Service-Boy {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<style>
+  .receipt {
+    width: 40%;
+    height: 90%;
+    background-color: rgba(0, 0, 255, 0.014);
+    border-radius: 30px;
+    position: relative;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(128, 128, 128, 0.295);
+    padding: 20px
+  }
+
+  /* Heading */
+  .name {
+    text-transform: uppercase;
+    text-align: center;
+    color: #6c8b8e;
+    letter-spacing: 10px;
+    font-size: 1.8em;
+    margin-top: 10px
+  }
+
+  /* Big thank */
+  .greeting {
+    font-size: 21px;
+    text-transform: capitalize;
+    text-align: center;
+    color: #6f8d90;
+    margin: 10px 0;
+    letter-spacing: 1.2px
+  }
+
+  /* Order info */
+  .order p {
+    font-size: 17px;
+    color: gray;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    letter-spacing: .7px
+  }
+
+  /* Our line */
+  hr {
+    border: .7px solid #ddd;
+    margin: 0px;
+  }
+
+  /* Order details */
+  .details {
+    padding-left: 10px;
+    margin-bottom: 35px;
+    overflow: hidden
+  }
+
+  .details h3 {
+    font-weight: 400;
+    color: #6c8b8e;
+    font-size: 1.5em;
+    margin: 0px;
+  }
+
+  /* Image and the info of the order */
+  .product {
+    float: left;
+    width: 83%
+  }
+
+  .product img {
+    width: 65px;
+    float: left
+  }
+
+  .product .info {
+    float: left;
+    margin-left: 15px;
+    width: 100%;
+  }
+
+  .product .info h4 {
+    color: #6f8d90;
+    font-size: large;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .product .info p {
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  /* Net price */
+  .details>p {
+    color: #6f8d90;
+    margin-top: 25px;
+    font-size: 15px
+  }
+
+  /* Total price */
+  .totalprice p {
+    padding-left: 10px
+  }
+
+  .totalprice .sub,
+  .totalprice .del {
+    font-size: 18px;
+    color: gray;
+  }
+
+  .totalprice span {
+    float: right;
+    margin-right: 17px
+  }
+
+  .totalprice .tot {
+    color: #6f8d90;
+    font-size: 15px
+  }
+
+  button.btn-service {
+    border: 0;
+    background-color: rgba(0, 0, 255, 0.644);
+
+  }
+
+  div.btn_service {
+    text-align: center;
+  }
+
+  input.OTP {
+    border: 2px solid gray;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<!-- {{customer_service_hist}} -->
+{% if otp_enter %}
+{% if otp_correct%}
+<div class="alert alert-success" role="alert">
+  Hurrah!, OTP is Correct, Best Wishs for Your Journey!!
+</div>
+{% endif %}
+{% if not otp_correct %}
+<div class="alert alert-danger" role="alert">
+  Sorry, OTP Entered is not Correct!!
+</div>
+{% endif %}
+{% endif %}
+<div class="receipt">
+  <h2 class="name"> {{customer_service_hist.hospital_name}} </h2>
+
+  <p class="greeting"> Best Wishes for Your Ride!! </p>
+
+  <!-- Order info -->
+  <div class="order">
+
+    <p> Order ID : #{{customer_service_hist.customer_trip_id}} </p>
+    <p> Date : {{customer_service_hist.date_of_service}} </p>
+    <p> Customer Name : {{customer_service_hist.customer_FName}} {{customer_service_hist.customer_LName}} </p>
+    <p> Customer Contact : {{customer_pickUp.mobile}} </p>
+    <p> Customer Address : {{customer_pickUp.address}} </p>
+    <p> Hospital Address : {{hospital_drop.hospital_address}} </p>
+
+  </div>
+
+  <hr style="margin: 10px;">
+
+  <div class="details">
+
+    <h3> Services </h3>
+
+    <div class="product">
+
+
+      <div class="info">
+        {% for services in convert_services %}
+        <h4> {{services}} </h4>
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <!-- Sub and total price -->
+  <div class="totalprice">
+
+    <p class="sub">Amount<span>₹{{customer_service_hist.amount}}/-</span></p>
+    <hr>
+    <div class="btn_service">
+      <form action="/service_boy/{{Active_Service_Boy.ID}}/start_ride" method="post">
+        {% csrf_token %}
+        <button type="submit" name="send_OTP" value="sendOTP" id="send_OTP" class="btn btn-primary mx-2"
+          style="width: 100px;">Send OTP</button><br><br>
+      </form>
+      <form action="/service_boy/{{Active_Service_Boy.ID}}/start_ride" method="post">
+        {% csrf_token %}
+          <button type="submit"name="stop" value="stop" id="stop" class="btn btn-danger mx-2" style="width: 100px;">Stop</button><br><br>
+      </form>
+      <form action="/service_boy/{{Active_Service_Boy.ID}}/start_ride" method="post">
+        {% csrf_token %}
+        <input class="OTP" name="OTP_entered" style="width:200px; border-radius: 7px; padding:7px;" type="text"
+          placeholder="Enter the OTP" value="" required="" maxlength='4'>
+        <button type="submit" id="start" class="btn btn-success mx-2" style="width: 120px;">START
+          RIDE</button><br><br>
+      </form>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+</script>
+{% endblock %}

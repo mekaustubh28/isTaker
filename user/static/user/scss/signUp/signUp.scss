@@ -1,0 +1,91 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+div.signInUp {
+  width: 100%;
+  div.Login {
+    text-align: center;
+    input.option {
+      display: none;
+    }
+    label.option {
+      cursor: pointer;
+      padding: 10px 20px;
+      margin: 0px 20px;
+      transition: 0.3s ease-in-out;
+    }
+    label.option:hover {
+      background-color: rgba(0, 0, 255, 0.041);
+      transition: 0.3s ease-in-out;
+    }
+    input.option:checked + label.option {
+      background-color: blue;
+      color: white;
+    }
+    div.fill {
+      // width: 80%;
+      margin: 50px auto;
+      position: relative;
+      div.customer,
+      div.service_boy {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 20px;
+        border: 3px solid blue;
+        border-radius: 20px;
+        a {
+          font-size: small;
+        }
+        input,
+        select {
+          margin: 10px;
+          width: 40%;
+          padding: 10px;
+          font-size: 15px;
+          border: 1px solid blue;
+          color: black;
+          outline: none;
+          border-radius: 5px;
+        }
+        select {
+          outline: none;
+          width: 42%;
+        }
+        input.submit {
+          width: 40%;
+          background-color: blue;
+          font-size: 20px;
+          color: white;
+          outline: none;
+          border: none;
+        }
+        input.submit:hover {
+          cursor: pointer;
+          background-color: rgb(6, 6, 189);
+        }
+      }
+      div.hide {
+        display: none;
+      }
+      div.signup-service_boy {
+        padding: 10px 5px;
+        input,select{
+          margin: 6px;
+          width: 40%;
+          padding: 10px;
+          font-size: 15px;
+          border: 1px solid blue;
+          color: black;
+          outline: none;
+          border-radius: 5px;
+        }
+        select{
+          width: 42%;
+        }
+      }
+    }
+  }
+}

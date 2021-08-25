@@ -1,0 +1,58 @@
+{% extends 'user/navbar.html' %}
+
+{% block title %} SignUp | Login {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'user/scss/signInUp/signInUp.css' %}">
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}"> -->
+
+{% endblock %}
+
+{% block body %}
+<div class="signInUp">
+    <div class="Login">
+        <h1>Login</h1>
+        <p class="succesmsg" style="color:green;margin:0;margin-bottom:20px;padding:0">{{success}}</p>
+        <p class="succesmsg" style="color:red;margin:0;margin-bottom:20px;padding:0">{{not_found}}</p>
+        <input type="radio" class="option" name="type" id="customer" value="customer" checked>
+        <label for="customer" class="customer option">Customer</label>
+        <input type="radio" class="option" name="type" id="service_boy" value="service_boy">
+        <label for="service_boy" class="service_boy option">Service-Boy</label>
+
+        <div class="fill">
+            <div class="customer">
+                <form action="/login" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="who" value="customer">
+                    <input type="email" class="email" name="email" id="c_email" placeholder="email" required><br>
+                    <input class="password" type="password" name="password" id="c_password" placeholder="password" required><br>
+                    <a href="/forgot_password" style="float:left;margin-left:10%">Forget password?</a><br>
+                    <input type="submit" class="submit" value="Login">
+                    <hr>
+                    <a href="/signUp">Create New Account as Customer?</a>
+                </form>
+            </div>
+            <div class="hide service_boy">
+                <form action="/login" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="who" value="service_boy">
+                    <input type="number" class="ID" name="ID" id="ID" placeholder="ID" required><br>
+                    <input type="email" class="email" name="email" id="s_email" placeholder="email" required><br>
+                    <input class="password" type="password" name="password" id="s_password" placeholder="password" required><br>
+                    <a href="/forgot_password" style="float:left;margin-left:10%">Forget password?</a><br>
+                    <input type="submit" class="submit" value="Login">
+                    <hr>
+                    <a href="/signUp">Create New Account as Service-Boy?</a>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'user/js/signIn.js' %}"></script>
+{% endblock %}

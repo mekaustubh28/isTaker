@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body * {
+  margin: 0;
+  padding: 0;
+}
+
+body div.signInUp {
+  width: 100%;
+}
+
+body div.signInUp div.Login {
+  text-align: center;
+}
+
+body div.signInUp div.Login input.option {
+  display: none;
+}
+
+body div.signInUp div.Login label.option {
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+body div.signInUp div.Login label.option:hover {
+  background-color: rgba(0, 0, 255, 0.041);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+body div.signInUp div.Login input.option:checked + label.option {
+  background-color: blue;
+  color: white;
+}
+
+body div.signInUp div.Login div.fill {
+  width: 50%;
+  margin: 50px auto;
+  position: relative;
+}
+
+body div.signInUp div.Login div.fill div.customer,
+body div.signInUp div.Login div.fill div.service_boy {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  border: 3px solid blue;
+  border-radius: 20px;
+}
+
+body div.signInUp div.Login div.fill div.customer a,
+body div.signInUp div.Login div.fill div.service_boy a {
+  font-size: small;
+}
+
+body div.signInUp div.Login div.fill div.customer input,
+body div.signInUp div.Login div.fill div.service_boy input {
+  margin: 10px;
+  width: 80%;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid blue;
+  outline: none;
+  color: black;
+  border-radius: 5px;
+}
+
+body div.signInUp div.Login div.fill div.customer input.submit,
+body div.signInUp div.Login div.fill div.service_boy input.submit {
+  width: 40%;
+  background-color: blue;
+  font-size: 20px;
+  color: white;
+  outline: none;
+  border: none;
+}
+
+body div.signInUp div.Login div.fill div.customer input.submit:hover,
+body div.signInUp div.Login div.fill div.service_boy input.submit:hover {
+  cursor: pointer;
+  background-color: #0606bd;
+}
+
+body div.signInUp div.Login div.fill div.hide {
+  display: none;
+}
+/*# sourceMappingURL=signInUp.css.map */

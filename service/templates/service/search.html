@@ -1,0 +1,283 @@
+{% extends 'service/base.html' %}
+
+{% block title %} search- {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'service/scss/search/search.css' %}">
+
+<style>
+  div.tabs {
+    width: 100%;
+    text-align: left;
+  }
+
+  div.available {
+    border: 3px solid blue;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  span.pin {
+    padding: 4px 10px;
+    margin-left: 20px;
+    border-radius: 4px;
+    color: white;
+    background-color: #0d6efd;
+  }
+
+  .card__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    padding: 2em;
+  }
+
+  div.service_boys {
+    display: flex;
+  }
+
+  .card__header {
+    border: 1px solid gray;
+    margin: auto;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(128, 128, 128, 0.034);
+  }
+
+  .card__arc {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    z-index: 1;
+  }
+
+  .card__thumb {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    padding: 1px;
+  }
+
+  .card__title {
+    font-size: 1.3em;
+    margin: 0 0 .3em;
+  }
+
+  div.hospital {
+    background-color: rgba(128, 128, 128, 0.034);
+    display: flex;
+    text-align: left;
+    width: 70%;
+    margin: 4% auto;
+    border: 1px solid gray;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    position: relative;
+  }
+
+  div.suggested_place {
+    width: 100%;
+  }
+
+  div.search_by_place {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    justify-content: space-around;
+  }
+
+  div.hospital:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: 0.1s ease-in-out;
+  }
+
+  .select {
+    box-shadow: rgba(0, 0, 0, 0.651) 0px 5px 15px;
+  }
+
+  div.hospital div {
+    margin: 1% 2%;
+  }
+
+  img.hospital_image {
+    border-radius: 50%;
+    border: 1px solid gray;
+    padding: 10px;
+  }
+
+  div.hospital_info h2 {
+    margin-top: 10%;
+  }
+
+  form.hospital_submit {
+    position: absolute;
+    right: 17%;
+  }
+
+  form.hospital_submit button {
+    padding: 10px 20px;
+    font-size: large;
+  }
+
+  input.checkbox {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border-radius: 50%;
+    transform: scale(1.5);
+  }
+
+  #display {
+    display: block;
+  }
+
+  #no-display {
+    display: none;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="main-container">
+  <div class="tabs">
+    <div style="width: 100%;">
+      <p>
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
+          aria-expanded="false" aria-controls="multiCollapseExample1">View Services</a>
+      </p>
+      <div class="row" style="width: 30%;">
+        <div class="collapse multi-collapse" id="multiCollapseExample1">
+          <div class="card card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">index</th>
+                  <th scope="col">service</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in Active_Service.service_list %}
+                <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>{{i}}</td>
+                </tr>
+                {% endfor %}
+                <p><b>Total: ₹{{Active_Service.total_price}}/-</b></p>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="available available_service_boy" style="border:3px solid blue">
+    <h4>Available Service Boy</h4>
+
+    <div class="service_boys">
+      {% for i in service_boys_available%}
+      <div class="card__header">
+        <img class="card__thumb" src="/media/{{i.image}}" alt="{{i.first_name}} DP" />
+        <div class="card__header-text">
+          <h3 class="card__title">{{i.first_name}}</h3>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="available place_and_address">
+    <form action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm" method="post" class="hospital_submit">
+      {% csrf_token %}
+      <input type="hidden" value="hospital_id" id="hospital_id" name="hospital_id">
+      <button class="btn btn-primary" id="hospital_done" style="border-radius:5px;" type="submit" disabled>
+        Done
+      </button>
+    </form>
+    <h1><br>{{no_hospital}}</h1>
+    <div class="search_by_pin" id="{{id_pin}}">
+      {% for i in hospital_available %}
+      <div class="hospital" id="hospital" name="{{i.hospital_id}}">
+        <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}place">
+        <div class="hospital_image">
+          <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" width="220px"
+            height="220px">
+        </div>
+        <div class="hospital_info">
+          <h2 class="hospital_name">{{i.hospital_name}}</h2>
+          <p class="hospital_address"><b>Address:</b> {{i.hospital_address}}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="search_by_place" id="{{id_place}}">
+      <div class="search_by_place">
+        {% for i in hospital_available%}
+        <div class="hospital" id="hospital" name="{{i.hospital_id}}"
+          style="display: block;margin:4%; width:30%; text-align:center">
+          <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}">
+          <div class="hospital_image">
+            <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" width="220px"
+              height="220px">
+          </div>
+          <div class="hospital_info">
+            <h2 class="hospital_name">{{i.hospital_name}}</h2>
+            <p class="hospital_address"><b>Address:</b> {{i.hospital_address}}</p>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="suggest_hospitals">
+          <h2 style="margin-top: 20%;">Hospitals Near By</h2>
+          <h6>{{no_suggestion}}</h6>
+          {% for i in suggest_place %}
+          <div class="card" style="width: 18rem;margin:10px;">
+            <a href="" style="color: black; text-decoration:none;">
+              <div class="card-body">
+                <h5 class="card-title">{{i.hospital_name}}</h5>
+                <hr>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                <p class="card-text"><b>Address: </b>{{i.hospital_address}}</p>
+                <!-- <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a> -->
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+  $('div#hospital').click(function () {
+    var id = $(this).attr('name')
+    $('input').attr('checked', false)
+    $('input#' + id).attr('checked', true)
+    $('input#' + id + 'place').attr('checked', true)
+    $('input#hospital_id').attr('value', $(this).attr('name'))
+    $('button#hospital_done').attr('disabled', false)
+    $('div#hospital').removeClass('select')
+    $(this).addClass('select')
+  })
+
+  $('button#btn_search_by_place').click(function () {
+    console.log('id="btn_search_by_place"')
+  })
+
+  $('button#btn_search_by_pin').click(function () {
+    console.log('id="btn_search_by_pin"')
+  })
+</script>
+<script src="{% static 'service/js/customer_dashboard.js' %}"></script>
+{% endblock %}

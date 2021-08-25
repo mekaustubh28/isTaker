@@ -1,0 +1,1 @@
+web: gunicorn isTaker.wsgi --log-file -

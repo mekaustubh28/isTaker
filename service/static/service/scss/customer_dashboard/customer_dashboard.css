@@ -1,0 +1,48 @@
+div.customer_container div.carousel div.carousel-inner div.carousel-item {
+  margin-top: 10px;
+}
+
+div.customer_container div.carousel div.carousel-inner div.carousel-item img.carousel-img {
+  border-radius: 15px;
+}
+
+div.customer_container div.service {
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 40vh;
+}
+
+div.customer_container div.service div.second-container {
+  width: 58%;
+}
+
+div.customer_container div.service div.second-container div.available-services {
+  height: 90%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+div.customer_container div.service div.third-container {
+  width: 38%;
+  position: relative;
+}
+
+div.customer_container div.service div.third-container form.package_done {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+div.customer_container div.service div.second-container,
+div.customer_container div.service div.third-container {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  margin: 10px;
+  padding: 10px;
+  border: 3px solid blue;
+  border-radius: 10px;
+}
+/*# sourceMappingURL=customer_dashboard.css.map */

@@ -1,0 +1,295 @@
+{% extends 'service/base.html' %}
+
+{% block title %} SignUp | Login {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'service/scss/customer_dashboard/customer_dashboard.css' %}"> -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+<style>
+    div.selected_hospital {
+        text-align: center;
+        margin: 2% auto;
+        padding: 1% 2%;
+        border: 1px solid rgba(0, 0, 0, 0.336);
+        border-radius: 10px;
+        width: 50%;
+        background-color: rgba(128, 128, 128, 0.075);
+    }
+
+    div.order {
+        width: 100%;
+        display: flex;
+    }
+
+    div.order div {
+        flex: none;
+        width: 50%;
+    }
+
+    div.services {
+        margin: auto;
+    }
+
+    div.confirm {
+        margin-left: 10%;
+    }
+
+    div.confirm button {
+        display: block;
+        margin: 2%;
+        width: 100px;
+    }
+
+    form.promo div {
+        width: 100%;
+    }
+
+    div.Loader {
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+    }
+
+    /************************************ Loader CSS *******************************************/
+
+    div.loader {
+        z-index: +9;
+        background-color: rgba(0, 0, 0, 0.767);
+        width: 100%;
+        height: 100%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+
+    div.loader h4 {
+        z-index: +11;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        color: rgb(0, 255, 213);
+        transform: translate(-50%, -50%);
+    }
+
+    .lds-ring {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+
+    }
+
+    .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+    }
+
+    .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+    }
+
+    .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+    }
+
+    @keyframes lds-ring {
+        0% {
+
+            color: rgb(0, 255, 213);
+            transform: rotate(0deg);
+            border: 8px solid rgb(225, 0, 255);
+            border-color: rgb(225, 0, 255) transparent transparent transparent;
+        }
+
+        20% {
+            border: 8px solid blue;
+            border-color: blue transparent transparent transparent;
+        }
+
+        40% {
+            border: 8px solid violet;
+            border-color: violet transparent transparent transparent;
+        }
+
+        60% {
+
+            color: rgb(255, 0, 221);
+            border: 8px solid rgb(0, 195, 255);
+            border-color: rgb(0, 195, 255) transparent transparent transparent;
+        }
+
+
+        80% {
+            border: 8px solid rgb(0, 255, 115);
+            border-color: rgb(0, 255, 115) transparent transparent transparent;
+        }
+
+        100% {
+            transform: rotate(360deg);
+            border: 8px solid rgb(136, 255, 0);
+            border-color: rgb(136, 255, 0) transparent transparent transparent;
+
+        }
+    }
+
+    .no-display {
+        display: none;
+    }
+
+    label.meeting-time {
+        color: blue;
+        font-size: 25px;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    input#meeting_time {
+        padding: 5px 20px;
+        font-size: larger;
+        border-radius: 5px;
+        border: 2px solid blue;
+        margin-bottom: 20px;
+    }
+
+    /************************************ Loader CSS *******************************************/
+</style>
+{% endblock %}
+
+{% block body %}
+<p>{{Active_Service}}</p>
+<div class="loader no-display" id="loader">
+    <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <h4>Searching For Available Service Boy...</h4>
+</div>
+<div class="alert alert-primary d-flex align-items-center my-2" role="alert">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+        <path
+            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </svg>
+    <div>
+        Please select the Date and Time of Service Before Clicking Confirm.
+    </div>
+</div>
+
+{% if offer_failure != '' %}
+<div class="alert alert-danger" role="alert">
+    {{offer_failure}}
+</div>
+{% elif offer_success != '' %}
+<div class="alert alert-primary" role="alert">
+    {{offer_success}}
+</div>
+{% elif offer_amount != 0 %}
+<div class="alert alert-primary" role="alert">
+    Coupon Already Applied
+</div>
+{% endif %}
+
+<div class="order_confirm">
+    <div class="selected_hospital">
+        <h3 style="color: #0d6efd;">{{selected_hospital.hospital_name}}</h3>
+        <hr>
+        <p><b style="color: #0d6efd;">Address:</b> {{selected_hospital.hospital_address}}</p>
+    </div>
+    <div class="order">
+        <div>
+            <div class="col-md-5 col-lg-4 services order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary">Current Service</span>
+                    <span class="badge bg-primary rounded-pill">{{Active_Service.total_items}}</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    {% for i in Active_Service.service_list%}
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-2">{{i}}</h6>
+                        </div>
+                        {% for j in Active_Service.total_price %}
+                        {% if forloop.parentloop.counter == forloop.counter%}
+                        <span class="text-muted">₹{{j}}/-</span>
+                        {% endif %}
+                        {% endfor %}
+                    </li>
+                    {% endfor %}
+                    {% if coupon%}
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-primary">
+                            <h6 class="my-0">Promo code</h6>
+                            <small>{{coupon}} Applied</small>
+                        </div>
+                        <span class="text-success">−₹{{offer_amount}}/-</span>
+                    </li>
+                    {% endif %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total </span>
+                        <strong>₹{{Active_Service.price}}/-</strong>
+                    </li>
+                </ul>
+                <form class="card p-2 promo" action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm"
+                    method="POST">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Promo code" name="coupon"
+                            value="{{coupon}}" id="redeem">
+                        <button type="submit" class="btn btn-secondary">Redeem</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="confirm">
+            <label class="meeting-time" for="meeting_time">Choose Date/Time for<br> your service:</label>
+            <br>
+            <form action="/customer_dashboard/{{Active_User.customer_id}}/service_boy_on_way" method="post">
+                {% csrf_token %}
+                <input type="datetime-local" id="meeting_time" name="service_date_time" value="{{current_date_time}}"
+                    min="{{current_date_time}}">
+                <button class="btn btn-primary mx-2" style="border-radius:5px;" id="order_confirm_semi" type="submit"
+                    data-bs-toggle="modal" data-bs-target="#confirmModal">
+                    Confirm
+                </button>
+            </form>
+            <button class="btn btn-primary mx-2" id="order_modify" style="border-radius:5px;" type="button">
+                Modify
+            </button>
+            <button class="btn btn-primary mx-2" id="order_cancel" style="border-radius:5px;" type="button">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $('button#order_confirm_semi').click(function () {
+        $('div#loader').removeClass('no-display');
+    })
+</script>
+<script src="{% static 'service/js/customer_dashboard.js' %}"></script>
+{% endblock %}

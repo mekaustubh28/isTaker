@@ -1,0 +1,262 @@
+{% extends 'user/navbar.html' %}
+
+{% block title %} SignUp | Login {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'user/scss/signUp/signUp.css' %}">
+<link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+<style>
+  a.back {
+    position: absolute;
+    left: 20%;
+    transform: rotate(-90deg);
+    border: 2px solid blue;
+    padding: 10px;
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;
+  }
+
+  a.back:hover {
+    background-color: blue;
+    transition: 0.3s ease-in-out;
+  }
+
+  a.back:hover svg path {
+    fill: white;
+    transition: 0.3s ease-in-out;
+  }
+
+  div.progress {
+    position: absolute;
+    top: 0;
+    left: 0%;
+    width: 25%;
+    height: 2px;
+    background-color: blue;
+    transition: 0.5s ease-in-out;
+  }
+
+  .with_service_boy {
+    cursor: pointer;
+  }
+
+  .display {
+    display: none;
+  }
+
+  div.bootstrap-tagsinput {
+    width: 60%;
+  }
+
+  div.bootstrap-tagsinput input {
+    float: right;
+  }
+
+  span.label-info {
+    background-color: blue;
+    padding: 1%;
+    font-size: 17px;
+    float: left;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="signInUp">
+
+  <div class="Login">
+    <h1>SignUp</h1>
+    <input type="radio" style="margin: 0;" class="option" name="type" id="customerradio" value="customer" checked>
+    <label for="customerradio" style="margin: 0;" class="customer option">Customer</label>
+    <input type="radio" style="margin: 0;" class="option" name="type" id="service-boy" value="service_boy">
+    <label for="service-boy" style="margin: 0;" class="service_boy option">Service-Boy</label>
+    <a id="back" class="back with_service_boy display">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" space="preserve">
+        <path fill="blue" d="M18.008,7.667L16.606,9,11,3.627V20H9V3.627L3.392,9l-1.4-1.336L10-.012Z"></path>
+      </svg>
+    </a>
+    <div class="progress with_service_boy display">
+    </div>
+    <div class="fill" style="width: 90%; margin-top:10px;">
+      <div class="customer">
+        <form action="/signUp" method="post" class="customer_form">
+          {% csrf_token %}
+          <p class="error_msg" style="color:red;margin:0;padding:0">{{found}}</p>
+          <p class="succesmsg" style="color:green;margin:0;padding:0">{{success}}</p>
+          <input type="text" name="who" value="customer" style="display: none;">
+          <input type="text" class="fname" id="fname" name="firstname" placeholder="First name" required>
+          <input type="text" class="lname" id="lname" name="lastname" placeholder="Last name" required>
+          <input type="text" class="father_husband_name" id="fathername" name="father_husband_name"
+            placeholder="Father's/Husband's name" required>
+          <input type="email" class="email" name="email" id="email" placeholder="email" required>
+          <input type="number" class="number" name="number" id="number" placeholder="(+234) 123 2352" required>
+          <input type="text" class="address" id="address" name="address" placeholder="Address" required><br>
+          <select class="state" id="cstate" name="state" required>
+            <option value="select_a_state">select a state</option>
+            <option value="australia">Australia</option>
+            <option value="canada">Canada</option>
+            <option value="usa">USA</option>
+          </select>
+          <input class="city_village" type="text" id="city_village" name="city_village" placeholder="city/village"
+            required>
+          <input class="pin" type="number" name="pin" id="pin" placeholder="PIN" required>
+          <input class="adhaar" type="number" name="adhaar" id="adhaar" placeholder="Your Adhaar Card Number" required>
+          <input class="password" type="password" name="password" id="password" placeholder="password" required>
+          <input class="again_password" type="password" name="again_password" id="again_password"
+            placeholder="password again" required>
+          <input type="submit" class="submit">
+          <hr>
+          <a href="/login">Already a member?</a>
+        </form>
+      </div>
+      <div class="hide service_boy signup-service_boy" id="service_boy_signup">
+        <form action="/signUp" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <p class="error_msg" style="color:red;margin:0;padding:0">{{found}}</p>
+          <p class="succesmsg" style="color:green;margin:0;padding:0">{{success}}</p>
+          
+          <!-- First Page -->
+          <div id="1" class="signUp_page">
+            <input type="text" name="who" id="service_boy" value="service_boy" style="display: none;">
+            <input type="text" class="fname" name="firstname" placeholder="First name" required>
+            <input type="text" class="lname" name="lastname" placeholder="Last name" required>
+            <input type="text" class="fathername" name="father_husband_name" placeholder="Father's name" required>
+            <select class="gender" id="gender" name="gender" required>
+              <option value="Select_your_Gender">Select your Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Rather Not Discuss">Rather Not Discuss</option>
+            </select>
+            <input type="text" class="address" name="address" placeholder="Address" required style="width: 82%;">
+            <input class="city_village" type="text" name="city_village" placeholder="city/village" required>
+            <input class="district" type="text" name="district" placeholder="district" required>
+            <select class="state" id="state" name="state" required>
+              <option value="select your State">select your State</option>
+              <option value="australia">Australia</option>
+              <option value="canada">Canada</option>
+              <option value="usa">USA</option>
+            </select>
+            <input type="number" class="pin_code" id="pin_code" name="pin" placeholder="pin code" required>
+          </div>
+
+          <!-- Second Page -->
+          <div id="2" class="signUp_page display">
+            <!-- <input type="number" class="pin serve" id="pin_serve" name="pin_serve"
+              placeholder="Select all pincode where you will serve" required> -->
+            <input type="email" class="email" name="email" placeholder="email" required><br>
+            <input type="text" class="mother_tongue" name="mother_tongue" placeholder="Type Your Mother Tongue"
+              required><br>
+            <select class="education" id="education" name="education" required>
+              <option value="Select_your_Education">Select your Education</option>
+              <option value="Student">Student</option>
+              <option value="Graduated">Graduated</option>
+              <option value="Post_Graduate">Post Graduate</option>
+              <option value="PhD">PhD</option>
+              <option value="12th_pass">12th pass</option>
+              <option value="below_12th">below 12th</option>
+              <option value="No_former_Education">No former Education</option>
+            </select><br>
+            <input type="text" name="DOB" id="DOB" placeholder="Select Date Of Birth" onfocus="(this.type='date')"
+              onblur="(this.type='text')" required><br><br>
+            <input type="text" style="width: 100%;" value="" data-role="tagsinput" class="pin serve" id="pin_serve"
+              name="pin_serve" placeholder="Type all pincode where you will serve" required><br><br>
+            <input type="text" value="" style="width: 100%;" data-role="tagsinput" class="languages" id="languages"
+              name="languages" placeholder="Type all languages you know" required><br><br>
+          </div>
+
+          <!-- Third Page -->
+          <div id="3" class="signUp_page display">
+            <input type="number" class="number" name="number" placeholder="Your Contact Number eg:9876543210" required>
+            <input class="adhaar" type="number" name="adhaar" placeholder="Your Adhaar Card Number" required>
+            <input class="pan" type="number" name="pan" id="pan" placeholder="Your Pan Card Number" required>
+            <input class="Bank_Account" type="number" name="Bank_Account" id="Bank_Account"
+              placeholder="Your Bank Account Number" required>
+            <input class="IFSC_code" type="text" name="IFSC_code" id="IFSC_code" placeholder="Your IFSC code" required>
+            <input class="branch" type="text" name="branch" id="branch" placeholder="Your Bank Branch" required>
+          </div>
+
+          <!-- Fourth Page -->
+          <div id="4" class="signUp_page display">
+            <input type="file" name="image" id="image" accept=".png,.jpeg,.jpg"><br>
+            <input class="password" type="password" name="password" placeholder="password" required><br>
+            <input class="again_password" type="password" name="again_password" placeholder="password again"
+              required><br><br><br>
+            <input type="submit" class="submit" value="Register">
+          </div>
+          <br>
+          <button type="button" style="padding:10px 40px;" id="next" class="btn btn-primary mx-2"><a
+              style="font-size:20px;">NEXT</a></button>
+          <hr>
+          <a href="/login">Already a member?</a>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+  $('label.customer').click(function () {
+    $('.with_service_boy').addClass('display')
+  })
+
+  $('label.service_boy').click(function () {
+    $('.with_service_boy').removeClass('display')
+  })
+
+  var progress = 1
+  $('button#next').click(() => {
+    progress += 1
+    if (progress > 4) {
+      progress = 4
+    }
+    $('div.progress').attr('style', 'width: ' + (progress/4*100) + '%')
+    for (let index = 1; index <= 4; index++) {
+      if (index == progress) {
+        $('div#' + index).removeClass('display')
+        console.log('remove')
+      } else {
+        $('div#' + index).addClass('display')
+        console.log('add')
+      }
+    }
+    if (progress > 1 && progress <= 4) {
+      $('a#back').removeClass('display')
+    } else {
+      $('a#back').addClass('display')
+    }
+    console.log(progress)
+    if (progress == 4) {
+      $('button#next').addClass('display')
+    }
+  })
+  $('a#back').click(() => {
+    progress -= 1
+    if (progress < 1) {
+      progress = 1
+    }
+    $('div.progress').attr('style', 'width: ' + (progress/4*100) + '%')
+    for (let index = 1; index <= 4; index++) {
+      if (index == progress) {
+        $('div#' + index).removeClass('display')
+        console.log('remove')
+      } else {
+        $('div#' + index).addClass('display')
+        console.log('add')
+      }
+    }
+    console.log(progress)
+    if (progress != 4) {
+      $('button#next').removeClass('display')
+    }
+  })
+</script>
+<script src="{% static 'user/js/signIn.js' %}"></script>
+//<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+{% endblock %}

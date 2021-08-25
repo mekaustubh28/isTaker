@@ -1,0 +1,43 @@
+div.customer_container {
+  div.carousel {
+    div.carousel-inner {
+      div.carousel-item {
+        margin-top: 10px;
+        img.carousel-img {
+          border-radius: 15px;
+        }
+      }
+    }
+  }
+  div.service {
+    margin-top: 10px;
+    display: flex;
+    height: 40vh;
+    div.second-container {
+      width: 58%;
+      div.available-services {
+        height: 90%;
+        overflow: hidden;
+        overflow-y: scroll;
+      }
+    }
+    div.third-container {
+      width: 38%;
+      position: relative;
+      form.package_done {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        // background-color: red;
+      }
+    }
+    div.second-container,
+    div.third-container {
+      flex: none;
+      margin: 10px;
+      padding: 10px;
+      border: 3px solid blue;
+      border-radius: 10px;
+    }
+  }
+}
