@@ -1,6 +1,7 @@
 /media/**
 __pycache__
 /static/**
+db.sqlite3
 !/media
 !/static
 */migrations/**
