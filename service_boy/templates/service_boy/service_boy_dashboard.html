@@ -105,6 +105,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th scope="col">Order_ID</th>
                         <th scope="col">Cust. Name</th>
                         <th scope="col">services</th>
                         <th scope="col">pick-up</th>
@@ -117,6 +118,7 @@
                 <tbody>
                     {% for order in Assinged_Order %}
                     <tr id="orders{{order.Order_ID}}" class="assignorder">
+                        <td>{{order.Order_ID}}</td>
                         <td>{{order.customer}}</td>
                         <td>{{order.service_chosen}}</td>
                         <td>{{order.pickup_address}}</td>

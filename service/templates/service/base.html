@@ -115,7 +115,7 @@
             name="search_by_place" aria-label="Search" value="{{search_by_place}}" placeholder="Search by Hospital"
             id="browser" autocomplete="off" required>
           <datalist id="browsers">
-            {% for hospital in hospital%}
+            {% for hospital in hospital %}
             <option value="{{hospital}}">
               {% endfor %}
           </datalist>
@@ -177,7 +177,7 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-end" style="width:max-content;">
             <li><a class="dropdown-item" href="#">Your Account</a></li>
-            <li><a class="dropdown-item" href="#">Your Orders</a></li>
+            <li><a class="dropdown-item" href="/customer_dashboard/{{Active_User.customer_id}}/orders">Your Orders</a></li>
             <li><a class="dropdown-item" href="#">Contact Us</a></li>
           </ul>
         </div>

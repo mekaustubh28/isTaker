@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Package, Service, Service_Chosen, Deals_and_Offer
 from user.models import Customer, Service_Boy
 from hospital.models import Hospital_Detail
-from admin_control.models import Admin_Control, Customer_Service_Hist
+from admin_control.models import Admin_Control, Customer_Service_Hist, Service_Boy_Service_Hist
 import time
 from . import message
 
@@ -15,6 +15,24 @@ def index(request):
     return render(request, "service/index.html")
 
 
+def orders(request, myid):
+        
+    Active_Service = request.session.get('Active_Service')
+    
+    customer = Customer.objects.filter(
+        customer_id=Active_Service['customer_id'])[0]
+    
+    cart = Cart(customer)
+    return render(request, "service/orders.html", {
+        'Active_Service': Active_Service,
+        'Active_User': request.session.get('Active_User'),
+        'hospital': Hospital_Detail.objects.all(),
+        'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
+        'cart': cart[0],
+        'cart_length': cart[1],
+    })
+
+
 def service_boy_on_way(request, myid):
     package_count = Package.objects.count()
     package_dict = covnert_Set_to_dict(package_count)
@@ -22,122 +40,144 @@ def service_boy_on_way(request, myid):
     customer_exist = ''
     start_time = time.time()
     Active_Service = request.session.get('Active_Service')
-    print(Active_Service)
+    print(25, Active_Service)
+    print()
+    
     customer = Customer.objects.filter(
         customer_id=Active_Service['customer_id'])[0]
+    print(28, customer)
+    print()
     dt_string = ''
-    try:
-        if request.method == 'POST':
-            if request.POST.get('pendingOrder') == 'yes':
-                Service_Chosen.objects.filter(
-                    service_chosen_id=Active_Service['service_id']).update(status='In Cart')
+    # try:
+    if request.method == 'POST':
+        if request.POST.get('pendingOrder') == 'yes':
+            Service_Chosen.objects.filter(
+                service_chosen_id=Active_Service['service_id']).update(status='In Cart')
+            print(37)
+            # print()
+            return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/search')
+        c = 0
+        service_date_time = convert_date_and_time(
+            request.POST.get('service_date_time'))[0]
+        # OTP = otp_generator()
+        while len(customer_exist) == 0:
+            if(time.time()-start_time < 1.1):
+                time.sleep(1)
+            if(time.time()-start_time < 120.1):
+                hospital = Hospital_Detail.objects.filter(
+                    hospital_id=int(Active_Service['hospital_id']))[0]
+                # print(50, hospital)
+                # print()
+                now = datetime.now()
+                dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+                request.session['No_Service_Boy'] = False
+                if c == 0:
+                    Customer_Order = Customer_Service_Hist(
+                        customer_trip_id=100000+Customer_Service_Hist.objects.count(),
+                        customer_id=customer.customer_id,
+                        customer_FName=customer.first_name,
+                        customer_LName=customer.last_name,
+                        customer_mobile=customer.mobile,
+                        date_of_service=service_date_time,
+                        amount=Active_Service['price'],
+                        hospital_name=hospital.hospital_name,
+                        status='pending',
+                        hospital_id=hospital.hospital_id,
+                        selected_service=Active_Service['service_list'],
+                    )
+                    Customer_Order.save()
+                    # print(70, Customer_Order)
+                    # print()
+                    service_boys_available = Service_Boy.objects.filter(
+                        pin_serve__contains=hospital.hospital_pin)
+                    # print(76, service_boys_available)
+                    # print()
+                    # message.send_message_to_available_service_boy(service_boys_available, Customer_Order)
+                    request.session['active_order_ID'] = Customer_Order.customer_trip_id
+                    # print(80, Customer_Order)
+                    # print()
+                    c = 1
+                customer_exist = Customer_Service_Hist.objects.filter(
+                    customer_trip_id=Customer_Order.customer_trip_id, customer_id=myid, status='Service Boy Assigned')
+                # print('yo', 86, customer_exist, customer_exist.values(), Customer_Order.customer_trip_id)
 
-                return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/search')
+                customer_exist = Customer_Service_Hist.objects.filter(
+                    customer_trip_id=Customer_Order.customer_trip_id, customer_id=myid, status='Service Boy Assigned')
+                # print('yo', 86, customer_exist, customer_exist.values(), Customer_Order.customer_trip_id)
 
-            c = 0
-            service_date_time = convert_date_and_time(
-                request.POST.get('service_date_time'))[0]
-            # OTP = otp_generator()
+                print('yo',customer_exist, len(customer_exist))
+                if customer_exist.exists() and len(customer_exist) != 0:
+                    service_boy = Service_Boy.objects.filter(
+                        ID=customer_exist[0].service_boy_id)
+                    # print(91, service_boy)
+                    # print()
 
-            while len(customer_exist) == 0:
-                if(time.time()-start_time < 1.1):
-                    time.sleep(1)
-                if(time.time()-start_time < 60.1):
-                    hospital = Hospital_Detail.objects.filter(
-                        hospital_id=int(Active_Service['hospital_id']))[0]
-
-                    now = datetime.now()
-                    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-                    request.session['No_Service_Boy'] = False
-
-                    if c == 0:
-
-                        Customer_Order = Customer_Service_Hist(
-                            customer_trip_id=100000+Customer_Service_Hist.objects.count(),
-                            customer_id=customer.customer_id,
-                            customer_FName=customer.first_name,
-                            customer_LName=customer.last_name,
-                            customer_mobile=customer.mobile,
-                            date_of_service=service_date_time,
-                            amount=Active_Service['price'],
-                            hospital_name=hospital.hospital_name,
-                            status='pending',
-                            hospital_id=hospital.hospital_id,
-                            selected_service=Active_Service['service_list'],
-                        )
-
-                        Customer_Order.save()
-                        
-                        service_boys_available = Service_Boy.objects.filter(
-                            pin_serve__contains=hospital.hospital_pin)
-                        # message.send_message_to_available_service_boy(service_boys_available, Customer_Order)
-
-                        request.session['Active_Service']['active_order_ID'] = Customer_Order.customer_trip_id
-                        print(Customer_Order)
-                        c = 1
-
-                    customer_exist = Customer_Service_Hist.objects.filter(
-                        customer_trip_id=Customer_Order.customer_trip_id, customer_id=myid, status='Service Boy Assigned')
-
-                    if customer_exist.exists():
-                        service_boy = Service_Boy.objects.filter(
-                            ID=customer_exist[0].service_boy_id)
-                        request.session['Your_Order']['service_boy_id'] = customer_exist[0].service_boy_id
-                        request.session['Your_Order']['service_boy_name'] = customer_exist[0].service_boy_name
-                        request.session['Your_Order']['mobile'] = service_boy[0].mobile
-
-                        Service_Chosen.objects.filter(
-                            service_chosen_id=Active_Service['service_id']).update(status='ongoing')
-                        return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/service_boy_on_way')
-
+                    hospital_correct = Hospital_Detail.objects.filter(
+                        hospital_id=customer_exist[0].hospital_id)[0]
                     request.session['Your_Order'] = {
                         # 'customer': customer,
                         'customer_id': Active_Service['customer_id'],
-                        'service_boy_id': '',
-                        'service_boy_name': '',
-                        'service_boy_mobile': '',
-                        'service_chosen': Active_Service['service_id'],
-                        'Order_ID': Customer_Order.customer_trip_id,
+                        'service_boy_id': customer_exist[0].service_boy_id,
+                        'service_boy_name': customer_exist[0].service_boy_name,
+                        'service_boy_mobile': service_boy[0].mobile,
+                        'service_chosen': customer_exist[0].selected_service,
+                        'Order_ID': customer_exist[0].customer_trip_id,
                         'from': customer.address,
-                        'to': hospital.hospital_address,
-                        'hospital_name': hospital.hospital_name,
+                        'to': hospital_correct.hospital_address,
+                        'hospital_name': customer_exist[0].hospital_name,
                         'otp': 'not active',
                         'dt_string': dt_string,
-                        'price': Active_Service['price'],
-                        'PIN': hospital.hospital_pin,
+                        'price': customer_exist[0].amount,
+                        'PIN': hospital_correct.hospital_pin,
                     }
-
-                else:
-                    request.session['No_Service_Boy'] = True
+                    print("******************************************")
+                    print('request.session[""]')
+                    print(request.session['Your_Order'])
+                    print("******************************************")
+                    Service_Chosen.objects.filter(
+                        service_chosen_id=Active_Service['service_id']).update(status='ongoing')
                     return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/service_boy_on_way')
+            else:
+                request.session['No_Service_Boy'] = True
+                print(118)
+                # print()
+                return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/service_boy_on_way')
+                break
+    cart = Cart(customer)
 
-                    break
-        cart = Cart(customer)
-        print()
-        print()
-        print(request.session.get('Your_Order'))
-        print()
-        print()
-        return render(request, 'service/service_boy_on_way.html', {
-            'Active_Service': Active_Service,
-            'first_name': customer.first_name,
-            'last_name': customer.last_name,
-            'dt_string': dt_string,
-            'Your_Order': request.session.get('Your_Order'),
-            'Active_User': request.session.get('Active_User'),
-            'hospital': Hospital_Detail.objects.all(),
-            'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
-            'cart': cart[0],
-            'cart_length': cart[1],
-            'No_Service_Boy': request.session['No_Service_Boy'],
-            'package_dict': package_dict,
-        })
-    except:
-        request.session['wrong'] = True
-        return redirect('/customer_dashboard/'+str(Active_Service['customer_id']))
+    print('cart', request.session['Your_Order'], request.session['Active_Service'])
+    if (request.session['Your_Order']['Order_ID'] != request.session['active_order_ID'] or request.session['Your_Order']['hospital_name'] !=request.session['Active_Service']['hopital_name']):
+        print('Order_ID', request.session['Your_Order']['Order_ID'])
+        print('active_order_ID', request.session['active_order_ID'])
+        # request.session['error1'] = True
+        Customer_Service_Hist.objects.filter(customer_trip_id=request.session['active_order_ID']).update(status='Garbage')
+        Service_Boy_Service_Hist.objects.filter(service_boy_trip_id=request.session['active_order_ID']).update(status='Garbage')
+        return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/order_confirm')
+    
+    return render(request, 'service/service_boy_on_way.html', {
+        'Active_Service': Active_Service,
+        'first_name': customer.first_name,
+        'last_name': customer.last_name,
+        'dt_string': dt_string,
+        'Your_Order': request.session.get('Your_Order'),
+        'Active_User': request.session.get('Active_User'),
+        'hospital': Hospital_Detail.objects.all(),
+        'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
+        'cart': cart[0],
+        'cart_length': cart[1],
+        'No_Service_Boy': request.session['No_Service_Boy'],
+        'package_dict': package_dict,
+    })
+    # except:
+    #     request.session['wrong'] = True
+    #     return redirect('/customer_dashboard/'+str(Active_Service['customer_id']))
 
 
 def order_confirm(request, myid):
+    # if request.session.get('error1') == None:
+    #     request.session['error1'] = False
+    # else:
+    #     pass
     now = datetime.now()
     current_date_time = now.strftime("%Y-%m-%dT%H:%M")
     print(current_date_time, '2018-06-07T00:00')
@@ -235,6 +275,7 @@ def order_confirm(request, myid):
         'hospital': Hospital_Detail.objects.all(),
         'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
         'cart': cart[0],
+        # 'error1': request.session['error1'],
         'cart_length': cart[1],
         'current_date_time': current_date_time,
         'package_dict': package_dict,
@@ -380,7 +421,7 @@ def customer_dashboard(request, myid):
     if Active_Service == None or Active_User['customer_id'] != Active_Service['customer_id']:
         Create_Session(request, '', [], ['0'], myid, '', '')
         Active_Service = request.session.get('Active_Service')
-    
+
     cart = Cart(Customer.objects.filter(
         customer_id=Active_Service['customer_id'])[0])
     customer = Customer.objects.filter(
@@ -409,8 +450,8 @@ def customer_dashboard(request, myid):
 
 def Logout(request):
     if request.method == 'POST':
-        # exiting the session
-        request.session['Active_User'] = {}
+        # deleting exiting the session
+        del request.session['Active_User']
         # print(request.session.get('Active_User'))
         return redirect('users:index')
 
@@ -463,6 +504,7 @@ def Create_Session(request, service_chosen_id, service_list, total_price, myid, 
         'price': total_price[len(total_price)-1],
         'coupon': '',
         'total_items': len(service_list),
+        'active_order_ID': 0,
     }
 
 

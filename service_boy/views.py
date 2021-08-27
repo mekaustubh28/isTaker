@@ -83,16 +83,13 @@ def service_boy_dashboard(request, ID):
             if(customer_service_hist.exists()):
                 print('customer_service_hist.exists()')
                 confirm_order = customer_service_hist.values()[0]
-
                 hospital = Hospital_Detail.objects.filter(
                     hospital_id=confirm_order['hospital_id'])[0]
                 print(2)
                 # order_for_service_boy = Customer_Service_Hist.objects.filter(
                 #     status='pending', hospital_id=confirm_order['hospital_id']
                 # )
-
                 # print(order_for_service_boy)
-
                 # print('confirm_order["Order_ID"]',
                 # confirm_order['Order_ID'])
                 # {'customer_trip_id': 100001, 'customer_id': 21,
@@ -103,14 +100,13 @@ def service_boy_dashboard(request, ID):
                 # 'selected_service': "['service 8', ' service 10', ' service 7', ' service 1', ' service 3']",
                 # 'status': 'pending', 'amount': 812, 'service_boy_id': 0, 'service_boy_name': '',
                 # 'hospital_name': 'Saket Hospital', 'hospital_id': 1}
-
                 # Finally_Confirm_Order = Admin_Control(
                 #     Order_ID=confirm_order['customer_trip_id'],
                 #     customer=Customer.objects.filter(
                 #         customer_id=confirm_order['customer_id'])[0],
                 #     service_boy=service_boy[0],
-                    # service_chosen=Service_Chosen.objects.filter(
-                    #     service_chosen_id=confirm_order['service_chosen_id'])[0],
+                # service_chosen=Service_Chosen.objects.filter(
+                #     service_chosen_id=confirm_order['service_chosen_id'])[0],
                 #     pickup_address=confirm_order['pickup_address'],
                 #     drop_address=hospital.hospital_address,
                 #     hospital=hospital,
@@ -119,22 +115,18 @@ def service_boy_dashboard(request, ID):
                 #     payment_method=confirm_order['payment_method'],
                 #     service_date_time=confirm_order['service_date_time']
                 # )
-
                 customer_service_hist = Customer_Service_Hist.objects.filter(
                     customer_trip_id=confirm_order['customer_trip_id'],
                     customer_id=confirm_order['customer_id']
                 )
                 print('#')
-
                 customer_service_hist.update(
                     service_boy_id=ID,
                     service_boy_name=service_boy[0].first_name +
                     ' '+service_boy[0].last_name,
                     status='Service Boy Assigned',
                 )
-
                 print(3)
-
                 customer = Customer.objects.filter(
                     customer_id=confirm_order['customer_id'])[0]
                 print(4)
@@ -157,21 +149,17 @@ def service_boy_dashboard(request, ID):
                 )
                 print(5)
                 service_boy.update(available=False)
-                service_chosen=Service_Chosen.objects.filter(
-                        service_chosen_id=confirm_order['service_chosen_id']).update(status='accepted')
+                # service_chosen=Service_Chosen.objects.filter(
+                #         service_chosen_id=confirm_order['service_chosen_id']).update(status='accepted')
                 service_boy_order.save()
                 request.session['order_already_placed_status'] = False
                 print(6)
-
                 return redirect('/service_boy/' + str(ID))
             else:
-
                 print('order_already_placed', order_already_placed)
                 request.session['order_already_placed_status'] = True
                 return redirect('/service_boy/' + str(ID))
-
         print(request.session.get('date_not_yet'))
-
         return render(request, 'service_boy/service_boy_dashboard.html', {
             'Active_Service_Boy': Active_Service_Boy,
             'Order': reversed(Order),
@@ -233,9 +221,11 @@ def start_ride(request, ID):
                 status='Ride Completed',
             )
 
-            Customer_Ongoing_Trip.objects.filter(customer_trip_id=int(request.session['trip_ID'])).delete()
+            Customer_Ongoing_Trip.objects.filter(
+                customer_trip_id=int(request.session['trip_ID'])).delete()
 
-            Service_Boy_Ongoing_Trip.objects.filter(service_boy_trip_id=int(request.session['trip_ID'])).delete()
+            Service_Boy_Ongoing_Trip.objects.filter(
+                service_boy_trip_id=int(request.session['trip_ID'])).delete()
 
             return redirect('/service_boy/' + str(ID))
 

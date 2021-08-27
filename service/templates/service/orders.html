@@ -1,0 +1,300 @@
+{% extends 'service/base.html' %}
+
+{% block title %} SignUp | Login {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    div.orders_history {
+        margin: 20px;
+    }
+
+    div.orders {
+        width: 70%;
+        margin: auto;
+    }
+
+    div.orders div.order {
+        border: 1px solid rgb(162, 168, 162);
+        border-radius: 10px;
+        margin: 30px 0 30px 0;
+    }
+
+    div.order_info {
+        border-radius: 10px 10px 0 0;
+        border-bottom: 1px solid rgba(162, 168, 162, 0.425);
+        padding: 10px;
+        color: rgba(0, 0, 0, 0.712);
+        font-weight: 400;
+        display: flex;
+        width: 100%;
+        background-color: #F0F2F2 !important;
+        justify-content: space-between;
+    }
+
+    div.order_info td {
+        font-size: 15px;
+        margin: 0;
+        padding-right: 30px;
+    }
+
+    div.order_info p {
+        margin-right: 10px;
+    }
+
+    div.order_action {
+        padding: 10px;
+    }
+
+    div.order_action h3 {
+        font-size: 22px;
+    }
+
+    div.order_insiders {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+    }
+
+    button.services_list {
+        background-color: rgba(0, 0, 255, 0.863);
+        border: none;
+        font-size: 14px;
+        margin-top: 20px;
+        padding: 5px 10px;
+        color: white;
+    }
+    button.services_list:hover{
+        background-color: rgb(0, 0, 218);
+        color: white;
+    }
+
+    div.address p {
+        margin: 0;
+    }
+
+    div.address {
+        margin-top: -20px;
+        width: 320px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    div.action {
+        margin-top: -30px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    div.action a {
+        border: 1px solid rgba(128, 128, 128, 0.747);
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.747);
+        border-radius: 5px;
+        padding: 5px 20px;
+        transition: 0.1s ease-in-out;
+    }
+
+    div.action a:hover {
+        background-color: rgba(128, 128, 128, 0.13);
+        transition: 0.1s ease-in-out;
+    }
+
+    div.action a:nth-child(1){
+        background-color: rgba(0, 89, 255, 0.753);
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="orders_history">
+    <h2>Your Orders</h2>
+    <div class="orders">
+        <div class="order">
+            <div class="order_info">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Booking Date</td>
+                            <td>Service Date</td>
+                            <td>Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aug. 27, 2021, 18:49</td>
+                            <td>Aug. 27, 2021, 18:49</td>
+                            <td>₹0.00/-</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>order ID:#100000</p>
+            </div>
+            <div class="order_action">
+                <h3>Pending</h3><br>
+                <div class="order_insiders">
+                    <div class="img_services">
+                        <img src="https://images-eu.ssl-images-amazon.com/images/I/61UqdiQThmS._SY90_.jpg"
+                            alt="Saket Hospital">
+                        <div class="dropdown">
+                            <button class="btn services_list dropdown-toggle" type="button"
+                                id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" >
+                                Services
+                            </button>
+                            <ul class="dropdown-menu" style="text-align: center;" aria-labelledby="dropdownMenu2">
+                                <li class="dropdown-item">Service 1</li>
+                                <li class="dropdown-item">Service 2</li>
+                                <li class="dropdown-item">Service 3</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="address">
+                        <h3 style="color: blue;">Saket Hospital</h3>
+                        <p class="to_from">To:</p>
+                        <p>Vishwas Khand, Gomti Nagar, Lucknow, Uttar Pradesh</p>
+                        <hr style="margin: 10px 0 10px 0; width:90%">
+                        <p class="to_from" style="margin-top: 10px;">From:</p>
+                        <p>Vishwas Khand, Gomti Nagar, Lucknow, Uttar Pradesh</p>
+                    </div>
+                    <div class="action">
+                        <a href="">Change Service Date</a><br><br>
+                        <a href="">Request Cancellation</a><br><br>
+                        <a href="">Modify Service</a><br><br>
+                        <a href="">Driver Info</a>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+        </div>
+        <div class="order">
+            <div class="order_info">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Booking Date</td>
+                            <td>Service Date</td>
+                            <td>Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aug. 27, 2021, 18:49</td>
+                            <td>Aug. 27, 2021, 18:49</td>
+                            <td>₹0.00/-</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>order ID:#100000</p>
+            </div>
+            <div class="order_action">
+                <h3>Pending</h3><br>
+                <div class="order_insiders">
+                    <div class="img_services">
+                        <img src="https://images-eu.ssl-images-amazon.com/images/I/61UqdiQThmS._SY90_.jpg"
+                            alt="Saket Hospital">
+                        <div class="dropdown">
+                            <button class="btn services_list dropdown-toggle" type="button"
+                                id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                                Services
+                            </button>
+                            <ul class="dropdown-menu" style="text-align: center;" aria-labelledby="dropdownMenu2">
+                                <li class="dropdown-item">Service 1</li>
+                                <li class="dropdown-item">Service 2</li>
+                                <li class="dropdown-item">Service 3</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="address">
+                        <h3 style="color: blue;">Saket Hospital</h3>
+                        <p class="to_from">To:</p>
+                        <p>Vishwas Khand, Gomti Nagar, Lucknow, Uttar Pradesh</p>
+                        <hr style="margin: 10px 0 10px 0; width:90%">
+                        <p class="to_from" style="margin-top: 10px;">From:</p>
+                        <p>Captain Manoj Pandey Chauraha, 5, Gomti Nagar Bypass Rd, Vishal Khand, Gomti Nagar, Lucknow,
+                            Uttar Pradesh</p>
+                    </div>
+                    <div class="action">
+                        <a href="">Change Service Date</a><br><br>
+                        <a href="">Request Cancellation</a><br><br>
+                        <a href="">Modify Service</a><br><br>
+                        <a href="">Driver Info</a>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+        </div>
+        <div class="order">
+            <div class="order_info">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Booking Date</td>
+                            <td>Service Date</td>
+                            <td>Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aug. 27, 2021, 18:49</td>
+                            <td>Aug. 27, 2021, 18:49</td>
+                            <td>₹0.00/-</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>order ID:#100000</p>
+            </div>
+            <div class="order_action">
+                <h3>Pending</h3><br>
+                <div class="order_insiders">
+                    <div class="img_services">
+                        <img src="https://images-eu.ssl-images-amazon.com/images/I/61UqdiQThmS._SY90_.jpg"
+                            alt="Saket Hospital">
+                        <div class="dropdown">
+                            <button class="btn services_list dropdown-toggle" type="button"
+                                id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                                Services
+                            </button>
+                            <ul class="dropdown-menu" style="text-align: center;" aria-labelledby="dropdownMenu2">
+                                <li class="dropdown-item">Service 1</li>
+                                <li class="dropdown-item">Service 2</li>
+                                <li class="dropdown-item">Service 3</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="address">
+                        <h3 style="color: blue;">Saket Hospital</h3>
+                        <p class="to_from">To:</p>
+                        <p>Vishwas Khand, Gomti Nagar, Lucknow, Uttar Pradesh</p>
+                        <hr style="margin: 10px 0 10px 0; width:90%">
+                        <p class="to_from" style="margin-top: 10px;">From:</p>
+                        <p>301/1, near KK Palace, Sector 9, Vikas Nagar, Lucknow, Uttar Pradesh</p>
+                    </div>
+                    <div class="action">
+                        <a href="">Change Service Date</a><br><br>
+                        <a href="">Request Cancellation</a><br><br>
+                        <a href="">Modify Service</a><br><br>
+                        <a href="">Driver Info</a>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+
+</script>
+<script src="{% static 'service/js/customer_dashboard.js' %}"></script>
+{% endblock %}
