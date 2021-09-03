@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from .models import Package, Service, Service_Chosen, Deals_and_Offer
 from user.models import Customer, Service_Boy
 from hospital.models import Hospital_Detail
-from admin_control.models import Admin_Control, Customer_Service_Hist, Service_Boy_Service_Hist
+from admin_control.models import Admin_Control, Customer_Service_Hist, Service_Boy_Service_Hist, Customer_Ongoing_Trip, Service_Boy_Ongoing_Trip
 import time
 from . import message
-
+from service_boy.ride_complete import ride_complete
+import math
 from datetime import datetime
 import random
 # Create your views here.
@@ -14,21 +15,105 @@ import random
 def index(request):
     return render(request, "service/index.html")
 
-
-def orders(request, myid):
-        
+def my_account(request, myid):
     Active_Service = request.session.get('Active_Service')
+    package_count = Package.objects.count()
+    package_dict = covnert_Set_to_dict(package_count)
     
     customer = Customer.objects.filter(
         customer_id=Active_Service['customer_id'])[0]
-    
     cart = Cart(customer)
-    return render(request, "service/orders.html", {
+
+    return render(request, "service/my_account.html", {
         'Active_Service': Active_Service,
+        'customer': customer,
         'Active_User': request.session.get('Active_User'),
         'hospital': Hospital_Detail.objects.all(),
         'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
         'cart': cart[0],
+        'cart_length': cart[1],    
+        'package_dict': package_dict,
+    })
+
+def orders(request, myid):
+    Active_Service = request.session.get('Active_Service')
+    package_count = Package.objects.count()
+    package_dict = covnert_Set_to_dict(package_count)
+    
+    now = datetime.now()
+    current_date_time = now.strftime("%Y-%m-%dT%H:%M")
+
+    customer = Customer.objects.filter(
+        customer_id=Active_Service['customer_id'])[0]
+
+    Orders = Customer_Service_Hist.objects.filter(customer_id=myid).values()
+    
+    hospital = []
+    My_Orders = []
+
+    characters_to_remove = "[]'"
+
+    for order in reversed(Orders):
+        service = order['selected_service']
+        for character in characters_to_remove:
+            service = service.replace(
+                character, "")
+        services = convert_String_to_List(service)
+        started = 0
+        date_for_it = 0
+        ongoing_order = ''                
+        if(order['status'] == 'Service Started'):
+            ongoing_order = Customer_Ongoing_Trip.objects.filter(customer_trip_id=order['customer_trip_id'])[0]
+            date_for_it = int(ongoing_order.start_date_time.timestamp()*1000)
+        My_Orders.append({
+            'order': order,
+            'date_for_it':date_for_it,
+            'hospital': Hospital_Detail.objects.filter(hospital_id=order['hospital_id'])[0],
+            'service': services,
+            'service_boy': Service_Boy.objects.filter(ID=order['service_boy_id']),
+        })
+    if request.method == 'POST':
+        Order_ID = request.POST.get('Order_ID','')
+        Order_customer_found = Customer_Service_Hist.objects.filter(customer_id=myid, customer_trip_id=int(Order_ID))
+        Order_service_found = Service_Boy_Service_Hist.objects.filter(service_boy_id=Order_customer_found[0].service_boy_id, service_boy_trip_id=int(Order_ID))
+        service_date_time = request.POST.get('service_date_time','')
+        reason_for_cancel = request.POST.get('reason', '')
+        time_taken = request.POST.get('time_taken', '')
+        if service_date_time != '':
+                    # print(service_date_time, Order_ID)
+            service_date_time = convert_date_and_time(service_date_time)
+            Order_customer_found.update(date_of_service=service_date_time[0])
+            Order_service_found.update(date_of_service=service_date_time[0])
+            # print(service_date_time[0])
+        
+        if reason_for_cancel != '':
+            if Order_customer_found[0].status != 'Cancelled':
+                Order_customer_found.update(status='Cancelled', reason_for_cancel=reason_for_cancel)
+                Order_service_found.update(status='Cancelled', reason_for_cancel=reason_for_cancel)
+            # print(reason_for_cancel)
+        if time_taken != '':
+            print(Order_ID)
+            time_taken = int(time_taken)/(1000 * 60)
+            # days = math.floor(time_taken / (60 * 60 * 24 * 1000))
+            # hours = math.floor((time_taken % (60 * 60 * 24 * 1000)) / (1000 * 60 * 60));
+            # minutes = math.floor((time_taken % (60 * 60 * 1000)) / (1000 * 60));
+            # seconds = math.floor((time_taken % (60 * 1000)) / 1000);
+            # start_time = str(days) + 'd,' + str(hours) + 'hrs: ' + str(minutes) + 'm: ' + str(seconds) + 's'
+            print(time_taken)
+            ride_complete(int(Order_ID), time_taken, Customer_Service_Hist,
+                                        Service_Boy_Service_Hist, Customer_Ongoing_Trip, Service_Boy_Ongoing_Trip)
+        return redirect('/customer_dashboard/'+str(myid)+'/orders')
+    cart = Cart(customer)
+    return render(request, "service/orders.html", {
+        'Active_Service': Active_Service,
+        'My_Orders': My_Orders,
+        'customer': customer,
+        'Active_User': request.session.get('Active_User'),
+        'hospital': Hospital_Detail.objects.all(),
+        'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
+        'cart': cart[0],
+        'current_date_time': current_date_time,    
+        'package_dict': package_dict,
         'cart_length': cart[1],
     })
 
@@ -42,7 +127,7 @@ def service_boy_on_way(request, myid):
     Active_Service = request.session.get('Active_Service')
     print(25, Active_Service)
     print()
-    
+
     customer = Customer.objects.filter(
         customer_id=Active_Service['customer_id'])[0]
     print(28, customer)
@@ -105,7 +190,7 @@ def service_boy_on_way(request, myid):
                     customer_trip_id=Customer_Order.customer_trip_id, customer_id=myid, status='Service Boy Assigned')
                 # print('yo', 86, customer_exist, customer_exist.values(), Customer_Order.customer_trip_id)
 
-                print('yo',customer_exist, len(customer_exist))
+                print('yo', customer_exist, len(customer_exist))
                 if customer_exist.exists() and len(customer_exist) != 0:
                     service_boy = Service_Boy.objects.filter(
                         ID=customer_exist[0].service_boy_id)
@@ -145,15 +230,18 @@ def service_boy_on_way(request, myid):
                 break
     cart = Cart(customer)
 
-    print('cart', request.session['Your_Order'], request.session['Active_Service'])
-    if (request.session['Your_Order']['Order_ID'] != request.session['active_order_ID'] or request.session['Your_Order']['hospital_name'] !=request.session['Active_Service']['hopital_name']):
+    print('cart', request.session['Your_Order'],
+          request.session['Active_Service'])
+    if (request.session['Your_Order']['Order_ID'] != request.session['active_order_ID'] or request.session['Your_Order']['hospital_name'] != request.session['Active_Service']['hopital_name']):
         print('Order_ID', request.session['Your_Order']['Order_ID'])
         print('active_order_ID', request.session['active_order_ID'])
         # request.session['error1'] = True
-        Customer_Service_Hist.objects.filter(customer_trip_id=request.session['active_order_ID']).update(status='Garbage')
-        Service_Boy_Service_Hist.objects.filter(service_boy_trip_id=request.session['active_order_ID']).update(status='Garbage')
+        Customer_Service_Hist.objects.filter(
+            customer_trip_id=request.session['active_order_ID']).update(status='Garbage')
+        Service_Boy_Service_Hist.objects.filter(
+            service_boy_trip_id=request.session['active_order_ID']).update(status='Garbage')
         return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/order_confirm')
-    
+
     return render(request, 'service/service_boy_on_way.html', {
         'Active_Service': Active_Service,
         'first_name': customer.first_name,

@@ -58,15 +58,16 @@
     }
 
     button.services_list {
-        background-color: rgba(0, 0, 255, 0.863);
+        background-color: #FF834F;
         border: none;
         font-size: 14px;
         margin-top: 20px;
         padding: 5px 10px;
         color: white;
     }
-    button.services_list:hover{
-        background-color: rgb(0, 0, 218);
+
+    button.services_list:hover {
+        background-color: #FF834F;
         color: white;
     }
 
@@ -75,7 +76,7 @@
     }
 
     div.address {
-        margin-top: -20px;
+        margin-top: -10px;
         width: 320px;
     }
 
@@ -84,7 +85,7 @@
     }
 
     div.action {
-        margin-top: -30px;
+        margin-top: -10px;
         font-size: 14px;
         text-align: center;
     }
@@ -95,17 +96,104 @@
         color: rgba(0, 0, 0, 0.747);
         border-radius: 5px;
         padding: 5px 20px;
-        transition: 0.1s ease-in-out;
+        transition: 0.2s ease-in-out;
     }
 
     div.action a:hover {
         background-color: rgba(128, 128, 128, 0.13);
-        transition: 0.1s ease-in-out;
+        transition: 0.2s ease-in-out;
     }
 
-    div.action a:nth-child(1){
-        background-color: rgba(0, 89, 255, 0.753);
+    div.action a:nth-child(1) {
+        background-color: #FF834F;
         color: white;
+    }
+
+    div.action a:nth-child(1):hover {
+        background-color: #f35c1c;
+        color: white;
+    }
+
+    input#meeting_time {
+        padding: 5px 20px;
+        font-size: larger;
+        border-radius: 5px;
+        border: 2px solid #FF834F;
+        margin-bottom: 20px;
+        background-color: rgba(98, 98, 98, 0.089);
+    }
+
+    .card {
+        box-shadow: 0 5px 5px 5px #e1e1e1;
+        max-width: 350px;
+        padding: 15px;
+        border-radius: 5px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .card img {
+        text-align: center;
+        width: 150px;
+        height: 150px;
+        margin: auto;
+        border: 5px solid #e1e1e1;
+        border-radius: 50%;
+    }
+
+    .card .social {
+        margin: 15px 0;
+    }
+
+    .card a:hover {
+        background-color: #585858;
+        color: #ffffff;
+    }
+
+    .card table,
+    .card table tr td {
+        width: 290px;
+        margin: 0 auto;
+        border: 1px solid #e1e1e1;
+        text-align: left;
+    }
+
+    img.hospital_image {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        border: 1px solid #FF834F;
+        padding: 5px;
+    }
+
+    div.img_services {
+        text-align: center;
+    }
+
+    div.service_started {
+        display: flex;
+    }
+
+    h3.time_spend {
+        border: 1px solid rgba(0, 0, 0, 0.712);
+        padding: 2px 10px;
+        border-radius: 5px;
+        color: rgba(0, 0, 0, 0.712);
+    }
+
+    a.stopService:hover {
+        background-color: rgb(255, 55, 55) !important;
+        color: white !important;
+    }
+
+    a.makepayment:hover {
+        background-color: rgb(0, 167, 0) !important;
+        color: white !important;
+    }
+
+    .disabledbutton {
+        pointer-events: none;
+        opacity: 0.7;
     }
 </style>
 {% endblock %}
@@ -114,7 +202,8 @@
 <div class="orders_history">
     <h2>Your Orders</h2>
     <div class="orders">
-        <div class="order">
+        {% for i in My_Orders %}
+        <div class="order" id="{{i.order.customer_trip_id}}">
             <div class="order_info">
                 <table>
                     <thead>
@@ -122,169 +211,280 @@
                             <td>Booking Date</td>
                             <td>Service Date</td>
                             <td>Total</td>
+                            {% if i.order.status == 'Ride Completed' %}
+                            <td>Time Taken</td>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Aug. 27, 2021, 18:49</td>
-                            <td>Aug. 27, 2021, 18:49</td>
-                            <td>₹0.00/-</td>
+                            <td>{{i.order.date_of_booking}}</td>
+                            <td>{{i.order.date_of_service}}</td>
+                            <td>₹{{i.order.amount}}/-</td>
+                            {% if i.order.status == 'Ride Completed' %}
+                            <td>{{i.order.time_taken}} minutes</td>
+                            {% endif %}
                         </tr>
                     </tbody>
                 </table>
-                <p>order ID:#100000</p>
+                <p>order ID:#{{i.order.customer_trip_id}}</p>
             </div>
             <div class="order_action">
-                <h3>Pending</h3><br>
+                {% if i.order.status == 'Service Boy Assigned' %}
+                <h3 style="color: green;">{{i.order.status}}</h3>
+                {% endif %}
+                {% if i.order.status == 'pending' %}
+                <h3>Pending</h3>
+                {% endif %}
+                {% if i.order.status == 'Ride Completed' %}
+                <h3>Ride Completed</h3>
+                {% endif %}
+                {% if i.order.status == 'Cancelled' %}
+                <h3 style="color: red;">{{i.order.status}}</h3>
+                {% endif %}
+                {% if i.order.status == 'Service Started' %}
+                <div class="service_started">
+                    <h3 style="color: green;margin-right:50px;">{{i.order.status}}</h3>
+                    {% if i.date_for_it != 0 %}
+                    <h3 class="time_spend">Time Spent: <span id="timer{{i.order.customer_trip_id}}">00d,00hrs: 00m:
+                            00s</span></h3>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <br>
                 <div class="order_insiders">
                     <div class="img_services">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/I/61UqdiQThmS._SY90_.jpg"
-                            alt="Saket Hospital">
+                        <img src="/media/{{i.hospital.hospital_image}}" class="hospital_image"
+                            alt="{{i.hospital_name}}">
                         <div class="dropdown">
-                            <button class="btn services_list dropdown-toggle" type="button"
-                                id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" >
+                            <button class="btn services_list dropdown-toggle" type="button" id="dropdownMenu2"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 Services
                             </button>
                             <ul class="dropdown-menu" style="text-align: center;" aria-labelledby="dropdownMenu2">
-                                <li class="dropdown-item">Service 1</li>
-                                <li class="dropdown-item">Service 2</li>
-                                <li class="dropdown-item">Service 3</li>
+                                {% for j in i.service %}
+                                <li class="dropdown-item">{{j}}</li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
 
                     <div class="address">
-                        <h3 style="color: blue;">Saket Hospital</h3>
+                        <h3 style="color: #FF834F;">{{i.hospital.hospital_name}}</h3>
                         <p class="to_from">To:</p>
-                        <p>Vishwas Khand, Gomti Nagar, Lucknow, Uttar Pradesh</p>
+                        <p>{{i.hospital.hospital_address}}</p>
                         <hr style="margin: 10px 0 10px 0; width:90%">
                         <p class="to_from" style="margin-top: 10px;">From:</p>
-                        <p>Vishwas Khand, Gomti Nagar, Lucknow, Uttar Pradesh</p>
+                        <p>{{customer.address}}</p>
                     </div>
                     <div class="action">
-                        <a href="">Change Service Date</a><br><br>
-                        <a href="">Request Cancellation</a><br><br>
-                        <a href="">Modify Service</a><br><br>
-                        <a href="">Driver Info</a>
+                        <a href="" class="{{i.order.customer_trip_id}}" type="button" data-bs-toggle="modal"
+                            data-bs-target="#dateModal">
+                            Change Service Date
+                        </a><br><br>
+                        {% if i.order.status == 'Pending' %}
+                        <a href="" class="{{i.order.customer_trip_id}}" type="button" data-bs-toggle="modal"
+                            data-bs-target="#cancelModal">
+                            Request Cancellation
+                        </a><br><br>
+                        {%endif%}
+                        {% if i.order.status == 'Service Started' %}
+                        <a href="" style="border: 1px solid red;color:red;"
+                            class="{{i.order.customer_trip_id}} stopService" type="button" data-bs-toggle="modal"
+                            data-bs-target="#stopModal">
+                            Stop Service
+                        </a><br><br>
+                        {%endif%}
+                        {% if i.order.status == 'Ride Completed' %}
+                        <a href="" style="border: 1px solid green;color:green;"
+                            class="{{i.order.customer_trip_id}} makepayment" type="button" data-bs-toggle="modal"
+                            data-bs-target="#paymentModal">
+                            Make Payment
+                        </a><br><br>
+                        {%endif%}
+                        <a href="" class="{{i.order.customer_trip_id}}" type="button" data-bs-toggle="modal"
+                            data-bs-target="#modifyModal">
+                            Modify Service
+                        </a><br><br>
+                        <a href="" class="{{i.order.customer_trip_id}}" type="button" data-bs-toggle="modal"
+                            data-bs-target="#info{{i.service_boy.0.ID}}Modal">
+                            Driver Info
+                        </a><br><br>
                     </div>
                 </div>
             </div>
             <br><br>
         </div>
-        <div class="order">
-            <div class="order_info">
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Booking Date</td>
-                            <td>Service Date</td>
-                            <td>Total</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Aug. 27, 2021, 18:49</td>
-                            <td>Aug. 27, 2021, 18:49</td>
-                            <td>₹0.00/-</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>order ID:#100000</p>
-            </div>
-            <div class="order_action">
-                <h3>Pending</h3><br>
-                <div class="order_insiders">
-                    <div class="img_services">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/I/61UqdiQThmS._SY90_.jpg"
-                            alt="Saket Hospital">
-                        <div class="dropdown">
-                            <button class="btn services_list dropdown-toggle" type="button"
-                                id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                Services
-                            </button>
-                            <ul class="dropdown-menu" style="text-align: center;" aria-labelledby="dropdownMenu2">
-                                <li class="dropdown-item">Service 1</li>
-                                <li class="dropdown-item">Service 2</li>
-                                <li class="dropdown-item">Service 3</li>
-                            </ul>
+        <div class="modal fade" id="info{{i.service_boy.0.ID}}Modal" tabindex="-1"
+            aria-labelledby="{{i.service_boy.0.ID}}infoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="{{i.service_boy.0.ID}}infoModalLabel">Driver Info</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% if i.service_boy.0 != None %}
+                        <div class="card">
+                            <img src="/media/{{i.service_boy.0.image}}" class="hospital_image"
+                                alt="{{i.service_boy.0.first_name}}" width="300px" height="300px"
+                                style="border: 1px solid gray;"><br>
+                            <h3>{{i.service_boy.0.first_name}} {{i.service_boy.0.last_name}}</h3>
+                            <table>
+                                <tr>
+                                    <td><strong>Employee ID</strong></td>
+                                    <td>{{i.service_boy.0.ID}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Gender</strong></td>
+                                    <td>{{i.service_boy.0.gender}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Rating</strong></td>
+                                    <td>4/5</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Languages</strong></td>
+                                    <td>{{i.service_boy.0.languages}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Contact</strong></td>
+                                    <td>{{i.service_boy.0.mobile}}</td>
+                                </tr>
+                            </table>
                         </div>
+                        {%else%}
+                        <h4>Please Wait, Soon we will allot you a Service Boy</h4>
+                        {%endif%}
                     </div>
-
-                    <div class="address">
-                        <h3 style="color: blue;">Saket Hospital</h3>
-                        <p class="to_from">To:</p>
-                        <p>Vishwas Khand, Gomti Nagar, Lucknow, Uttar Pradesh</p>
-                        <hr style="margin: 10px 0 10px 0; width:90%">
-                        <p class="to_from" style="margin-top: 10px;">From:</p>
-                        <p>Captain Manoj Pandey Chauraha, 5, Gomti Nagar Bypass Rd, Vishal Khand, Gomti Nagar, Lucknow,
-                            Uttar Pradesh</p>
-                    </div>
-                    <div class="action">
-                        <a href="">Change Service Date</a><br><br>
-                        <a href="">Request Cancellation</a><br><br>
-                        <a href="">Modify Service</a><br><br>
-                        <a href="">Driver Info</a>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
-            <br><br>
         </div>
-        <div class="order">
-            <div class="order_info">
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Booking Date</td>
-                            <td>Service Date</td>
-                            <td>Total</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Aug. 27, 2021, 18:49</td>
-                            <td>Aug. 27, 2021, 18:49</td>
-                            <td>₹0.00/-</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>order ID:#100000</p>
-            </div>
-            <div class="order_action">
-                <h3>Pending</h3><br>
-                <div class="order_insiders">
-                    <div class="img_services">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/I/61UqdiQThmS._SY90_.jpg"
-                            alt="Saket Hospital">
-                        <div class="dropdown">
-                            <button class="btn services_list dropdown-toggle" type="button"
-                                id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                Services
-                            </button>
-                            <ul class="dropdown-menu" style="text-align: center;" aria-labelledby="dropdownMenu2">
-                                <li class="dropdown-item">Service 1</li>
-                                <li class="dropdown-item">Service 2</li>
-                                <li class="dropdown-item">Service 3</li>
-                            </ul>
-                        </div>
-                    </div>
+        {% endfor %}
 
-                    <div class="address">
-                        <h3 style="color: blue;">Saket Hospital</h3>
-                        <p class="to_from">To:</p>
-                        <p>Vishwas Khand, Gomti Nagar, Lucknow, Uttar Pradesh</p>
-                        <hr style="margin: 10px 0 10px 0; width:90%">
-                        <p class="to_from" style="margin-top: 10px;">From:</p>
-                        <p>301/1, near KK Palace, Sector 9, Vikas Nagar, Lucknow, Uttar Pradesh</p>
+        <!-- Modal -->
+        <div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="dateModalLabel">Change Service Date</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="action">
-                        <a href="">Change Service Date</a><br><br>
-                        <a href="">Request Cancellation</a><br><br>
-                        <a href="">Modify Service</a><br><br>
-                        <a href="">Driver Info</a>
+                    <form action="/customer_dashboard/{{Active_User.customer_id}}/orders" method="post">
+                        <div class="modal-body">
+                            {% csrf_token %}
+                            <input type="hidden" name="Order_ID" class="order_id" value="">
+                            <input type="datetime-local" id="meeting_time" name="service_date_time"
+                                value="{{current_date_time}}" min="{{current_date_time}}">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Change Date/Time</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="stopModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Stop Confirmation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <b>Important</b><br>
+                        <p>Don't Forget to Remind the Your Service Boy
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form action="/customer_dashboard/{{Active_User.customer_id}}/orders" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="Order_ID" class="order_id" value="">
+                            <input type="hidden" name="time_taken" id="time_taken" value="">
+                            <button type="submit" class="btn btn-danger">Stop Service</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <br><br>
+        </div>
+
+        <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="stopModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="dateModalLabel">Make Payment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/customer_dashboard/{{Active_User.customer_id}}/orders" method="post">
+                        <div class="modal-body">
+                            <p><b>Important</b><br>You will be redirect to Payment Methods Page for the Payment.</p>
+                            {% csrf_token %}
+                            <input type="hidden" name="Order_ID" class="order_id" value="">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Make Payment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="dateModalLabel">Cancel Service</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/customer_dashboard/{{Active_User.customer_id}}/orders" method="post">
+                        <div class="modal-body">
+                            <p>Please State the Reason For Cancellation</p>
+                            {% csrf_token %}
+                            <input type="hidden" name="Order_ID" class="order_id" value="">
+                            <div class="form-floating">
+                                <textarea class="form-control" name="reason" placeholder="Leave a comment here"
+                                    id="floatingTextarea2" style="height: 100px" maxlength="200"></textarea>
+                                <label for="floatingTextarea2">Reason</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Cancel Service</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="modifyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modifyModalLabel">Modify Service</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/customer_dashboard/{{Active_User.customer_id}}/orders" method="post">
+                        <div class="modal-body">
+                            <p>Please State the Reason For Cancellation</p>
+                            {% csrf_token %}
+                            <input type="hidden" name="Order_ID" class="order_id" value="">
+                            <div class="form-floating">
+                                <textarea class="form-control" name="reason" placeholder="Leave a comment here"
+                                    id="floatingTextarea2" style="height: 100px" maxlength="200"></textarea>
+                                <label for="floatingTextarea2">Reason</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Cancel Service</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -293,8 +493,40 @@
 {% block javascript %}
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
 
+{% for i in My_Orders %}
+{% if i.date_for_it != 0 %}
+<script>
+    var refresh = setInterval(function () {
+        var start_time = parseInt('{{i.date_for_it}}')
+        var current_time = new Date().getTime();
+        var difference = current_time - start_time;
+        $('input#time_taken').attr('value', difference)
+        var days = Math.floor(difference / (60 * 60 * 24 * 1000))
+        var hours = Math.floor((difference % (60 * 60 * 24 * 1000)) / (1000 * 60 * 60));
+        var minutes = Math.floor((difference % (60 * 60 * 1000)) / (1000 * 60));
+        var seconds = Math.floor((difference % (60 * 1000)) / 1000);
+        document.getElementById('timer{{i.order.customer_trip_id}}').innerHTML = days + 'd,' + hours + 'hrs: ' +
+            minutes + 'm: ' + seconds + 's'
+    }, 1000)
+</script>
+{% endif %}
+{% if i.order.status == 'Cancelled' %}
+<script>
+    $("div#{{i.order.customer_trip_id}}").addClass("disabledbutton");
+</script>
+{% endif %}
+{% endfor %}
+<script>
+    $('a').click(function () {
+        var id = $(this).attr('class')
+        if (id.indexOf(' makepayment') != -1 || id.indexOf(' stopService') != -1) {
+            index = id.indexOf(' ')
+            id = id.substring(0, index)
+        }
+        console.log(id)
+        $('input.order_id').attr('value', id)
+    })
 </script>
 <script src="{% static 'service/js/customer_dashboard.js' %}"></script>
 {% endblock %}

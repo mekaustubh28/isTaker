@@ -64,11 +64,14 @@ class Customer_Service_Hist(models.Model):
     date_of_service = models.CharField(default='', max_length=100)
     selected_service = models.CharField(default='', max_length=2000)
     status = models.CharField(default='', max_length=100)
+    reason_for_cancel = models.CharField(default='none', max_length=500)
     amount = models.IntegerField(default=0)
     service_boy_id = models.IntegerField(default=0)
     service_boy_name = models.CharField(default='', max_length=200)
     hospital_name = models.CharField(default='', max_length=1000)
     hospital_id = models.IntegerField(default=0)
+    time_taken = models.IntegerField(default=0)
+    start_date_time = models.DateTimeField(default=datetime.datetime.now())
 
 class Service_Boy_Service_Hist(models.Model):
     service_boy_trip_id = models.IntegerField(primary_key=True)
@@ -77,6 +80,7 @@ class Service_Boy_Service_Hist(models.Model):
     customer_LName = models.CharField(default='', max_length=1000)
     customer_mobile = models.CharField(default='', max_length=20)
     status = models.CharField(default='', max_length=100)
+    reason_for_cancel = models.CharField(default='none', max_length=500)
     amount = models.IntegerField(default=0)
     service_boy_id = models.IntegerField(default=0)
     service_boy_name = models.CharField(default='', max_length=200)
@@ -85,3 +89,5 @@ class Service_Boy_Service_Hist(models.Model):
     hospital_name = models.CharField(default='', max_length=1000)
     hospital_id = models.IntegerField(default=0)
     selected_service = models.CharField(default='', max_length=2000)
+    time_taken = models.IntegerField(default=0)
+    start_date_time = models.DateTimeField(default=datetime.datetime.now())

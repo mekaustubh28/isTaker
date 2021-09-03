@@ -58,10 +58,18 @@
 {% endif %}
 
 {% if date_not_yet %}
-<div class="alert alert-danger" role="alert">
-    Still Few Days Left for this Order!!
-</div>
-{% endif %}
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" style="background-color: rgba(255, 0, 0, 0.322);">
+            <strong class="me-auto">isTaker</strong>
+            <small>10 sec ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" style="color: red;background-color:rgba(255, 0, 0, 0.075);">
+            Still Few Days Left for this Order!!
+        </div>
+    </div>
+</div>{% endif %}
 <div class="service_boy_container">
     <div class="top">
         <h5>New Service Request Details</h5>
@@ -141,6 +149,15 @@
 {% endblock %}
 
 {% block javascript %}
+
+{% if date_not_yet %}
+<script>
+    var x = 0
+    var toastLiveExample = document.getElementById('liveToast')
+    var toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
+</script>
+{% endif %}
 <script>
     $('tr.order').click(function () {
         $('tr.order').removeClass('select')
@@ -153,7 +170,7 @@
         $('tr.assignorder').removeClass('select')
         $(this).addClass('select')
         id = $(this).attr('id')
-        $('input#assignService').attr('value', id.substring(6,))
+        $('input#assignService').attr('value', id.substring(6, ))
         $('button#assignServiceButton   ').attr('disabled', false)
     })
 </script>

@@ -102,6 +102,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
+      <img class="logo" src="{% static 'service_boy/images/logo.png' %}" alt="logo.png" width="100px">
       <a class="navbar-brand" href="/">is-Taker</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -176,7 +177,7 @@
             Welcome {{Active_User.first_name}}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" style="width:max-content;">
-            <li><a class="dropdown-item" href="#">Your Account</a></li>
+            <li><a class="dropdown-item" href="/customer_dashboard/{{Active_User.customer_id}}/my_account">Your Account</a></li>
             <li><a class="dropdown-item" href="/customer_dashboard/{{Active_User.customer_id}}/orders">Your Orders</a></li>
             <li><a class="dropdown-item" href="#">Contact Us</a></li>
           </ul>

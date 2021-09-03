@@ -7,12 +7,11 @@
 <style>
   .receipt {
     width: 40%;
-    height: 90%;
     background-color: rgba(0, 0, 255, 0.014);
     border-radius: 30px;
-    position: relative;
-    top: 45%;
-    left: 50%;
+    position: absolute;
+    top: 54%;
+    left: 60%;
     transform: translate(-50%, -50%);
     border: 2px solid rgba(128, 128, 128, 0.295);
     padding: 20px
@@ -139,23 +138,85 @@
   input.OTP {
     border: 2px solid gray;
   }
+
+  .noshow {
+    display: none;
+  }
+
+
+  div.timer {
+    text-align: center;
+    margin: 20px;
+    color: #FF834F;
+    border: 1px solid gray;
+    background-color: rgba(66, 66, 66, 0.11);
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
+
+  div.modalbg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.438);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 </style>
 {% endblock %}
 
 {% block body %}
-<!-- {{customer_service_hist}} -->
 {% if otp_enter %}
 {% if otp_correct%}
-<div class="alert alert-success" role="alert">
-  Hurrah!, OTP is Correct, Best Wishs for Your Journey!!
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header" style="background-color: rgba(67, 228, 19, 0.561);">
+      <strong class="me-auto">isTaker</strong>
+      <small>10 sec ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body" style="color: green;background-color:rgba(94, 255, 0, 0.075);">
+      Hurrah!, OTP is Correct, Best Wishs for Your Journey!!
+    </div>
+  </div>
 </div>
 {% endif %}
 {% if not otp_correct %}
-<div class="alert alert-danger" role="alert">
-  Sorry, OTP Entered is not Correct!!
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header" style="background-color: rgba(255, 0, 0, 0.322);">
+      <strong class="me-auto">isTaker</strong>
+      <small>10 sec ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body" style="color: red;background-color:rgba(255, 0, 0, 0.075);">
+      Sorry, OTP Entered is not Correct!!
+    </div>
+  </div>
 </div>
 {% endif %}
 {% endif %}
+
+{% if otp_send %}
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header" style="background-color: rgba(67, 228, 19, 0.561);">
+      <strong class="me-auto">isTaker</strong>
+      <small>10 sec ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body" style="color: green;background-color:rgba(94, 255, 0, 0.075);">
+      OTP has been send to customer registered email ID
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="timer noshow" id="stopwatch">
+  <h2>Time Spend</h2>
+  <h3 id="timer">00:00:00</h3>
+</div>
 <div class="receipt">
   <h2 class="name"> {{customer_service_hist.hospital_name}} </h2>
 
@@ -196,7 +257,6 @@
 
   <!-- Sub and total price -->
   <div class="totalprice">
-
     <p class="sub">Amount<span>₹{{customer_service_hist.amount}}/-</span></p>
     <hr>
     <div class="btn_service">
@@ -205,24 +265,78 @@
         <button type="submit" name="send_OTP" value="sendOTP" id="send_OTP" class="btn btn-primary mx-2"
           style="width: 100px;">Send OTP</button><br><br>
       </form>
-      <form action="/service_boy/{{Active_Service_Boy.ID}}/start_ride" method="post">
-        {% csrf_token %}
-          <button type="submit"name="stop" value="stop" id="stop" class="btn btn-danger mx-2" style="width: 100px;">Stop</button><br><br>
-      </form>
+      <button type="button" name="stop" value="stop" id="btnstop" class="btn btn-danger mx-2" data-bs-toggle="modal"
+        data-bs-target="#exampleModal" style="width: 100px;">Stop</button><br><br>
       <form action="/service_boy/{{Active_Service_Boy.ID}}/start_ride" method="post">
         {% csrf_token %}
         <input class="OTP" name="OTP_entered" style="width:200px; border-radius: 7px; padding:7px;" type="text"
           placeholder="Enter the OTP" value="" required="" maxlength='4'>
-        <button type="submit" id="start" class="btn btn-success mx-2" style="width: 120px;">START
+        <button type="submit" id="start" onclick="startwatch()" class="btn btn-success mx-2" style="width: 120px;">START
           RIDE</button><br><br>
       </form>
     </div>
 
   </div>
+  <!-- Button trigger modal -->
 </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Stop Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <b>Important</b><br>
+        <p>Don't Forget to Remind the Customer that payment option has been updated in his/her Orders History Section.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form action="/service_boy/{{Active_Service_Boy.ID}}/start_ride" method="POST">
+          {% csrf_token %}
+          <input type="hidden" id="stop_customer_id" name="stop_customer_id" value="{{customer_service_hist.customer_trip_id}}">
+          <input type="hidden" id="stop_customer_time" name="stop_customer_time" value="">
+          <button type="submit"  onclick="stopwatch()" class="btn btn-danger">Stop Service</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block javascript %}
+
+<!-- var x = 0
+var toastLiveExample = document.getElementById('liveToast')
+var toast = new bootstrap.Toast(toastLiveExample)
+toast.show() -->
 <script>
+  function startwatch() {
+    localStorage.setItem('watch_time', new Date().getTime())
+    localStorage.setItem('button_press', true)
+  }
+  
+  function stopwatch(){
+    localStorage.setItem('button_press', false)
+  }
+  if (localStorage.getItem("button_press") == 'true'){
+    $('div#stopwatch').removeClass('noshow')
+  }
+
+
+  var refresh = setInterval(function () {
+    var start_time = localStorage.getItem("watch_time");
+    var current_time = new Date().getTime();
+    var difference = current_time - start_time;
+    $('input#stop_customer_time').attr('value',difference);
+    var days = Math.floor(difference / (60 * 60 * 24 * 1000))
+    var hours = Math.floor((difference % (60 * 60 * 24 * 1000)) / (1000 * 60 * 60));
+    var minutes = Math.floor((difference % (60 * 60 * 1000)) / (1000 * 60));
+    var seconds = Math.floor((difference % (60 * 1000)) / 1000);
+    document.getElementById('timer').innerHTML = days + 'd,' + hours + 'hrs: ' + minutes + 'm: ' + seconds + 's'
+  }, 1000)
 </script>
 {% endblock %}

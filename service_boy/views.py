@@ -4,15 +4,21 @@ from service.models import Confirm_Order, Service_Chosen
 from user.models import Customer, Service_Boy
 from hospital.models import Hospital_Detail
 from admin_control.models import Admin_Control, Customer_Service_Hist, Service_Boy_Service_Hist, Customer_Ongoing_Trip, Service_Boy_Ongoing_Trip
-
+from . import ride_complete
 from service.views import convert_date_and_time, otp_generator
 
 from datetime import datetime
 
+# Send Message
+
+import smtplib
+import math
+import random
 # Create your views here.
 
 
 def service_boy_dashboard(request, ID):
+    request.session['once_start_ride'] = False
     order_already_placed = ''
     Active_Service_Boy = request.session['Active_Service_Boy']
     print(Active_Service_Boy['pin_serve'])
@@ -68,7 +74,10 @@ def service_boy_dashboard(request, ID):
             'order_date': customer_hist['date_of_booking'],
             'service_date_time': customer_hist['date_of_service'],
         })
-    request.session['date_not_yet'] = False
+    # request.session['date_not_yet'] = False
+    if request.session['date_not_yet'] == None:
+        request.session['date_not_yet'] = False
+
     try:
         if request.method == 'POST':
             newService = request.POST.get('newService')
@@ -159,7 +168,8 @@ def service_boy_dashboard(request, ID):
                 print('order_already_placed', order_already_placed)
                 request.session['order_already_placed_status'] = True
                 return redirect('/service_boy/' + str(ID))
-        print(request.session.get('date_not_yet'))
+        print(request.session.get('date_not_yet'),
+              request.session.get('date_not_yet'))
         return render(request, 'service_boy/service_boy_dashboard.html', {
             'Active_Service_Boy': Active_Service_Boy,
             'Order': reversed(Order),
@@ -179,7 +189,15 @@ def service_boy_dashboard(request, ID):
 
 def start_ride(request, ID):
     Active_Service_Boy = request.session['Active_Service_Boy']
-    # otp_correct = ''
+    # request.session['once_start_ride'] = False
+    # if (request.session['trip_ID'] != None and request.session['once_start_ride'] != False):
+    #     print(request.session['trip_ID'])
+
+    #     ongoingtrip = Service_Boy_Ongoing_Trip.objects.filter(service_boy_trip_id=request.session['trip_ID'])
+    #     print(ongoingtrip.values())
+    #     print(Service_Boy_Service_Hist.objects.filter(service_boy_trip_id=request.session['trip_ID']).values())
+    #     print(int(ongoingtrip[0].start_date_time.timestamp()))
+
     if request.method == 'POST':
         request.session['date_not_yet'] = False
         if(request.POST.get('assignService', '') != ''):
@@ -188,7 +206,7 @@ def start_ride(request, ID):
         sendOTP = request.POST.get('send_OTP', '')
         OTP_entered = request.POST.get('OTP_entered', '')
         stop = request.POST.get('stop', '')
-
+        stop_customer_time = request.POST.get('stop_customer_time', '')
         # if( trip_ID != ''):
         service_boy_order = Service_Boy_Service_Hist.objects.filter(
             service_boy_trip_id=int(request.session['trip_ID'])).values()[0]
@@ -205,31 +223,34 @@ def start_ride(request, ID):
                 character, "")
         convert_services = convert_String_to_List(convert_services)
         if dt_string != date_of_service:
+            print('date not yet')
             request.session['date_not_yet'] = True
             return redirect('/service_boy/' + str(ID))
         customer = Customer.objects.filter(
             customer_id=customer_service_hist['customer_id'])[0]
+        if stop_customer_time != '':
+            stop_customer_id = request.POST.get('stop_customer_id', '')
+            # milliseconds did timer last
+            stop_customer_time = int(stop_customer_time)/(1000 * 60)
+            # days = math.floor(stop_customer_time / (60 * 60 * 24 * 1000))
+            # hours = math.floor((stop_customer_time %
+            #                    (60 * 60 * 24 * 1000)) / (1000 * 60 * 60))
+            # minutes = math.floor((stop_customer_time %
+            #                      (60 * 60 * 1000)) / (1000 * 60))
+            # seconds = math.floor((stop_customer_time % (60 * 1000)) / 1000)
+            # date_time = str(days) + 'd,' + str(hours) + 'hrs: ' + \
+            #     str(minutes) + 'm: ' + str(seconds) + 's'
+            # print(stop_customer_time, date_time)
+            print(stop_customer_id)
 
-        if stop != '':
-            print('stop')
-
-            Customer_Service_Hist.objects.filter(customer_trip_id=int(request.session['trip_ID'])).update(
-                status='Ride Completed',
-            )
-
-            Service_Boy_Service_Hist.objects.filter(service_boy_trip_id=int(request.session['trip_ID'])).update(
-                status='Ride Completed',
-            )
-
-            Customer_Ongoing_Trip.objects.filter(
-                customer_trip_id=int(request.session['trip_ID'])).delete()
-
-            Service_Boy_Ongoing_Trip.objects.filter(
-                service_boy_trip_id=int(request.session['trip_ID'])).delete()
-
+            ride_complete.ride_complete(request.session['trip_ID'], stop_customer_time, Customer_Service_Hist,
+                                        Service_Boy_Service_Hist, Customer_Ongoing_Trip, Service_Boy_Ongoing_Trip)
             return redirect('/service_boy/' + str(ID))
+        # if stop != '':
+        #             print('stop')
 
         if sendOTP != '':
+            request.session['once_start_ride'] = False
             request.session['otp_send'] = {
                 'otp': otp_generator(),
                 'customer': customer.customer_id,
@@ -237,9 +258,26 @@ def start_ride(request, ID):
                 'mobile': customer.mobile
             }
             # mail the OTP to customer email
+
+            send_otp_to_customer(request.session['otp_send'])
+
             print('sendOTP')
-        if OTP_entered != '':
-            print('OTp')
+            otp_send = True
+            print(otp_send)
+
+            return render(request, 'service_boy/start_ride.html', {
+                'otp_send': otp_send,
+                'Active_Service_Boy': Active_Service_Boy,
+                'trip_ID': request.session['trip_ID'],
+                'customer_service_hist': customer_service_hist,
+                'convert_services': convert_services,
+                'customer_pickUp': customer,
+                'hospital_drop': Hospital_Detail.objects.filter(hospital_id=customer_service_hist['hospital_id'])[0]
+            })
+
+        if OTP_entered != '' and request.session['once_start_ride'] == False:
+            request.session['once_start_ride'] = True
+            print('358835883588358835883588358835883588')
             if (OTP_entered == request.session['otp_send']['otp']):
                 otp_correct = True
 
@@ -264,6 +302,7 @@ def start_ride(request, ID):
                     hospital_name=service_boy_order['hospital_name'],
                     hospital_id=service_boy_order['hospital_id'],
                     selected_service=service_boy_order['selected_service'],
+                    start_date_time=datetime.today()
                 )
 
                 customer_ongoing_trip = Customer_Ongoing_Trip(
@@ -282,6 +321,7 @@ def start_ride(request, ID):
                     hospital_name=customer_service_hist['hospital_name'],
                     hospital_id=customer_service_hist['hospital_id'],
                     selected_service=customer_service_hist['selected_service'],
+                    start_date_time=datetime.today()
                 )
                 service_boy_ongoing.save()
                 customer_ongoing_trip.save()
@@ -337,3 +377,20 @@ def date_break(date):
         'Dec': 12
     }[month_name]
     return datetime(int(year), int(month), int(number))
+
+
+def send_otp_to_customer(customer_detail):
+
+    print('customer_detail', customer_detail)
+
+    # for service_boy in service_boys:
+    mail_server = smtplib.SMTP('smtp.gmail.com', 587)
+    mail_server.starttls()
+    mail_server.login("vermakaustubh28@gmail.com", "uvbulppoaoxlwzhu")
+    SUBJECT = "Riders OTP"
+    TEXT = str(customer_detail)
+
+    message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
+    print(customer_detail['email'])
+    mail_server.sendmail('&&&&&&&&&&&', customer_detail['email'], message)
+    # print(service_boys[0].email)
