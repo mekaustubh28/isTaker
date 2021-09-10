@@ -27,9 +27,10 @@
                     {% csrf_token %}
                     <input type="hidden" name="who" value="customer">
                     <input type="email" class="email" name="email" id="c_email" placeholder="email" required><br>
-                    <input class="password" type="password" name="password" id="c_password" placeholder="password" required><br>
+                    <input class="password" type="password" name="password" id="c_password" placeholder="password"
+                        required><br>
                     <a href="/forgot_password" style="float:left;margin-left:10%">Forget password?</a><br>
-                    <input type="submit" class="submit" value="Login">
+                    <input type="submit" class="submit" onclick="saveInfoCustomer()" value="Login">
                     <hr>
                     <a href="/signUp">Create New Account as Customer?</a>
                 </form>
@@ -40,9 +41,10 @@
                     <input type="hidden" name="who" value="service_boy">
                     <input type="number" class="ID" name="ID" id="ID" placeholder="ID" required><br>
                     <input type="email" class="email" name="email" id="s_email" placeholder="email" required><br>
-                    <input class="password" type="password" name="password" id="s_password" placeholder="password" required><br>
+                    <input class="password" type="password" name="password" id="s_password" placeholder="password"
+                        required><br>
                     <a href="/forgot_password" style="float:left;margin-left:10%">Forget password?</a><br>
-                    <input type="submit" class="submit" value="Login">
+                    <input type="submit" class="submit" onclick="saveInfoServiceBoy()" value="Login">
                     <hr>
                     <a href="/signUp">Create New Account as Service-Boy?</a>
                 </form>
@@ -55,4 +57,30 @@
 
 {% block javascript %}
 <script src="{% static 'user/js/signIn.js' %}"></script>
+<script>
+    function saveInfoCustomer() {
+        var email = $('input#c_email').val()
+        c_credentials = {
+            'email':email
+        }
+        localStorage.setItem('c_credentials', JSON.stringify(c_credentials))
+    }
+
+    function saveInfoServiceBoy() {
+        var ID = $('input#ID').val()
+        var email = $('input#s_email').val()
+        s_credentials = {
+            'ID':ID,
+            'email':email
+        }
+        localStorage.setItem('s_credentials', JSON.stringify(s_credentials))
+    }
+    if (localStorage.getItem('c_credentials') != null) {
+        $('input#c_email').attr('value', JSON.parse(localStorage.getItem('c_credentials'))['email'])
+    }
+    if (localStorage.getItem('s_credentials') != null) {
+        $('input#ID').attr('value', JSON.parse(localStorage.getItem('s_credentials'))['ID'])
+        $('input#s_email').attr('value', JSON.parse(localStorage.getItem('s_credentials'))['email'])
+    }
+</script>
 {% endblock %}

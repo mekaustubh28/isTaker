@@ -16,24 +16,36 @@ def index(request):
     return render(request, "service/index.html")
 
 def my_account(request, myid):
-    Active_Service = request.session.get('Active_Service')
-    package_count = Package.objects.count()
-    package_dict = covnert_Set_to_dict(package_count)
-    
-    customer = Customer.objects.filter(
-        customer_id=Active_Service['customer_id'])[0]
-    cart = Cart(customer)
+    if (request.session.get('Active_User')['customer_id'] == int(myid)):
+        Active_Service = request.session.get('Active_Service')
+        package_count = Package.objects.count()
+        package_dict = covnert_Set_to_dict(package_count)
+        Customer_User = Customer.objects.filter(customer_id=int(myid))
+        Active_User = Customer_User.values()[0]
+        print(Customer_User)
+        cart = Cart(Customer_User[0])
+        if request.method == "POST":
+            first_name = request.POST.get('first_name','')
+            last_name = request.POST.get('last_name','')
+            father_name = request.POST.get('father_name', '')
+            if first_name != '':
+                Customer_User.update(first_name=first_name, last_name=last_name)
+            if father_name != '':
+                Customer_User.update(father_husband_name=father_name)
+            return redirect('/customer_dashboard/' + str(myid) + '/my_account')
 
-    return render(request, "service/my_account.html", {
-        'Active_Service': Active_Service,
-        'customer': customer,
-        'Active_User': request.session.get('Active_User'),
-        'hospital': Hospital_Detail.objects.all(),
-        'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
-        'cart': cart[0],
-        'cart_length': cart[1],    
-        'package_dict': package_dict,
-    })
+        return render(request, "service/my_account.html", {
+            'Active_Service': Active_Service,
+            'customer': Customer_User[0],
+            'Active_User': Active_User,
+            'hospital': Hospital_Detail.objects.all(),
+            'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
+            'cart': cart[0],
+            'cart_length': cart[1],    
+            'package_dict': package_dict,
+        })
+    else:
+        return redirect('/')
 
 def orders(request, myid):
     Active_Service = request.session.get('Active_Service')

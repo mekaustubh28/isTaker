@@ -55,7 +55,7 @@ def Login(request):
             Current_Service_Boy['created_on'] = str(Service_Boy_Info.values()[0]['created_on'])
 
             request.session['Active_Service_Boy'] = Current_Service_Boy
-            print(request.session['Active_Service_Boy'], '********************************')
+            # print(request.session['Active_Service_Boy'], '********************************')
             return redirect('service_boy/'+str(Current_Service_Boy['ID']))
 
 

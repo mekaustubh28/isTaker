@@ -206,7 +206,8 @@
                                 alt="" width="20px">
                         </span>
                     </label>
-                    <form action="">
+                    <form action="/customer_dashboard/{{Active_User.customer_id}}/my_account" method="POST">
+                        {% csrf_token %}
                         <div class="customer_name">
                             <div class="form-floating">
                                 <input class="form-control name" name="first_name"
@@ -230,7 +231,8 @@
                                 src="{% static 'service/images/edit.png' %}" alt="" width="20px">
                         </span>
                     </label>
-                    <form action="">
+                    <form action="/customer_dashboard/{{Active_User.customer_id}}/my_account" method="POST">
+                        {% csrf_token %}
                         <div class="customer_name">
                             <div class="form-floating">
                                 <input class="form-control father_name" name="father_name"
