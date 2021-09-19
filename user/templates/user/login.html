@@ -7,8 +7,24 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'user/scss/signInUp/signInUp.css' %}">
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}"> -->
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
+    div.choice{
+        display: flex;
+        width: 100%!important;
+        width: max-content;
+    }
+    div.choice input{
+        width: 5% !important;;
+    }
+</style>
 {% endblock %}
+
 
 {% block body %}
 <div class="signInUp">
@@ -23,6 +39,12 @@
 
         <div class="fill">
             <div class="customer">
+                <div class="choice">
+                    <input type="radio" id="email_c_choice" name="c_login" value="Login with Email" selected>
+                    <label for="email_c_choice">Login with Email</label>
+                    <input type="radio" id="number_c_choice" name="c_login" value="Login with Contact Number">
+                    <label for="number_c_choice">Login with Contact Number</label>
+                </div>
                 <form action="/login" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="who" value="customer">
@@ -36,6 +58,12 @@
                 </form>
             </div>
             <div class="hide service_boy">
+                <div class="choice">
+                    <input type="radio" id="email_s_choice" name="s_login" value="Login with Email" selected>
+                    <label for="email_s_choice">Login with Email</label>
+                    <input type="radio" id="number_s_choice" name="s_login" value="Login with Contact Number">
+                    <label for="number_s_choice">Login with Contact Number</label>
+                </div>
                 <form action="/login" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="who" value="service_boy">
@@ -58,10 +86,46 @@
 {% block javascript %}
 <script src="{% static 'user/js/signIn.js' %}"></script>
 <script>
+
+    $('input#email_c_choice').attr('checked', true);
+    $('input#email_s_choice').attr('checked', true);
+
+    $('input#email_c_choice').click(function(){
+        $('input#c_number').attr('type','email')
+        $('input#c_number').attr('name','email')
+        $('input#c_number').attr('placeholder','Email')
+        $('input#c_number').attr('value','')
+        $('input#c_number').attr('id','c_email')
+    })
+
+    $('input#number_c_choice').click(function(){
+        $('input#c_email').attr('type','number')
+        $('input#c_email').attr('name','number')
+        $('input#c_email').attr('value','')
+        $('input#c_email').attr('placeholder','Phone Number')
+        $('input#c_email').attr('id','c_number')
+    })
+
+    $('input#email_s_choice').click(function(){
+        $('input#s_number').attr('type','email')
+        $('input#s_number').attr('name','email')
+        $('input#s_number').attr('placeholder','Email')
+        $('input#s_number').attr('value','')
+        $('input#s_number').attr('id','s_email')
+    })
+
+    $('input#number_s_choice').click(function(){
+        $('input#s_email').attr('type','number')
+        $('input#s_email').attr('name','number')
+        $('input#s_email').attr('value','')
+        $('input#s_email').attr('placeholder','Phone Number')
+        $('input#s_email').attr('id','s_number')
+    })
+
     function saveInfoCustomer() {
         var email = $('input#c_email').val()
         c_credentials = {
-            'email':email
+            'email': email
         }
         localStorage.setItem('c_credentials', JSON.stringify(c_credentials))
     }
@@ -70,8 +134,8 @@
         var ID = $('input#ID').val()
         var email = $('input#s_email').val()
         s_credentials = {
-            'ID':ID,
-            'email':email
+            'ID': ID,
+            'email': email
         }
         localStorage.setItem('s_credentials', JSON.stringify(s_credentials))
     }

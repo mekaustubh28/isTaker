@@ -509,43 +509,46 @@ def search(request, myid):
 
 
 def customer_dashboard(request, myid):
-    # print( request.session['wrong'])
-    package_count = Package.objects.count()
-    package_dict = covnert_Set_to_dict(package_count)
-    request.session['Services'] = package_dict
+    try:
+        # print( request.session['wrong'])
+        package_count = Package.objects.count()
+        package_dict = covnert_Set_to_dict(package_count)
+        request.session['Services'] = package_dict
 
-    Active_Service = request.session.get('Active_Service')
-    print(Active_Service, type(Active_Service))
-    Active_User = request.session.get('Active_User')
-
-    if Active_Service == None or Active_User['customer_id'] != Active_Service['customer_id']:
-        Create_Session(request, '', [], ['0'], myid, '', '')
         Active_Service = request.session.get('Active_Service')
+        print(Active_Service, type(Active_Service))
+        Active_User = request.session.get('Active_User')
 
-    cart = Cart(Customer.objects.filter(
-        customer_id=Active_Service['customer_id'])[0])
-    customer = Customer.objects.filter(
-        customer_id=Active_Service['customer_id'])[0]
-    if 'customer_id' in Active_User:
-        if(Active_User['customer_id'] == myid):
-            return render(request, "service/customer_dashboard.html", {
-                'Active_User': request.session.get('Active_User'),
-                'package_dict': package_dict,
-                'hospital': Hospital_Detail.objects.all(),
-                'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
-                'cart': cart[0],
-                'cart_length': cart[1],
-            })
+        if Active_Service == None or Active_User['customer_id'] != Active_Service['customer_id']:
+            Create_Session(request, '', [], ['0'], myid, '', '')
+            Active_Service = request.session.get('Active_Service')
+
+        cart = Cart(Customer.objects.filter(
+            customer_id=Active_Service['customer_id'])[0])
+        customer = Customer.objects.filter(
+            customer_id=Active_Service['customer_id'])[0]
+        if 'customer_id' in Active_User:
+            if(Active_User['customer_id'] == myid):
+                return render(request, "service/customer_dashboard.html", {
+                    'Active_User': request.session.get('Active_User'),
+                    'package_dict': package_dict,
+                    'hospital': Hospital_Detail.objects.all(),
+                    'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
+                    'cart': cart[0],
+                    'cart_length': cart[1],
+                })
+            else:
+                return redirect('users:Login')
         else:
             return redirect('users:Login')
-    else:
+        return render(request, 'service/customer_dashboard.html', {
+            # 'wrong': request.session['wrong'],
+            'package_dict': package_dict,
+            'hospital': Hospital_Detail.objects.all(),
+            'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
+        })
+    except:
         return redirect('users:Login')
-    return render(request, 'service/customer_dashboard.html', {
-        # 'wrong': request.session['wrong'],
-        'package_dict': package_dict,
-        'hospital': Hospital_Detail.objects.all(),
-        'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
-    })
 
 
 def Logout(request):

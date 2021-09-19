@@ -1,11 +1,12 @@
 {% extends 'service/base.html' %}
 
-{% block title %} SignUp | Login {% endblock %}
+{% block title %} My Dashboard {% endblock %}
 
 {% block stylesheet %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'service/scss/customer_dashboard/customer_dashboard.css' %}">
 
+<link rel="stylesheet" type="text/css" href="{% static 'service/scss/customer_dashboard/customer_dashboard.css' %}">
+<link rel="shortcut icon" href="{%static 'service/images/favicon.png'%}" type="image/x-icon">
 {% endblock %}
 <style>
     button.display {
@@ -13,20 +14,6 @@
     }
 </style>
 {% block body %}
-{% if not wrong %}
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header" style="background-color: rgba(255, 0, 0, 0.322);">
-            <strong class="me-auto">isTaker</strong>
-            <small>10 sec ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body" style="color: red;background-color:rgba(255, 0, 0, 0.075);">
-            something went wrong please try again!!
-        </div>
-    </div>
-</div>
-{% endif %}
 <div class="customer_container">
     <div id="carouselExampleControls" class="first-container carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -120,9 +107,6 @@
 {% block javascript %}
 <script>
     var x = 0
-    var toastLiveExample = document.getElementById('liveToast')
-    var toast = new bootstrap.Toast(toastLiveExample)
-    toast.show()
 
     $('input[type="checkbox"]').click(function () {
         $('button#service_confirm').attr('disabled', false)

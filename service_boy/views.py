@@ -21,7 +21,7 @@ def service_boy_dashboard(request, ID):
     request.session['once_start_ride'] = False
     order_already_placed = ''
     Active_Service_Boy = request.session['Active_Service_Boy']
-    print(Active_Service_Boy['pin_serve'])
+    print(request.session['Active_Service_Boy'])
     Customer_Hist = Customer_Service_Hist.objects.filter(
         service_boy_id=0,
         status='pending')
@@ -74,7 +74,8 @@ def service_boy_dashboard(request, ID):
             'order_date': customer_hist['date_of_booking'],
             'service_date_time': customer_hist['date_of_service'],
         })
-    # request.session['date_not_yet'] = False
+        
+    request.session['date_not_yet'] = False
     if request.session['date_not_yet'] == None:
         request.session['date_not_yet'] = False
 

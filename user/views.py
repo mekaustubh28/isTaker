@@ -21,14 +21,26 @@ def index(request):
 def Login(request):
     if(request.method == 'POST'):
         if(request.POST.get('who') == 'customer'):
-            email = request.POST.get('email')
+            email = request.POST.get('email','')
+            number = request.POST.get('number','')
             password = request.POST.get('password')
-            User_Info = Customer.objects.filter(email=email,password=password)
+            if(email != ''):
+                User_Info = Customer.objects.filter(email=email,password=password)
+                Email_Exist = Customer.objects.filter(email=email)
+            if(number != ''):
+                User_Info = Customer.objects.filter(password=password,mobile=int(number))
+                Number_Exist = Customer.objects.filter(mobile=int(number))
+
             if User_Info.exists():
                 found_email = User_Info[0].email
+                print(User_Info)
             else:
-                return render(request, 'user/login.html', {'not_found':'No customer found with given Credentials'})
+                if  email!='' and not Email_Exist.exists():
+                    return render(request, 'user/login.html', {'not_found':email+' do not exist in database.'})
+                elif number!='' and not Number_Exist.exists():
+                    return render(request, 'user/login.html', {'not_found':number+' do not exist in database.'})
 
+                return render(request, 'user/login.html', {'not_found':'Given Password is Incorrect.'})
             # creating session after login
             Current_User = User_Info.values()[0]
             Current_User['created_on'] = str(User_Info.values()[0]['created_on'])
@@ -39,9 +51,14 @@ def Login(request):
 
         elif(request.POST.get('who') == 'service_boy'):
             ID = request.POST.get('ID')
-            email = request.POST.get('email')
+            email = request.POST.get('email','')
+            number = request.POST.get('number','')
             password = request.POST.get('password')
-            Service_Boy_Info = Service_Boy.objects.filter(ID=ID, email=email,password=password)
+            if(email != ''):
+                Service_Boy_Info = Service_Boy.objects.filter(ID=ID, email=email,password=password)
+            if(number != ''):
+                Service_Boy_Info = Service_Boy.objects.filter(ID=ID, mobile=int(number),password=password)
+
             if Service_Boy_Info.exists():
                 if Service_Boy_Info[0].status == False:
                     return render(request, 'user/login.html', {'not_found':'Your Application is Under Process.'})    
@@ -55,7 +72,7 @@ def Login(request):
             Current_Service_Boy['created_on'] = str(Service_Boy_Info.values()[0]['created_on'])
 
             request.session['Active_Service_Boy'] = Current_Service_Boy
-            # print(request.session['Active_Service_Boy'], '********************************')
+            print(request.session['Active_Service_Boy'], '********************************')
             return redirect('service_boy/'+str(Current_Service_Boy['ID']))
 
 

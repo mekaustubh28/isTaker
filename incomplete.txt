@@ -1,0 +1,32 @@
+done email subject
+done login mobile
+done logo clicking to dashboard
+done error msg for password
+interchange changepaswword and get OTP
+get OTP don't send if error
+ahdar card and passport
+reset button with confirm button
+reset sab hat jayega service chosen
+countdown while searching
+design the very 1st page
+main admin page
+
+Formatting, Home page and others ::::
+
+Other findings
+
+1. Login - Email/Mobile
+2.Strong Password
+3. OTP formatting Headers(Subj and Email ID)
+4. After login. if hit to Home button - logged accout is disappearing
+5. if the password is wrong, then it should not say accounnt is not found (should be password incorrect) else email if not available then okay with the current message
+6. Password Alphanumeric (min 6 digits)
+7. Password is not resetting, after confirming again directed to the reset PW page
+8. Remove Change Password button while opening the password reset page
+
+
+
+
+page completed:
+
+customer dashboard
