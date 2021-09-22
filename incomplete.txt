@@ -36,3 +36,24 @@ done 8. Remove Change Password button while opening the password reset page
 page completed:
 
 customer dashboard
+
+
+
+done 3. Eraliest points we discuss needs to be corrected
+done 2. Change the page name in title bar (name should approproiate)
+done 5.  Success story table is not created
+done 7. Deal and offers is not reflecting
+done 10. Service Details box one button needs to be change from confirm to edit and Done to Confirm
+done 11. All service list should not appear package name and also should roll-up
+done 12. Email and Chat integreation
+done 13. Contact us 
+done 15. Change Driver info to Service boy info in my order page
+done 17. get OTP button should be on top before change password button in forgot password option
+done 16. After logged IN- clicking on Home is disappearing the current login Account
+done 18. Back option arrow should be avaialble at below or near to next while filling the details for Service boy creating account
+1. Service boy table in database did not find
+4. Top Rating city table is not available and also data is not reflecting into the box
+6. Top rating hosp table is not created city wise
+8. Admin control dasboard for accepting and rejecting service boy details
+9. My Profile edit
+14. Service boy Active and deactive option is not available, if suppose Service boy is on vacation, how he/she will make availability

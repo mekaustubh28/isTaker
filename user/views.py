@@ -13,6 +13,18 @@ import datetime
 # Create your views here.
 
 
+def contact_us(request):
+    package_count = Package.objects.count()
+    package_dict = covnert_Set_to_dict(package_count)
+
+    return render(request, 'user/contact_us.html', {
+        'package_dict': package_dict,
+        'hospital': Hospital_Detail.objects.all(),
+        'hospital_city_wise': Hospital_Detail.objects.all(),
+
+    })
+
+
 def hospital(request):
     # try
     package_count = Package.objects.count()
@@ -72,6 +84,7 @@ def hospital(request):
         'id_place': id_place,
         'no_hospital': no_hospital,
     })
+
 
 def index(request):
 

@@ -265,7 +265,8 @@
 {% block javascript %}
 <script>
   if (document.referrer.endsWith('customer_dashboard/{{Active_User.customer_id}}') == false && document.referrer
-    .endsWith('customer_dashboard/{{Active_User.customer_id}}/order_confirm') == false) {
+    .endsWith('customer_dashboard/{{Active_User.customer_id}}/order_confirm') == false && document.referrer
+    .endsWith('customer_dashboard/{{Active_User.customer_id}}/search') == false) {
     var done = document.getElementById('hospital_submit');
     var view_service = document.getElementById('view_service');
     done.remove();

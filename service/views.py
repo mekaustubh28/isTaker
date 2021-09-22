@@ -12,6 +12,23 @@ import random
 # Create your views here.
 
 
+def contact_us(request, myid):
+    package_count = Package.objects.count()
+    package_dict = covnert_Set_to_dict(package_count)
+    Customer_User = Customer.objects.filter(customer_id=int(myid))
+    Active_User = Customer_User.values()[0]
+
+    cart = Cart(Customer_User[0])
+    return render(request, "service/contact_us.html",{
+        'customer': Customer_User[0],
+        'Active_User': Active_User,
+        'hospital': Hospital_Detail.objects.all(),
+        'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=Customer_User[0].city_village),
+        'cart': cart[0],
+        'cart_length': cart[1],    
+        'package_dict': package_dict,
+    })
+
 def index(request):
     return render(request, "service/index.html")
 
