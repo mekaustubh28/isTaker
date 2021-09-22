@@ -36,6 +36,7 @@ class Service_Boy(models.Model):
     pin = models.CharField(max_length=200, default='')
     email = models.EmailField(max_length=254)
     mother_tongue = models.CharField(max_length=100, default='')
+    rating = models.FloatField(default=0)
     education = models.CharField(max_length=100, default='')
     DOB = models.CharField(max_length=50, default='')
     pin_serve = models.CharField(max_length=200,default='')

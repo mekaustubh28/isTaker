@@ -1,12 +1,11 @@
 {% extends 'service/base.html' %}
 
-{% block title %} My Dashboard {% endblock %}
+{% block title %} isTaker - Homepage {% endblock %}
 
 {% block stylesheet %}
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'service/scss/customer_dashboard/customer_dashboard.css' %}">
-<link rel="shortcut icon" href="{%static 'service/images/favicon.png'%}" type="image/x-icon">
 {% endblock %}
 <style>
     button.display {
@@ -61,8 +60,11 @@
                             <div class="accordion-body">
                                 <ul id="ul{{forloop.counter}}">
                                     {% for j in i %}
-                                    <input type="checkbox" id="{{j.2}}" class="service_name" name="{{j.3}}" value="">
-                                    <label for="{{j.2}}">{{j.2}}</label><br>
+                                    <div style="padding: 10px; cursor:pointer" class="selected">
+                                        <input type="checkbox" style="cursor:pointer" id="{{j.2}}" class="service_name" name="{{j.3}}" value="">
+                                        <label style="width: 80%; cursor:pointer" for="{{j.2}}">{{j.2}}<span style="float: right;">₹{{j.3}}/-</span></label>
+                                    </div>
+                                    <hr style="padding: 0;margin:0;cursor:pointer">
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -91,12 +93,12 @@
                 {% csrf_token %}
                 <input type="hidden" name="service" id="service_list">
                 <input type="hidden" name="total_price" id="total_price" placeholder="Total Price">
-                <button class="btn btn-primary mx-2" id="service_confirm" style="border-radius:5px;" type="button"
+                <button class="btn btn-primary" id="service_reset" style="border-radius:5px;" type="button" disabled>
+                    Reset
+                </button>
+                <button class="btn btn-primary mx-2" id="service_confirm" style="border-radius:5px;" type="submit"
                     disabled>
                     Confirm
-                </button>
-                <button class="btn btn-primary" id="service_done" style="border-radius:5px;" type="submit" disabled>
-                    Done
                 </button>
             </form>
         </div>
@@ -110,6 +112,7 @@
 
     $('input[type="checkbox"]').click(function () {
         $('button#service_confirm').attr('disabled', false)
+        $('button#service_reset').attr('disabled', false)
         var service = $(this).attr('id')
         var price = $(this).attr('name')
         if ($(this).prop("checked") == true) {
@@ -135,7 +138,7 @@
         var service_list = []
         var service_price = []
         $('input[type="checkbox"]').attr('disabled', true)
-        $('button#service_done').attr('disabled', false)
+        $('button#service_reset').attr('disabled', false)
         var table_content = $('#table-content').find('tr')
         var table = document.getElementsByTagName('table')[0];
         //console.log(table)
@@ -150,6 +153,13 @@
         service_price.push(x)
         $('input#service_list').attr('value', service_list)
         $('input#total_price').attr('value', service_price)
+    })
+
+    $('button#service_reset').click(function(){
+        $('input[type="checkbox"]').prop("checked", false)
+        document.getElementById('table-content').innerHTML = ''
+        $('button#service_confirm').attr('disabled', true)
+        $('button#service_reset').attr('disabled', true)
     })
 </script>
 <script src="{% static 'service/js/customer_dashboard.js' %}"></script>

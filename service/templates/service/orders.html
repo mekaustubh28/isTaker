@@ -1,6 +1,6 @@
 {% extends 'service/base.html' %}
 
-{% block title %} SignUp | Login {% endblock %}
+{% block title %} isTaker | Order History {% endblock %}
 
 {% block stylesheet %}
 {% load static %}
@@ -308,7 +308,7 @@
                         </a><br><br>
                         <a href="" class="{{i.order.customer_trip_id}}" type="button" data-bs-toggle="modal"
                             data-bs-target="#info{{i.service_boy.0.ID}}Modal">
-                            Driver Info
+                            Service Boy Info
                         </a><br><br>
                     </div>
                 </div>
@@ -320,7 +320,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="{{i.service_boy.0.ID}}infoModalLabel">Driver Info</h5>
+                        <h5 class="modal-title" id="{{i.service_boy.0.ID}}infoModalLabel">Service Boy Info</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -341,7 +341,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Rating</strong></td>
-                                    <td>4/5</td>
+                                    <td>{{i.service_boy.0.rating}}/5</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Languages</strong></td>

@@ -1,11 +1,12 @@
-{% extends 'service/base.html' %}
+{% extends 'user/navbar.html' %}
 
-{% block title %} isTaker | Search {% endblock %}
+{% block title %} isTaker - Hospital {% endblock %}
 
 {% block stylesheet %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'service/scss/search/search.css' %}">
 
+<link rel="stylesheet" type="text/css" href="{% static 'user/scss/signInUp/signInUp.css' %}">
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}"> -->
 <style>
   div.tabs {
     width: 100%;
@@ -26,49 +27,6 @@
     border-radius: 4px;
     color: white;
     background-color: #0d6efd;
-  }
-
-  .card__header {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 2em;
-    padding: 2em;
-  }
-
-  div.service_boys {
-    display: flex;
-  }
-
-  .card__header {
-    border: 1px solid gray;
-    margin: auto;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: rgba(128, 128, 128, 0.034);
-  }
-
-  .card__arc {
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    z-index: 1;
-  }
-
-  .card__thumb {
-    flex-shrink: 0;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 1px solid gray;
-    padding: 1px;
-  }
-
-  .card__title {
-    font-size: 1.3em;
-    margin: 0 0 .3em;
   }
 
   div.hospital {
@@ -146,69 +104,15 @@
 </style>
 {% endblock %}
 
-{% block body %}
-<div class="main-container">
-  <div class="tabs">
-    <div style="width: 100%;">
-      <p>
-        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
-          aria-expanded="false" aria-controls="multiCollapseExample1">View Services</a>
-      </p>
-      <div class="row" style="width: 30%;">
-        <div class="collapse multi-collapse" id="multiCollapseExample1">
-          <div class="card card-body" id="view_service">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">index</th>
-                  <th scope="col">service</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for i in Active_Service.service_list %}
-                <tr>
-                  <th scope="row">{{forloop.counter}}</th>
-                  <td>{{i}}</td>
-                </tr>
-                {% endfor %}
-                <p><b>Total: ₹{{Active_Service.total_price}}/-</b></p>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="available available_service_boy" style="border:3px solid blue">
-    <h4>Available Service Boy</h4>
 
-    <div class="service_boys">
-      {% for i in service_boys_available%}
-      <div class="card__header">
-        <img class="card__thumb" src="/media/{{i.image}}" alt="{{i.first_name}} DP" />
-        <div class="card__header-text">
-          <h3 class="card__title">{{i.first_name}}</h3>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
+{% block body %}
+<br><br><br>
+<div class="main-container">
   <div class="available place_and_address">
-    <form action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm" method="post" class="hospital_submit"
-      id="hospital_submit">
-      {% csrf_token %}
-      <input type="hidden" value="hospital_id" id="hospital_id" name="hospital_id">
-      <button class="btn btn-primary" id="hospital_done" style="border-radius:5px;" type="submit" disabled>
-        Done
-      </button>
-    </form>
     <h1><br>{{no_hospital}}</h1>
     <div class="search_by_pin" id="{{id_pin}}">
       {% for i in hospital_available %}
       <div class="hospital" id="hospital" name="{{i.hospital_id}}">
-        <div class="hospital_checkbox">
-          <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}place">
-        </div>
         <div class="hospital_image">
           <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" width="220px"
             height="220px">
@@ -225,9 +129,6 @@
         {% for i in hospital_available%}
         <div class="hospital" id="hospital" name="{{i.hospital_id}}"
           style="display: block;margin:4%; width:30%; text-align:center">
-          <div class="hospital_checkbox">
-            <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}">
-          </div>
           <div class="hospital_image">
             <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" width="220px"
               height="220px">
@@ -260,9 +161,11 @@
     </div>
   </div>
 </div>
+
 {% endblock %}
 
 {% block javascript %}
+<script src="{% static 'user/js/signIn.js' %}"></script>
 <script>
   if (document.referrer.endsWith('customer_dashboard/{{Active_User.customer_id}}') == false && document.referrer
     .endsWith('customer_dashboard/{{Active_User.customer_id}}/order_confirm') == false) {
@@ -293,5 +196,4 @@
     console.log('id="btn_search_by_pin"')
   })
 </script>
-<script src="{% static 'service/js/customer_dashboard.js' %}"></script>
 {% endblock %}

@@ -1,15 +1,11 @@
 {% extends 'service/base.html' %}
 
-{% block title %} SignUp | Login {% endblock %}
+{% block title %} isTaker | My Account {% endblock %}
 
 {% block stylesheet %}
 {% load static %}
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
-    div.my_account {
-        /*background-color: rgba(128, 128, 128, 0.062);*/
-    }
-
     span img.edit_info {
         margin-left: 30px;
         padding: 5px;
@@ -146,6 +142,7 @@
     a.orders {
         text-decoration: none !important;
         color: black;
+        padding: 10px 30px 10px 10px;
     }
 
     a.change_password {
@@ -191,9 +188,9 @@
                         </li>
                     </ul>
                     <ul class="subcategory">
-                        <li class="link active_link" id="personal">Personal</li>
-                        <li class="link" id="address">Manage Address</li>
-                        <li class="link" id="adhaar">Adhaar Card</li>
+                        <li class="link section  active_link" id="personal">Personal</li>
+                        <li class="link section" id="address">Manage Address</li>
+                        <li class="link section" id="adhaar">Adhaar Card</li>
                     </ul>
                 </div>
             </div>
@@ -402,7 +399,7 @@
         $('li.link').removeClass('active_link')
         $(this).addClass('active_link')
     })
-    $('li').click(function () {
+    $('li.section').click(function () {
         var id = $(this).attr('id')
         $('div.section').addClass('noshow')
         $('div.' + id).removeClass('noshow')

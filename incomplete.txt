@@ -2,27 +2,33 @@ done email subject
 done login mobile
 done logo clicking to dashboard
 done error msg for password
-interchange changepaswword and get OTP
-get OTP don't send if error
-ahdar card and passport
-reset button with confirm button
-reset sab hat jayega service chosen
-countdown while searching
-design the very 1st page
+done reset button with confirm button
+done reset sab hat jayega service chosen
+done remove package name from all service list with price
+done design the very 1st page
+done ahdar card and passport
+done countdown while searching
+done select a service before clicking done on hospital serach page
+done search page me logo clicking
+done deal and filters keepon scrolling
+done interchange changepaswword and get OTP
+done get OTP don't send if error
+modify service on order confirm page
+filter for top rated hospital in city
 main admin page
 
-Formatting, Home page and others ::::
+done Formatting, Home page and others ::::
 
 Other findings
 
-1. Login - Email/Mobile
-2.Strong Password
-3. OTP formatting Headers(Subj and Email ID)
-4. After login. if hit to Home button - logged accout is disappearing
-5. if the password is wrong, then it should not say accounnt is not found (should be password incorrect) else email if not available then okay with the current message
-6. Password Alphanumeric (min 6 digits)
-7. Password is not resetting, after confirming again directed to the reset PW page
-8. Remove Change Password button while opening the password reset page
+done 1. Login - Email/Mobile
+done 3. OTP formatting Headers(Subj and Email ID)
+done 4. After login. if hit to Home button - logged accout is disappearing
+done 5. if the password is wrong, then it should not say accounnt is not found (should be password incorrect) else email if not available then okay with the current message
+done 2.Strong Password
+done 6. Password Alphanumeric (min 6 digits)
+done 7. Password is not resetting, after confirming again directed to the reset PW page
+done 8. Remove Change Password button while opening the password reset page
 
 
 

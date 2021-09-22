@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Admin_Control, Customer_Ongoing_Trip, Customer_Service_Hist, Service_Boy_Ongoing_Trip, Service_Boy_Service_Hist
+from .models import Admin_Control, Customer_Ongoing_Trip, Customer_Service_Hist, Service_Boy_Ongoing_Trip, Service_Boy_Service_Hist, Testimonial
 # Register your models here.
 
 @admin.register(Admin_Control)
@@ -21,4 +21,8 @@ class Service_Boy_Ongoing_TripAdmin(admin.ModelAdmin):
 @admin.register(Service_Boy_Service_Hist)
 class Service_Boy_Service_HistAdmin(admin.ModelAdmin):
     list_display=['service_boy_id', 'customer_id', 'hospital_id', 'status']
+
+@admin.register(Testimonial)
+class TestimonialAdmin(admin.ModelAdmin):
+    list_display=['customer_id', 'date_time']
 

@@ -1,6 +1,6 @@
 {% extends 'service/base.html' %}
 
-{% block title %} SignUp | Login {% endblock %}
+{% block title %} isTaker | Order Confirm {% endblock %}
 
 {% block stylesheet %}
 {% load static %}
@@ -74,6 +74,14 @@
         left: 50%;
         color: rgb(0, 255, 213);
         transform: translate(-50%, -50%);
+    }
+
+    h3.timeleft {
+        z-index: +11;
+        position: absolute;
+        left: 50%;
+        color: rgb(0, 255, 213);
+        transform: translate(-50%, 0);
     }
 
     .lds-ring {
@@ -183,6 +191,7 @@
         <div></div>
     </div>
     <h4>Searching For Available Service Boy...</h4>
+    <h3 class="timeleft">Time Left : <span id="timer">60</span>s</h3>
 </div>
 <div class="alert alert-primary d-flex align-items-center my-2" role="alert">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -267,17 +276,22 @@
                 {% csrf_token %}
                 <input type="datetime-local" id="meeting_time" name="service_date_time" value="{{current_date_time}}"
                     min="{{current_date_time}}">
-                <button class="btn btn-primary mx-2" style="border-radius:5px;" id="order_confirm_semi" type="submit"
-                    data-bs-toggle="modal" data-bs-target="#confirmModal">
+                <button class="btn btn-success mx-2" style="border-radius:5px;" id="order_confirm_semi"
+                    onclick="time_left()" type="submit" data-bs-toggle="modal" data-bs-target="#confirmModal">
                     Confirm
                 </button>
             </form>
             <button class="btn btn-primary mx-2" id="order_modify" style="border-radius:5px;" type="button">
                 Modify
             </button>
-            <button class="btn btn-primary mx-2" id="order_cancel" style="border-radius:5px;" type="button">
-                Cancel
-            </button>
+            <form action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="delete_service" value="order">
+                <button class="btn btn-danger mx-2" id="order_cancel" style="border-radius:5px;"
+                    type="submit">
+                    Cancel
+                </button>
+            </form>
         </div>
     </div>
 </div>
@@ -290,6 +304,18 @@
     $('button#order_confirm_semi').click(function () {
         $('div#loader').removeClass('no-display');
     })
+
+    function time_left() {
+        localStorage.setItem('time_left', new Date().getTime())
+    }
+
+    var refresh = setInterval(function () {
+        var start_time = localStorage.getItem("time_left");
+        var current_time = new Date().getTime();
+        var difference = current_time - start_time;
+        var seconds = Math.floor((difference % (60 * 1000)) / 1000);
+        document.getElementById('timer').innerHTML = 60 - seconds
+    }, 1000)
 </script>
 <script src="{% static 'service/js/customer_dashboard.js' %}"></script>
 {% endblock %}

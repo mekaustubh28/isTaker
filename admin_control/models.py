@@ -91,3 +91,9 @@ class Service_Boy_Service_Hist(models.Model):
     selected_service = models.CharField(default='', max_length=2000)
     time_taken = models.IntegerField(default=0)
     start_date_time = models.DateTimeField(default=datetime.datetime.now())
+
+class Testimonial(models.Model):
+    testimonial = models.CharField(default='', max_length=1000)
+    customer_id = models.IntegerField(default=0)
+    date_time = models.DateTimeField(default=datetime.datetime.now())
+
