@@ -13,21 +13,24 @@ import random
 
 
 def contact_us(request, myid):
-    package_count = Package.objects.count()
-    package_dict = covnert_Set_to_dict(package_count)
-    Customer_User = Customer.objects.filter(customer_id=int(myid))
-    Active_User = Customer_User.values()[0]
+    try:
+        package_count = Package.objects.count()
+        package_dict = covnert_Set_to_dict(package_count)
+        Customer_User = Customer.objects.filter(customer_id=int(myid))
+        Active_User = Customer_User.values()[0]
 
-    cart = Cart(Customer_User[0])
-    return render(request, "service/contact_us.html",{
-        'customer': Customer_User[0],
-        'Active_User': Active_User,
-        'hospital': Hospital_Detail.objects.all(),
-        'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=Customer_User[0].city_village),
-        'cart': cart[0],
-        'cart_length': cart[1],    
-        'package_dict': package_dict,
-    })
+        cart = Cart(Customer_User[0])
+        return render(request, "service/contact_us.html",{
+            'customer': Customer_User[0],
+            'Active_User': Active_User,
+            'hospital': Hospital_Detail.objects.all(),
+            'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=Customer_User[0].city_village),
+            'cart': cart[0],
+            'cart_length': cart[1],    
+            'package_dict': package_dict,
+        })
+    except:
+        return redirect('/')
 
 def index(request):
     return render(request, "service/index.html")
@@ -123,6 +126,7 @@ def orders(request, myid):
                 if Order_customer_found[0].status != 'Cancelled':
                     Order_customer_found.update(status='Cancelled', reason_for_cancel=reason_for_cancel)
                     Order_service_found.update(status='Cancelled', reason_for_cancel=reason_for_cancel)
+                    Service_Boy.objects.filter(ID=int(Order_customer_found[0].service_boy_id)).update(current_status='available')
                 # print(reason_for_cancel)
             if time_taken != '':
                 print(Order_ID)
@@ -593,7 +597,10 @@ def customer_dashboard(request, myid):
 def Logout(request):
     if request.method == 'POST':
         # deleting exiting the session
-        del request.session['Active_User']
+        if('Active_User' in request.session):
+            del request.session['Active_User']
+        if('Active_Service_Boy' in request.session):
+            del request.session['Active_Service_Boy']
         # print(request.session.get('Active_User'))
         return redirect('users:index')
 

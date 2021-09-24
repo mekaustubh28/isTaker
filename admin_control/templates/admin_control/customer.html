@@ -1,0 +1,120 @@
+{% extends 'admin_control/base.html' %}
+
+{% block title %} isTaker - Customer {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+
+
+{% endblock %}
+
+
+{% block body %}
+<main>
+    <div class="main__container">
+        <!-- MAIN TITLE STARTS HERE -->
+
+        <div class="main__title">
+            <img src="{% static 'admin_control/images/hello.svg' %}" alt="" />
+            <div class="main__greeting">
+                <h1>Hello {{staff_admin.first_name}}</h1>
+                <p>Welcome to your admin dashboard</p>
+            </div>
+        </div>
+
+        <!-- MAIN TITLE ENDS HERE -->
+
+        <!-- MAIN CARDS STARTS HERE -->
+        <br><br><br>
+        <div class="search">
+            <h2>Filter:</h2>
+            <input type="text" id="search_filter" data-search  placeholder="Search By Anything">
+        </div>
+        <br>
+        <div class="customer_cards">
+            <table id="table_filter" class="table">
+                <tr>
+                    <td style="font-weight: bold;">Customer ID</td>
+                    <td style="font-weight: bold;">Customer Name</td>
+                    <td style="font-weight: bold;">Email</td>
+                    <td style="font-weight: bold;">Contact Number</td>
+                    <td style="font-weight: bold;">Created On</td>
+                </tr>
+                {% for i in customer%}
+                <tr id="customer{{forloop.counter}}" class="table_content" data-filter-item data-filter-item="{{i.customer_id}}{{i.first_name}}{{i.last_name}}{{i.email}}{{i.mobile}}">
+                    <td>{{i.customer_id}}</td>
+                    <td>{{i.first_name}} {{i.last_name}}</td>
+                    <td><a href="mailto:{{i.email}}" style="color:black;text-decoration:none;">{{i.email}}</a></td>
+                    <td><a href="tel:{{i.mobile}}" style="color:black;text-decoration:none;">{{i.mobile}}</a></td>
+                    <td>{{i.created_on}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+        <!-- MAIN CARDS ENDS HERE -->
+
+        <!-- CHARTS STARTS HERE -->
+        <div class="charts">
+            <div class="charts__left">
+                <div class="charts__left__title">
+                    <div>
+                        <h1>Monthly Reports</h1>
+                        <p>isTaker</p>
+                    </div>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                </div>
+                <!-- <div id="apex1"></div> -->
+                <div>
+                    <img src="https://quickchart.io/chart?c={type:'line',
+            data:{
+              labels:['January','February', 'March','April', 'May'], 
+              datasets:[{label:'Dogs', data: [50,60,70,180,190], fill:false,borderColor:'blue'}]
+            }}
+            " width="100%">
+                </div>
+            </div>
+
+            <div class="charts__right">
+                <div class="charts__right__title">
+                    <div>
+                        <h1>Stats Reports</h1>
+                        <p>Cupertino, California, USA</p>
+                    </div>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                </div>
+
+                <div class="charts__right__cards">
+                    <div class="card1">
+                        <h1>Income</h1>
+                        <p>$75,300</p>
+                    </div>
+
+                    <div class="card2">
+                        <h1>Sales</h1>
+                        <p>$124,200</p>
+                    </div>
+
+                    <div class="card3">
+                        <h1>Users</h1>
+                        <p>3900</p>
+                    </div>
+
+                    <div class="card4">
+                        <h1>Orders</h1>
+                        <p>1881</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CHARTS ENDS HERE -->
+    </div>
+</main>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script src="{% static 'admin_control/js/script.js' %}"></script>
+<script src="{% static 'admin_control/js/customer.js' %}"></script>
+{% endblock %}

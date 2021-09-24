@@ -2,6 +2,15 @@ from django.db import models
 from django.utils import timezone
 # Create your models here.
 
+class Admin_Staff(models.Model):
+    admin_staff = models.AutoField(primary_key=True)
+    admin_staff_id = models.CharField(max_length=10, default='')
+    first_name = models.CharField(max_length=100, default='')
+    last_name = models.CharField(max_length=100, default='')
+    status = models.CharField(max_length=100)
+    email = models.EmailField(max_length=254, default='')
+    mobile = models.IntegerField()
+    password = models.CharField(max_length=200, default='')
 
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
@@ -50,6 +59,7 @@ class Service_Boy(models.Model):
     image = models.FileField(upload_to='user/images')
     password = models.CharField(max_length=200, default='')
     status = models.BooleanField(default=False)
+    current_status = models.CharField(default='available', max_length=100)
     available = models.BooleanField(default=True)
     created_on = models.DateField(default=timezone.now())
     

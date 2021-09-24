@@ -1,0 +1,169 @@
+{% extends 'admin_control/base.html' %}
+
+{% block title %} isTaker - Pending Application {% endblock %}
+
+{% block stylesheet %}
+
+{% load static %}
+<link rel="stylesheet" href="{%static 'admin_control/css/pending.css'%}" />
+
+<style>
+    .current_status a {
+        padding: 6% 10%;
+        border-radius: 5px;
+        color: white;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+
+<main>
+
+    <div id="popup1" class="overlay">
+        <div class="popup">
+            <h2>Application Confirmation</h2>
+            <a class="close" href="#">&times;</a>
+            <br><br>
+            <div class="content">
+                Do you really want to Add <b><span id="span_name"></span></b> to isTaker Database
+                <br><br>
+                <hr class="hr">
+                <br>
+                <table class="confirm_table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                    </tr>
+                    <tr>
+                        <td id="ID">ID</td>
+                        <td id="name">Name</td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <form action="/jhbo92dasdSABoiu8o08BFjkl/pending_applications" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="pending_ID" value="" name="pending_ID">
+                    <button class="current_status" style="background-color:green; color:white;cursor:pointer" type="submit" id="{{i.ID}}">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="main__container">
+        <!-- MAIN TITLE STARTS HERE -->
+        <!-- Button trigger modal -->
+        <div class="main__title">
+            <img src="{% static 'admin_control/images/hello.svg' %}" alt="" />
+            <div class="main__greeting">
+                <h1>Hello {{staff_admin.first_name}}</h1>
+                <p>Welcome to your admin dashboard</p>
+            </div>
+        </div>
+
+        <!-- MAIN TITLE ENDS HERE -->
+
+        <!-- MAIN CARDS STARTS HERE -->
+        <br><br><br>
+        
+        <div class="search">
+            <h2>Filter:</h2>
+            <input type="text" id="search_filter" data-search placeholder="Search By Anything">
+        </div>
+        <br>
+        <div class="customer_cards">
+            <table id="table_filter" class="table">
+                <tr>
+                    <td style="font-weight: bold;">Service Boy ID</td>
+                    <td style="font-weight: bold;">Service Boy Name</td>
+                    <td style="font-weight: bold;">Email</td>
+                    <td style="font-weight: bold;">Contact Number</td>
+                    <td style="font-weight: bold;">Created On</td>
+                    <td style="font-weight: bold;">Status</td>
+                </tr>
+                {% for i in service_boy%}
+                <tr id="service_boy{{forloop.counter}}" class="table_content" data-filter-item
+                    data-filter-item="{{i.ID}}{{i.first_name}}{{i.last_name}}{{i.email}}{{i.mobile}}">
+                    <td><a href="/admin/user/service_boy/{{i.service_boy_id}}/change/" target="_blank"
+                            style="color:black;text-decoration:none;">{{i.ID}}</a></td>
+                    <td class="{{i.ID}}">{{i.first_name}} {{i.last_name}}</td>
+                    <td><a href="mailto:{{i.email}}" style="color:black;text-decoration:none;">{{i.email}}</a></td>
+                    <td><a href="tel:{{i.mobile}}" style="color:black;text-decoration:none;">{{i.mobile}}</a></td>
+                    <td>{{i.created_on}}</td>
+                    <td class="current_status"><a style="background-color:red;" class="button" href="#popup1"
+                            id="{{i.ID}}">Pending</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+        <!-- MAIN CARDS ENDS HERE -->
+
+        <!-- CHARTS STARTS HERE -->
+        <div class="charts">
+            <div class="charts__left">
+                <div class="charts__left__title">
+                    <div>
+                        <h1>Monthly Reports</h1>
+                        <p>isTaker</p>
+                    </div>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                </div>
+                <!-- <div id="apex1"></div> -->
+                <div>
+                    <img src="https://quickchart.io/chart?c={type:'line',
+            data:{
+              labels:['January','February', 'March','April', 'May'], 
+              datasets:[{label:'Dogs', data: [50,60,70,180,190], fill:false,borderColor:'blue'}]
+            }}
+            " width="100%">
+                </div>
+            </div>
+
+            <div class="charts__right">
+                <div class="charts__right__title">
+                    <div>
+                        <h1>Stats Reports</h1>
+                        <p>Cupertino, California, USA</p>
+                    </div>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                </div>
+
+                <div class="charts__right__cards">
+                    <div class="card1">
+                        <h1>Income</h1>
+                        <p>$75,300</p>
+                    </div>
+
+                    <div class="card2">
+                        <h1>Sales</h1>
+                        <p>$124,200</p>
+                    </div>
+
+                    <div class="card3">
+                        <h1>Users</h1>
+                        <p>3900</p>
+                    </div>
+
+                    <div class="card4">
+                        <h1>Orders</h1>
+                        <p>1881</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CHARTS ENDS HERE -->
+    </div>
+</main>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script src="{% static 'admin_control/js/script.js' %}"></script>
+<script src="{% static 'admin_control/js/customer.js' %}"></script>
+<script src="{% static 'admin_control/js/application.js' %}"></script>
+{% endblock %}

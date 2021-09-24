@@ -1,3 +1,5 @@
+from user.models import Service_Boy
+
 def ride_complete(trip_ID, stop_customer_time, Customer_Service_Hist, Service_Boy_Service_Hist, Customer_Ongoing_Trip, Service_Boy_Ongoing_Trip):
     print('working')
 
@@ -22,6 +24,9 @@ def ride_complete(trip_ID, stop_customer_time, Customer_Service_Hist, Service_Bo
         status='Ride Completed',
         start_date_time=service_boy_ongoing_trip[0].start_date_time
     )
+    service_boy_id = service_boy_service_hist[0].service_boy_id
+    
+    Service_Boy.objects.filter(ID=service_boy_id).update('available')
 
     service_boy_ongoing_trip.delete()
     customer_ongoing_trip.delete()

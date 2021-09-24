@@ -289,6 +289,8 @@ def start_ride(request, ID):
                 Service_Boy_Service_Hist.objects.filter(service_boy_trip_id=int(request.session['trip_ID'])).update(
                     status='Driving With Customer',
                 )
+                
+                Service_Boy.objects.filter(ID=service_boy_order['service_boy_id']).update(current_status='with customer')
                 service_boy_ongoing = Service_Boy_Ongoing_Trip(
                     service_boy_trip_id=service_boy_order['service_boy_trip_id'],
                     customer_id=service_boy_order['customer_id'],

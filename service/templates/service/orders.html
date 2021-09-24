@@ -282,7 +282,7 @@
                             data-bs-target="#dateModal">
                             Change Service Date
                         </a><br><br>
-                        {% if i.order.status == 'Pending' %}
+                        {% if i.order.status == 'Pending' or i.order.status == 'Service Boy Assigned'%}
                         <a href="" class="{{i.order.customer_trip_id}}" type="button" data-bs-toggle="modal"
                             data-bs-target="#cancelModal">
                             Request Cancellation
@@ -302,10 +302,6 @@
                             Make Payment
                         </a><br><br>
                         {%endif%}
-                        <a href="" class="{{i.order.customer_trip_id}}" type="button" data-bs-toggle="modal"
-                            data-bs-target="#modifyModal">
-                            Modify Service
-                        </a><br><br>
                         <a href="" class="{{i.order.customer_trip_id}}" type="button" data-bs-toggle="modal"
                             data-bs-target="#info{{i.service_boy.0.ID}}Modal">
                             Service Boy Info
@@ -454,7 +450,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Cancel Service</button>
+                            <button type="submit" class="btn btn-danger">Cancel Service</button>
                         </div>
                     </form>
                 </div>

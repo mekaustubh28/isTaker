@@ -1,0 +1,167 @@
+{% extends 'admin_control/base.html' %}
+
+{% block title %} isTaker - {{staff_admin.status}} Dashboard {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+
+
+{% endblock %}
+
+
+{% block body %}
+<main>
+  <div class="main__container">
+    <!-- MAIN TITLE STARTS HERE -->
+
+    <div class="main__title">
+      <img src="{% static 'admin_control/images/hello.svg' %}" alt="" />
+      <div class="main__greeting">
+        <h1>Hello {{staff_admin.first_name}}</h1>
+        <p>Welcome to your admin dashboard</p>
+      </div>
+    </div>
+
+    <!-- MAIN TITLE ENDS HERE -->
+
+    <!-- MAIN CARDS STARTS HERE -->
+    <div class="main__cards">
+      <a href="jhbo92dasdSABoiu8o08BFjkl/customers" class="card_link">
+        <div class="card">
+          <i class="fa fa-user fa-2x text-green" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Customers</p>
+            <span class="font-bold text-title">{{customer|length}}</span>
+          </div>
+        </div>
+      </a>
+      <a href="jhbo92dasdSABoiu8o08BFjkl/service_boys" class="card_link">
+        <div class="card">
+          <i class="fa fa-user fa-2x text-red" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Service Boys</p>
+            <span class="font-bold text-title">{{service_boy|length}}</span>
+          </div>
+        </div>
+      </a>
+      <a href="jhbo92dasdSABoiu8o08BFjkl/hospitals" class="card_link">
+        <div class="card">
+          <i class="bi bi-building fa-2x text-green" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Hospitals</p>
+            <span class="font-bold text-title">{{hospitals|length}}</span>
+          </div>
+        </div>
+      </a>
+      <a href="" class="card_link">
+        <div class="card">
+          <i class="bi bi-check-square-fill fa-2x text-green" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Total Customer Services</p>
+            <span class="font-bold text-title">{{customer_service_hist|length}}</span>
+          </div>
+        </div>
+      </a>
+      <a href="jhbo92dasdSABoiu8o08BFjkl/pending_service" class="card_link">
+        <div class="card">
+          <i class="bi bi-hourglass-split fa-2x text-red" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Total Pending Services</p>
+            <span class="font-bold text-title">{{customer_service_pending|length}}</span>
+          </div>
+        </div>
+      </a>
+      <a href="" class="card_link">
+        <div class="card">
+          <i class="bi bi-clock-fill fa-2x text-yellow" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Total Ongoing Services</p>
+            <span class="font-bold text-title">{{service_boy_ongoing_trip|length}}</span>
+          </div>
+        </div>
+      </a>
+      <a href="" class="card_link">
+        <div class="card">
+          <i class="fa fa-user-o fa-2x text-lightblue" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Service Boys Active</p>
+            <span class="font-bold text-title">{{service_boy_available|length}}</span>
+          </div>
+        </div>
+      </a>
+      <a href="jhbo92dasdSABoiu8o08BFjkl/pending_applications" class="card_link">
+        <div class="card">
+          <i class="bi bi-file-earmark-fill fa-2x text-red" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Pending Application</p>
+            <span class="font-bold text-title">{{service_boy_pending|length}}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <!-- MAIN CARDS ENDS HERE -->
+
+    <!-- CHARTS STARTS HERE -->
+    <div class="charts">
+      <div class="charts__left">
+        <div class="charts__left__title">
+          <div>
+            <h1>Monthly Reports</h1>
+            <p>isTaker</p>
+          </div>
+          <i class="fa fa-usd" aria-hidden="true"></i>
+        </div>
+        <!-- <div id="apex1"></div> -->
+        <div>
+          <img src="https://quickchart.io/chart?c={type:'line',
+            data:{
+              labels:['January','February', 'March','April', 'May'], 
+              datasets:[{label:'Dogs', data: [50,60,70,180,190], fill:false,borderColor:'blue'}]
+            }}
+            " width="100%">
+        </div>
+      </div>
+
+      <div class="charts__right">
+        <div class="charts__right__title">
+          <div>
+            <h1>Stats Reports</h1>
+            <p>Cupertino, California, USA</p>
+          </div>
+          <i class="fa fa-usd" aria-hidden="true"></i>
+        </div>
+
+        <div class="charts__right__cards">
+          <div class="card1">
+            <h1>Income</h1>
+            <p>$75,300</p>
+          </div>
+
+          <div class="card2">
+            <h1>Sales</h1>
+            <p>$124,200</p>
+          </div>
+
+          <div class="card3">
+            <h1>Users</h1>
+            <p>3900</p>
+          </div>
+
+          <div class="card4">
+            <h1>Orders</h1>
+            <p>1881</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- CHARTS ENDS HERE -->
+  </div>
+</main>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script src="{% static 'admin_control/js/script.js' %}"></script>
+{% endblock %}
+

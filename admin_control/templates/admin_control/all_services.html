@@ -1,0 +1,169 @@
+{% extends 'admin_control/base.html' %}
+
+{% block title %} isTaker - Hospital {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<style>
+    .current_status {
+        padding: 10px 20px;
+    }
+
+    .current_status a {
+        padding: 6% 10%;
+        border-radius: 5px;
+        text-decoration: none;
+        color: black;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+<main>
+    <div class="main__container">
+        <!-- MAIN TITLE STARTS HERE -->
+
+        <div class="main__title">
+            <img src="{% static 'admin_control/images/hello.svg' %}" alt="" />
+            <div class="main__greeting">
+                <h1>Hello {{staff_admin.first_name}}</h1>
+                <p>Welcome to your admin dashboard</p>
+            </div>
+        </div>
+
+        <!-- MAIN TITLE ENDS HERE -->
+
+        <!-- MAIN CARDS STARTS HERE -->
+        <br><br><br>
+        <div class="search">
+            <h2>Filter:</h2>
+            <input type="text" id="search_filter" data-search placeholder="Search By Anything">
+        </div>
+        <br>
+        <div class="customer_cards">
+            <table id="table_filter" class="table">
+                <tr>
+                    <td class="fields" style="font-weight: bold;">Service ID</td>
+                    <td class="fields" style="font-weight: bold;">Customer ID</td>
+                    <td class="fields" style="font-weight: bold;">Service Boy ID</td>
+                    <td class="fields" style="font-weight: bold;">Hospital ID</td>
+                    <td class="fields" style="font-weight: bold;">Date of Booking</td>
+                    <td class="fields" style="font-weight: bold;">Date of Service</td>
+                    <td class="fields" style="font-weight: bold;">Services</td>
+                    <td class="fields" style="font-weight: bold;">Time Taken</td>
+                    <td class="fields" style="font-weight: bold;">Status</td>
+                </tr>
+                <!-- {'customer_trip_id': 100000, 
+                    'customer_id': 21, 
+                    'customer_FName': 'Kaustubh', 'customer_LName': 'Verma', 
+                    'customer_mobile': '9120760263', 
+                    'date_of_booking': datetime.datetime(2021, 8, 29, 14, 36, 2, tzinfo=<UTC>), 
+                    'date_of_service': 'Aug. 29, 2021, 20:11', 
+                    'selected_service': "['service 4', 'service 3', 'service 1']", 
+                    'status': 'Ride Completed', 'reason_for_cancel': '.', 
+                    'amount': 298, 'service_boy_id': 190282, 'service_boy_name': 
+                    'Pankaj Verma', 'hospital_name': 'Saket Hospital', 'hospital_id': 1, 
+                    'time_taken': 1789, 
+                    'start_date_time': datetime.datetime(2021, 8, 31, 7, 58, 43, 152679, tzinfo=<UTC>)} -->
+
+                {% for i in customer_services%}
+                <tr id="hospital{{forloop.counter}}" class="table_content" data-filter-item
+                    data-filter-item="{{i.hospital_id}}{{i.hospital_name}}{{i.hospital_pin}}{{i.hospital_contact}}{{i.hospital_rating}}">
+                    <td><a style="color:black;text-decoration:none;" target="_blank"
+                            href="/admin/admin_control/customer_service_hist/{{i.customer_trip_id}}/change/">{{i.customer_trip_id}}</a>
+                    </td>
+                    <td><a style="color:black;text-decoration:none;" target="_blank"
+                            href="/admin/user/customer/{{i.customer_id}}/change/">{{i.customer_id}}</a></td>
+                    <td><a style="color:black;text-decoration:none;" target="_blank"
+                            href="/admin/user/service_boy/{{i.service_boy_system_ID}}/change/">{{i.service_boy_id}}</a>
+                    </td>
+                    <td><a style="color:black;text-decoration:none;" target="_blank"
+                            href="/admin/hospital/hospital_detail/{{i.hospital_id}}/change/">{{i.hospital_id}}</a></td>
+                    <td>{{i.date_of_booking}}</td>
+                    <td>{{i.date_of_service}}</td>
+                    <td>{{i.selected_service}}</td>
+                    <td>{{i.time_taken}}</td>
+                    {% if i.status == 'Service Started' %}
+                    <td class="current_status"><a style="background-color:green;">Ongoing</a></td>
+                    {% elif i.status == 'Ride Completed' %}
+                    <td class="current_status"><a style="background-color:yellow">Completed</a></td>
+                    {% elif i.status == 'Service Boy Assigned' %}
+                    <td class="current_status"><a style="background-color:lightblue;">Assigned</a></td>
+                    {% elif i.status == 'pending' %}
+                    <td class="current_status"><a style="background-color:purple;">Pending</a></td>
+                    {% elif i.status == 'Cancelled' %}
+                    <td class="current_status"><a style="background-color:red;">{{i.status}}</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+        <!-- MAIN CARDS ENDS HERE -->
+
+        <!-- CHARTS STARTS HERE -->
+        <div class="charts">
+            <div class="charts__left">
+                <div class="charts__left__title">
+                    <div>
+                        <h1>Monthly Reports</h1>
+                        <p>isTaker</p>
+                    </div>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                </div>
+                <!-- <div id="apex1"></div> -->
+                <div>
+                    <img src="https://quickchart.io/chart?c={type:'line',
+            data:{
+              labels:['January','February', 'March','April', 'May'], 
+              datasets:[{label:'Dogs', data: [50,60,70,180,190], fill:false,borderColor:'blue'}]
+            }}
+            " width="100%">
+                </div>
+            </div>
+
+            <div class="charts__right">
+                <div class="charts__right__title">
+                    <div>
+                        <h1>Stats Reports</h1>
+                        <p>Cupertino, California, USA</p>
+                    </div>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                </div>
+
+                <div class="charts__right__cards">
+                    <div class="card1">
+                        <h1>Income</h1>
+                        <p>$75,300</p>
+                    </div>
+
+                    <div class="card2">
+                        <h1>Sales</h1>
+                        <p>$124,200</p>
+                    </div>
+
+                    <div class="card3">
+                        <h1>Users</h1>
+                        <p>3900</p>
+                    </div>
+
+                    <div class="card4">
+                        <h1>Orders</h1>
+                        <p>1881</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CHARTS ENDS HERE -->
+    </div>
+</main>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script src="{% static 'admin_control/js/script.js' %}"></script>
+<script src="{% static 'admin_control/js/customer.js' %}"></script>
+{% endblock %}

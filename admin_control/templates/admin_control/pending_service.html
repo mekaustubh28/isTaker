@@ -1,0 +1,180 @@
+{% extends 'admin_control/base.html' %}
+
+{% block title %} isTaker - Customer {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+
+<link rel="stylesheet" href="{%static 'admin_control/css/pending.css'%}" />
+<style>
+    .current_status {
+        padding: 10px 20px;
+    }
+
+    .current_status a {
+        padding: 6% 10%;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+
+{% block body %}
+<main>
+
+    <div class="main__container">
+        <!-- MAIN TITLE STARTS HERE -->
+
+        <div class="main__title">
+            <img src="{% static 'admin_control/images/hello.svg' %}" alt="" />
+            <div class="main__greeting">
+                <h1>Hello {{staff_admin.first_name}}</h1>
+                <p>Welcome to your admin dashboard</p>
+            </div>
+        </div>
+
+        <!-- MAIN TITLE ENDS HERE -->
+
+        <!-- MAIN CARDS STARTS HERE -->
+        <br><br><br>
+        {{customer_service_pending}}
+        <div class="search">
+            <h2>Filter:</h2>
+            <input type="text" id="search_filter" data-search placeholder="Search By Anything">
+        </div>
+        <br>
+        <div class="customer_cards">
+            <table id="table_filter" class="table">
+                <tr>
+                    <td style="font-weight: bold;">Service ID</td>
+                    <td style="font-weight: bold;">Customer ID</td>
+                    <td style="font-weight: bold;">Hospital ID</td>
+                    <td style="font-weight: bold;">Services</td>
+                    <td style="font-weight: bold;">Customer Contact</td>
+                    <td style="font-weight: bold;">PIN</td>
+                    <td style="font-weight: bold;">Booking Date</td>
+                    <td style="font-weight: bold;">Service Date</td>
+                    <td style="font-weight: bold;"></td>
+                </tr>
+                {% for i in customer_service_pending%}
+                <tr id="customer_service_pending{{forloop.counter}}" class="table_content" data-filter-item
+                    data-filter-item="{{i.customer_id}}{{i.first_name}}{{i.last_name}}{{i.email}}{{i.mobile}}">
+                    <td><a href="/admin/admin_control/customer_service_hist/{{i.customer_trip_id}}/change/"
+                            class="link_black" target="_blank">{{i.customer_trip_id}}</a></td>
+                    <td><a href="/admin/user/customer/{{i.customer_id}}/change/" class="link_black"
+                            target="_blank">{{i.customer_id}}</a></td>
+                    <td><a href="/admin/hospital/hospital_detail/{{i.hospital_id}}/change/" class="link_black"
+                            target="_blank">{{i.hospital_id}}</a></td>
+                    <td>{{i.selected_service}}</td>
+                    <td><a href="tel:{{i.mobile}}" class="link_black">{{i.customer_mobile}}</a></td>
+                    <td>{{i.PIN}}</td>
+                    <td>{{i.date_of_booking}}</td>
+                    <td>{{i.date_of_service}}</td>
+                    <td class="current_status"><a style="background-color:red;" class="{{i.PIN}}"
+                            href="#popup1{{i.customer_trip_id}}" data-filter-item="{{i.customer_id}}" id="{{i.customer_trip_id}}">Assign</a></td>
+                </tr>
+                <div id="popup1{{i.customer_trip_id}}" class="overlay">
+                    <div class="popup">
+                        <h2>Assign Service Boy</h2>
+                        <a class="close" href="#">&times;</a>
+                        <br><br>
+                        <div class="content">
+                            Select Available Service Boy for <b>Service ID: <span id="span_id"></span></b> and <b>Customer ID: <span id="span_customer"></span></b> from <b>PIN:
+                                <span id="span_pin"></span></b>
+                            <br><br>
+                            <hr class="hr">
+                            <br>
+                            <form action="/jhbo92dasdSABoiu8o08BFjkl/pending_service" method="POST">
+                                {% csrf_token %}
+                                <select class="current_status" name="service_boy" id="">
+                                    <option value="Select Service boy">Select Service boy</option>
+                                    {% for j in i.available_service_boy%}
+                                    <option value="{{j.ID}}" class="current_status" style="padding: 10px 20px">{{j.ID}}
+                                    </option>
+
+                                    {% endfor %}
+                                </select>
+                                <br><br>
+                                <input type="text" id="customer_id" name="customer_id">
+                                <input type="text" id="customer_trip_id" name="customer_trip_id">
+                                <button class="current_status"
+                                    style="background-color:green; color:white;cursor:pointer" type="submit"
+                                    id="{{i.ID}}">Confirm</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </table>
+
+        </div>
+        <!-- MAIN CARDS ENDS HERE -->
+
+        <!-- CHARTS STARTS HERE -->
+        <div class="charts">
+            <div class="charts__left">
+                <div class="charts__left__title">
+                    <div>
+                        <h1>Monthly Reports</h1>
+                        <p>isTaker</p>
+                    </div>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                </div>
+                <!-- <div id="apex1"></div> -->
+                <div>
+                    <img src="https://quickchart.io/chart?c={type:'line',
+            data:{
+              labels:['January','February', 'March','April', 'May'], 
+              datasets:[{label:'Dogs', data: [50,60,70,180,190], fill:false,borderColor:'blue'}]
+            }}
+            " width="100%">
+                </div>
+            </div>
+
+            <div class="charts__right">
+                <div class="charts__right__title">
+                    <div>
+                        <h1>Stats Reports</h1>
+                        <p>Cupertino, California, USA</p>
+                    </div>
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                </div>
+
+                <div class="charts__right__cards">
+                    <div class="card1">
+                        <h1>Income</h1>
+                        <p>$75,300</p>
+                    </div>
+
+                    <div class="card2">
+                        <h1>Sales</h1>
+                        <p>$124,200</p>
+                    </div>
+
+                    <div class="card3">
+                        <h1>Users</h1>
+                        <p>3900</p>
+                    </div>
+
+                    <div class="card4">
+                        <h1>Orders</h1>
+                        <p>1881</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CHARTS ENDS HERE -->
+    </div>
+</main>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script src="{% static 'admin_control/js/script.js' %}"></script>
+<script src="{% static 'admin_control/js/customer.js' %}"></script>
+<script src="{% static 'admin_control/js/pending.js' %}"></script>
+{% endblock %}
