@@ -40,6 +40,7 @@ class Service_Chosen(models.Model):
 class Deals_and_Offer(models.Model):
     offer_id = models.AutoField(primary_key=True)
     offer_name = models.CharField(max_length=100, default='season offer')
+    offer_message = models.CharField(max_length=200,default='')
     offer_amount = models.IntegerField(default=0)
     offer_code = models.CharField(max_length=100, default='')
     offer_date = models.DateField(default=timezone.now())

@@ -189,7 +189,8 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/customer_dashboard/{{Active_User.customer_id}}/contact_us" tabindex="-1">Contact Us</a>
+            <a class="nav-link" href="/customer_dashboard/{{Active_User.customer_id}}/contact_us" tabindex="-1">Contact
+              Us</a>
           </li>
         </ul>
         <form class="d-flex" action="/customer_dashboard/{{Active_User.customer_id}}/search" method="POST"
@@ -324,7 +325,20 @@
         Top Rating City
       </div>
       <div class="mini deals">
-        Deals
+        Deals and Offers
+        <div class="accordion accordion-flush" style="height: 100%" id="accordionFlushExample">
+          <ul class="hospitals" style="text-align: left;height: 80%">
+            <br>
+            {% for i in deal_offers %}
+            <div class="hospital_name">
+              <h4>{{i.offer_name}}</h4>
+              <div>
+                <h6>{{i.offer_message}}</h6>
+              </div>
+            </div>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
     </div>
   </div>

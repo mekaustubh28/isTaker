@@ -13,9 +13,9 @@ done search page me logo clicking
 done deal and filters keepon scrolling
 done interchange changepaswword and get OTP
 done get OTP don't send if error
+donemain admin page
 modify service on order confirm page
 filter for top rated hospital in city
-main admin page
 
 done Formatting, Home page and others ::::
 
@@ -51,12 +51,12 @@ done 15. Change Driver info to Service boy info in my order page
 done 17. get OTP button should be on top before change password button in forgot password option
 done 16. After logged IN- clicking on Home is disappearing the current login Account
 done 18. Back option arrow should be avaialble at below or near to next while filling the details for Service boy creating account
+done 8. Admin control dasboard for accepting and rejecting service boy details
+done 4. Top Rating city table is not available and also data is not reflecting into the box
+done 6. Top rating hosp table is not created city wise
 1. Service boy table in database did not find
-4. Top Rating city table is not available and also data is not reflecting into the box
-6. Top rating hosp table is not created city wise
-8. Admin control dasboard for accepting and rejecting service boy details
 9. My Profile edit
 14. Service boy Active and deactive option is not available, if suppose Service boy is on vacation, how he/she will make availability
 
 
-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
+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

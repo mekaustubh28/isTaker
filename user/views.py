@@ -3,7 +3,8 @@ from .models import Service_Boy, Customer, Temp
 from service.views import covnert_Set_to_dict
 from hospital.models import Hospital_Detail
 from admin_control.models import Testimonial
-from service.models import Package
+from service.models import Package,Deals_and_Offer
+
 
 import os
 import math
@@ -20,6 +21,7 @@ def contact_us(request):
     return render(request, 'user/contact_us.html', {
         'package_dict': package_dict,
         'hospital': Hospital_Detail.objects.all(),
+                    'deal_offers':Deals_and_Offer.objects.all(),
         'hospital_city_wise': Hospital_Detail.objects.all(),
 
     })
@@ -78,6 +80,7 @@ def hospital(request):
         'hospital_available': hospital_available,
         'search_by_place': search_by_place,
         'search_by_pin': search_by_pin,
+                    'deal_offers':Deals_and_Offer.objects.all(),
         'suggest_place': suggest_place,
         'no_suggestion': no_suggestion,
         'id_pin': id_pin,
@@ -108,6 +111,7 @@ def index(request):
     return render(request, "user/index.html", {
         'package_dict': package_dict,
         'hospital': Hospital_Detail.objects.all(),
+                    'deal_offers':Deals_and_Offer.objects.all(),
         'hospital_city_wise': Hospital_Detail.objects.all(),
         'testimonials': testimonials,
     })
@@ -140,6 +144,7 @@ def Login(request):
                         'not_found': email+' do not exist in database.',
                         'package_dict': package_dict,
                         'hospital': Hospital_Detail.objects.all(),
+                        'deal_offers': Deals_and_Offer.objects.all(),
                         'hospital_city_wise': Hospital_Detail.objects.all(),
                     })
                 elif number != '' and not Number_Exist.exists():
@@ -147,6 +152,7 @@ def Login(request):
                         'not_found': number+' do not exist in database.',
                         'package_dict': package_dict,
                         'hospital': Hospital_Detail.objects.all(),
+                        'deal_offers': Deals_and_Offer.objects.all(),
                         'hospital_city_wise': Hospital_Detail.objects.all(),
                     })
 
@@ -154,6 +160,7 @@ def Login(request):
                     'not_found': 'Given Password is Incorrect.',
                     'package_dict': package_dict,
                     'hospital': Hospital_Detail.objects.all(),
+                    'deal_offers': Deals_and_Offer.objects.all(),
                     'hospital_city_wise': Hospital_Detail.objects.all(),
                 })
             # creating session after login
@@ -174,7 +181,7 @@ def Login(request):
             if (ID == '123456' and email == 'isTaker@isTaker.com' and password == 'isTaker@123'):
                 request.session['Admin_Staff'] = ID
                 return redirect('/jhbo92dasdSABoiu8o08BFjkl')
-            
+
             if (ID == '654321' and email == 'vermakaustubh28@gmail.com' and password == 'isTaker@123'):
                 request.session['Admin_Staff'] = ID
                 return redirect('/jhbo92dasdSABoiu8o08BFjkl')
@@ -192,6 +199,7 @@ def Login(request):
                         'not_found': 'Your Application is Under Process.',
                         'package_dict': package_dict,
                         'hospital': Hospital_Detail.objects.all(),
+                        'deal_offers': Deals_and_Offer.objects.all(),
                         'hospital_city_wise': Hospital_Detail.objects.all(),
                     })
                 else:
@@ -202,6 +210,7 @@ def Login(request):
                     'not_found': 'No service_boy found with given Credentials',
                     'package_dict': package_dict,
                     'hospital': Hospital_Detail.objects.all(),
+                    'deal_offers': Deals_and_Offer.objects.all(),
                     'hospital_city_wise': Hospital_Detail.objects.all()
                 })
 
@@ -217,6 +226,7 @@ def Login(request):
     return render(request, "user/login.html", {
         'package_dict': package_dict,
         'hospital': Hospital_Detail.objects.all(),
+        'deal_offers': Deals_and_Offer.objects.all(),
         'hospital_city_wise': Hospital_Detail.objects.all(),
     })
 
@@ -246,6 +256,7 @@ def SignUp(request):
                 'found': found,
                 'package_dict': package_dict,
                 'hospital': Hospital_Detail.objects.all(),
+                'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all()
             })
 
@@ -264,6 +275,7 @@ def SignUp(request):
                 'found': found,
                 'package_dict': package_dict,
                 'hospital': Hospital_Detail.objects.all(),
+                'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all()
             })
 
@@ -276,6 +288,7 @@ def SignUp(request):
                 'found': found,
                 'package_dict': package_dict,
                 'hospital': Hospital_Detail.objects.all(),
+                'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all()
             })
 
@@ -287,6 +300,7 @@ def SignUp(request):
                 'found': found,
                 'package_dict': package_dict,
                 'hospital': Hospital_Detail.objects.all(),
+                'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all()
             })
 
@@ -298,6 +312,7 @@ def SignUp(request):
                 'found': found,
                 'package_dict': package_dict,
                 'hospital': Hospital_Detail.objects.all(),
+                'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all()
             })
 
@@ -319,6 +334,7 @@ def SignUp(request):
                 'found': found,
                 'package_dict': package_dict,
                 'hospital': Hospital_Detail.objects.all(),
+                'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all()
             })
 
@@ -354,12 +370,15 @@ def SignUp(request):
             'who': who, 'email': email,
             'package_dict': package_dict,
             'hospital': Hospital_Detail.objects.all(),
+            'deal_offers': Deals_and_Offer.objects.all(),
             'hospital_city_wise': Hospital_Detail.objects.all()
         })
 
     return render(request, "user/signup.html", {
+
         'package_dict': package_dict,
         'hospital': Hospital_Detail.objects.all(),
+        'deal_offers': Deals_and_Offer.objects.all(),
         'hospital_city_wise': Hospital_Detail.objects.all()
     })
 
@@ -374,9 +393,11 @@ def create_new_account(request):
         who = params_dict['who']
         OTP = otp_generator(email)
         request.session['OTP'] = OTP
-        return render(request, 'user/create_new_account.html', {'who': who, 'email': email, 'sent': 'an OTP has been send to '+email, 'package_dict': package_dict,
-                                                                'hospital': Hospital_Detail.objects.all(),
-                                                                'hospital_city_wise': Hospital_Detail.objects.all()})
+        return render(request, 'user/create_new_account.html', {
+            'who': who, 'email': email, 'sent': 'an OTP has been send to '+email, 'package_dict': package_dict,
+            'deal_offers': Deals_and_Offer.objects.all(),
+            'hospital': Hospital_Detail.objects.all(),
+            'hospital_city_wise': Hospital_Detail.objects.all()})
 
     elif(request.method == 'POST' and request.POST.get('OTP') != ''):
         success = ''
@@ -408,15 +429,22 @@ def create_new_account(request):
                 success = params_dict['email'] + \
                     ' added to List. Please wait till we verify your Details. Mail will be sent to given Email-Address.'
         else:
-            return render(request, 'user/create_new_account.html', {'otp_error': 'please enter correct 6 digit OTP', 'package_dict': package_dict,
-                                                                    'hospital': Hospital_Detail.objects.all(),
-                                                                    'hospital_city_wise': Hospital_Detail.objects.all()})
-        return render(request, 'user/login.html', {'success': success, 'package_dict': package_dict,
-                                                   'hospital': Hospital_Detail.objects.all(),
-                                                   'hospital_city_wise': Hospital_Detail.objects.all()})
-    return render(request, "user/create_new_account.html", {'package_dict': package_dict,
-                                                            'hospital': Hospital_Detail.objects.all(),
-                                                            'hospital_city_wise': Hospital_Detail.objects.all()})
+            return render(request, 'user/create_new_account.html', {
+                'otp_error': 'please enter correct 6 digit OTP',
+                'package_dict': package_dict,
+                'deal_offers': Deals_and_Offer.objects.all(),
+                'hospital': Hospital_Detail.objects.all(),
+                'hospital_city_wise': Hospital_Detail.objects.all()})
+        return render(request, 'user/login.html', {
+            'success': success, 'package_dict': package_dict,
+            'hospital': Hospital_Detail.objects.all(),
+            'deal_offers': Deals_and_Offer.objects.all(),
+            'hospital_city_wise': Hospital_Detail.objects.all()})
+    return render(request, "user/create_new_account.html", {
+        'package_dict': package_dict,
+        'hospital': Hospital_Detail.objects.all(),
+        'deal_offers': Deals_and_Offer.objects.all(),
+        'hospital_city_wise': Hospital_Detail.objects.all()})
 
 
 def forgot_password(request):
@@ -433,6 +461,7 @@ def forgot_password(request):
                           {
                               'error': email + ' do not exist in database', 'package_dict': package_dict,
                               'hospital': Hospital_Detail.objects.all(),
+                              'deal_offers': Deals_and_Offer.objects.all(),
                               'hospital_city_wise': Hospital_Detail.objects.all()
                           })
         else:
@@ -445,6 +474,7 @@ def forgot_password(request):
                            # 'disabled':'disabled',
                            'content': 'content',
                            'package_dict': package_dict,
+                           'deal_offers': Deals_and_Offer.objects.all(),
                            'hospital': Hospital_Detail.objects.all(),
                            'hospital_city_wise': Hospital_Detail.objects.all()
                            })
@@ -460,6 +490,7 @@ def forgot_password(request):
                            'disabled': 'disabled',
                            'content': 'content',
                            'package_dict': package_dict,
+                           'deal_offers': Deals_and_Offer.objects.all(),
                            'hospital': Hospital_Detail.objects.all(),
                            'hospital_city_wise': Hospital_Detail.objects.all()
                            })
@@ -469,6 +500,7 @@ def forgot_password(request):
                            'email': email,
                            'disabled': 'disabled',
                            'content': 'content',
+                           'deal_offers': Deals_and_Offer.objects.all(),
                            'package_dict': package_dict,
                            'hospital': Hospital_Detail.objects.all(),
                            'hospital_city_wise': Hospital_Detail.objects.all()
@@ -486,15 +518,23 @@ def forgot_password(request):
                     User.password = password
                     User.save()
             else:
-                return render(request, 'user/forgot_password.html', {'error': 'No User found with given E-mail', 'package_dict': package_dict,
-                                                                     'hospital': Hospital_Detail.objects.all(),
-                                                                     'hospital_city_wise': Hospital_Detail.objects.all()})
-        return render(request, 'user/login.html', {'success': 'password changed successfully', 'package_dict': package_dict,
-                                                   'hospital': Hospital_Detail.objects.all(),
-                                                   'hospital_city_wise': Hospital_Detail.objects.all()})
-    return render(request, 'user/forgot_password.html', {'package_dict': package_dict,
-                                                         'hospital': Hospital_Detail.objects.all(),
-                                                         'hospital_city_wise': Hospital_Detail.objects.all()})
+                return render(request, 'user/forgot_password.html', {
+                    'error': 'No User found with given E-mail',
+                    'package_dict': package_dict,
+                    'deal_offers': Deals_and_Offer.objects.all(),
+                    'hospital': Hospital_Detail.objects.all(),
+                    'hospital_city_wise': Hospital_Detail.objects.all()})
+        return render(request, 'user/login.html', {
+            'success': 'password changed successfully',
+            'package_dict': package_dict,
+            'hospital': Hospital_Detail.objects.all(),
+            'deal_offers': Deals_and_Offer.objects.all(),
+            'hospital_city_wise': Hospital_Detail.objects.all()})
+    return render(request, 'user/forgot_password.html', {
+        'deal_offers': Deals_and_Offer.objects.all(),
+        'package_dict': package_dict,
+        'hospital': Hospital_Detail.objects.all(),
+        'hospital_city_wise': Hospital_Detail.objects.all()})
 
 
 def customer_dashboard(request):

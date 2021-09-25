@@ -118,7 +118,7 @@
 
     @keyframes marquee1 {
         0% {
-            transform: translateY(-30%);
+            transform: translateY(-40%);
         }
 
         50% {
@@ -126,7 +126,7 @@
         }
 
         100% {
-            transform: translateY(-30%);
+            transform: translateY(-50%);
         }
     }
 </style>
@@ -190,8 +190,7 @@
                         <a class="nav-link" href="/contact_us" tabindex="-1">Contact Us</a>
                     </li>
                 </ul>
-                <form class="d-flex" action="/hospital_search" method="POST"
-                    style="margin-right: 1%;">
+                <form class="d-flex" action="/hospital_search" method="POST" style="margin-right: 1%;">
                     {% csrf_token%}
                     <input class="form-control" name="search_by_pin" style="border-radius: 5px 0 0 5px;" type="number"
                         placeholder="Search by Pin" aria-label="Search" value="{{search_by_pin}}" required>
@@ -222,6 +221,7 @@
                         <br>
                         {% for i in hospital_city_wise %}
                         <div class="hospital_name">
+                            <p>{{i.hospital_city}}</p>
                             <h6>{{i}}</h6>
                             <div>
                                 <p>{{i.hospital_pin}}</p>
@@ -281,6 +281,19 @@
             </div>
             <div class="mini deals">
                 Deals
+                <div class="accordion accordion-flush" style="height: 100%" id="accordionFlushExample">
+                    <ul class="hospitals" style="text-align: left;height: 80%">
+                        <br>
+                        {% for i in deal_offers %}
+                        <div class="hospital_name">
+                            <h4>{{i.offer_name}}</h4>
+                            <div>
+                                <h6>{{i.offer_message}}</h6>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
