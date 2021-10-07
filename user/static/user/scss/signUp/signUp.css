@@ -30,7 +30,7 @@ div.signInUp div.Login label.option:hover {
 }
 
 div.signInUp div.Login input.option:checked + label.option {
-  background-color: blue;
+  background-color: #ff844f;
   color: white;
 }
 
@@ -46,8 +46,8 @@ div.signInUp div.Login div.fill div.service_boy {
   top: 0;
   left: 0;
   padding: 20px;
-  border: 3px solid blue;
-  border-radius: 20px;
+  border: 2px solid gray;
+  border-radius: 10px;
 }
 
 div.signInUp div.Login div.fill div.customer a,
@@ -63,7 +63,7 @@ div.signInUp div.Login div.fill div.service_boy select {
   width: 40%;
   padding: 10px;
   font-size: 15px;
-  border: 1px solid blue;
+  border: 1px solid gray;
   color: black;
   outline: none;
   border-radius: 5px;
@@ -78,7 +78,7 @@ div.signInUp div.Login div.fill div.service_boy select {
 div.signInUp div.Login div.fill div.customer input.submit,
 div.signInUp div.Login div.fill div.service_boy input.submit {
   width: 40%;
-  background-color: blue;
+  background-color: #ff844f;
   font-size: 20px;
   color: white;
   outline: none;
@@ -88,7 +88,7 @@ div.signInUp div.Login div.fill div.service_boy input.submit {
 div.signInUp div.Login div.fill div.customer input.submit:hover,
 div.signInUp div.Login div.fill div.service_boy input.submit:hover {
   cursor: pointer;
-  background-color: #0606bd;
+  background-color: #ee7946;
 }
 
 div.signInUp div.Login div.fill div.hide {
@@ -104,7 +104,7 @@ div.signInUp div.Login div.fill div.signup-service_boy input, div.signInUp div.L
   width: 40%;
   padding: 10px;
   font-size: 15px;
-  border: 1px solid blue;
+  border: 1px solid gray;
   color: black;
   outline: none;
   border-radius: 5px;
@@ -114,3 +114,107 @@ div.signInUp div.Login div.fill div.signup-service_boy select {
   width: 42%;
 }
 /*# sourceMappingURL=signUp.css.map */
+
+a.back,a.next {
+  border: 2px solid #ff844f;
+  padding: 10px;
+  border-radius: 50%;
+  transition: 0.3s ease-in-out;
+  margin: 20%;
+}
+
+a.back svg{
+  transform: rotate(-90deg);
+}
+
+a.next svg{
+  transform: rotate(90deg);
+}
+
+a.back:hover, a.next:hover {
+  background-color: #ff844f;
+  transition: 0.3s ease-in-out;
+}
+
+a.back:hover svg path,
+a.next:hover svg path  {
+  fill: white;
+  transition: 0.3s ease-in-out;
+}
+
+div.progress {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  width: 25%;
+  height: 2px;
+  background-color: #ff844f;
+  transition: 0.5s ease-in-out;
+}
+
+.with_service_boy {
+  cursor: pointer;
+}
+
+.display {
+  display: none;
+}
+
+div.bootstrap-tagsinput {
+  width: 60%;
+}
+
+div.bootstrap-tagsinput input {
+  float: right;
+}
+
+span.label-info {
+  background-color: blue;
+  padding: 1%;
+  font-size: 17px;
+  float: left;
+}
+
+.message {
+  display: none;
+  color: #000;
+  position: relative;
+  padding: 0px 20px 0 100px;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.message p {
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -10px;
+  content: "✅";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+  margin-right: 10px;
+  flex: none;
+  width: max-content;
+}
+
+.invalid:before {
+  position: relative;
+  left: -10px;
+  content: "❌";
+}
+
+.disabled {
+  cursor: grab;
+}

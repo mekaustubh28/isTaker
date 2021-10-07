@@ -6,102 +6,9 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'user/scss/signInUp/signInUp.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'user/scss/hospital/hospital.css' %}">
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}"> -->
-<style>
-  div.tabs {
-    width: 100%;
-    text-align: left;
-  }
 
-  div.available {
-    border: 3px solid blue;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-
-  span.pin {
-    padding: 4px 10px;
-    margin-left: 20px;
-    border-radius: 4px;
-    color: white;
-    background-color: #0d6efd;
-  }
-
-  div.hospital {
-    background-color: rgba(128, 128, 128, 0.034);
-    display: flex;
-    text-align: left;
-    width: 70%;
-    margin: 4% auto;
-    border: 1px solid gray;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.1s ease-in-out;
-    position: relative;
-  }
-
-  div.suggested_place {
-    width: 100%;
-  }
-
-  div.search_by_place {
-    display: flex;
-    width: 100%;
-    margin: 0;
-    justify-content: space-around;
-  }
-
-  div.hospital:hover {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    transition: 0.1s ease-in-out;
-  }
-
-  .select {
-    box-shadow: rgba(0, 0, 0, 0.651) 0px 5px 15px;
-  }
-
-  div.hospital div {
-    margin: 1% 2%;
-  }
-
-  img.hospital_image {
-    border-radius: 50%;
-    border: 1px solid gray;
-    padding: 10px;
-  }
-
-  div.hospital_info h2 {
-    margin-top: 10%;
-  }
-
-  form.hospital_submit {
-    position: absolute;
-    right: 17%;
-  }
-
-  form.hospital_submit button {
-    padding: 10px 20px;
-    font-size: large;
-  }
-
-  input.checkbox {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    border-radius: 50%;
-    transform: scale(1.5);
-  }
-
-  #display {
-    display: block;
-  }
-
-  #no-display {
-    display: none;
-  }
-</style>
 {% endblock %}
 
 
@@ -139,12 +46,13 @@
           </div>
         </div>
         {% endfor %}
+        
         <div class="suggest_hospitals">
           <h2 style="margin-top: 20%;">Hospitals Near By</h2>
           <h6>{{no_suggestion}}</h6>
           {% for i in suggest_place %}
-          <div class="card" style="width: 18rem;margin:10px;">
-            <a href="" style="color: black; text-decoration:none;">
+          <div class="card" style="width: 18rem;margin:10px;background-color:rgba(128, 128, 128, 0.034);border:1px solid gray;">
+            <a style="color: black; text-decoration:none;">
               <div class="card-body">
                 <h5 class="card-title">{{i.hospital_name}}</h5>
                 <hr>

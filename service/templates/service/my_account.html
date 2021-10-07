@@ -4,156 +4,12 @@
 
 {% block stylesheet %}
 {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'service/scss/my_account/my_account.css' %}">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<style>
-    span img.edit_info {
-        margin-left: 30px;
-        padding: 5px;
-        width: 30px;
-        transition: 0.3s ease-in-out;
-    }
 
-    span img.edit_info:hover {
-        background-color: rgba(128, 128, 128, 0.233);
-        transition: 0.3s ease-in-out;
-        cursor: pointer;
-    }
-
-    div.info_control {
-        display: flex;
-        width: 100%;
-    }
-
-    div.info_panel {
-        width: 30%;
-    }
-
-    div.info_change {
-        width: 70%;
-    }
-
-    div.name {
-        padding: 10px;
-        display: flex;
-        margin: 10px;
-    }
-
-    div.greeting span {
-        font-size: 80%;
-    }
-
-    div.img {
-        margin-right: 20px;
-    }
-
-    div.sidebar {
-        margin: 0 10px 10px 10px;
-    }
-
-    div.sidebar ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        border-bottom: 1px solid rgba(128, 128, 128, 0.24);
-    }
-
-    li.order_select:hover {
-        cursor: pointer;
-        background-color: #ff4d0034;
-    }
-
-    li.order_select:hover a {
-        color: #ff844f;
-    }
-
-    ul.category li {
-        text-transform: uppercase;
-        color: rgb(61, 61, 61);
-        padding: 10px 30px 10px 10px;
-        font-size: 1.1vw;
-    }
-
-    ul.subcategory li {
-        cursor: pointer;
-        padding: 10px 85px;
-        font-size: 1vw;
-        font-weight: 300;
-    }
-
-    ul.subcategory li:hover {
-        font-weight: 400;
-        background-color: #ff4d0034;
-        border-bottom: 1px solid #ff844f6e;
-        color: #ff844f;
-    }
-
-    .active_link {
-        font-weight: 400 !important;
-        background-color: #ff4d0034;
-        border-bottom: 1px solid #ff844f6e;
-        color: #ff844f;
-    }
-
-    div.info_change {
-        margin: 10px 10px 10px 0;
-        padding: 20px;
-    }
-
-    div.name,
-    div.sidebar,
-    div.info_change {
-        border: 1px solid rgb(190, 190, 190);
-        background-color: rgba(209, 209, 209, 0.13);
-    }
-
-    div.customer_name {
-        display: flex;
-    }
-
-    div.customer_name div {
-        flex: none;
-        margin: 10px 30px 10px 0;
-    }
-
-    label.label_info {
-        font-weight: 500;
-        margin: 0px 0 0px 20px;
-        font-size: 20px;
-    }
-
-    button.save {
-        text-align: center;
-        padding: 5px 40px;
-        border: none;
-        color: white;
-        outline: 1px solid #ff844f;
-        background-color: #ff844f;
-    }
-
-    .noshow {
-        display: none;
-    }
-
-    div.email_mobile,
-    div.state_city_pin {
-        display: flex;
-    }
-
-    a.orders {
-        text-decoration: none !important;
-        color: black;
-        padding: 10px 30px 10px 10px;
-    }
-
-    a.change_password {
-        text-decoration: underline;
-        cursor: pointer;
-    }
-</style>
 {% endblock %}
 
 {% block body %}
-<!-- {{Active_User}} -->
 <br><br>
 <div class="my_account">
     <h2>Profile Section</h2>
@@ -169,7 +25,7 @@
                 <div class="orders">
                     <ul class="category">
                         <li class="order_select">
-                            <a href="/customer_dashboard/{{Active_User.customer_id}}/orders" class="orders">
+                            <a href="/customer_dashboard/{{Active_User.customer_id}}/orders" target="_blank" class="orders">
                                 <span style="margin-right: 20px;">
                                     <img src="{% static 'service/images/order.png' %}" alt="" width="40px">
                                 </span>
@@ -249,7 +105,8 @@
                                     alt="" width="20px">
                             </span>
                         </label>
-                        <form action="">
+                        <form action="" method="POST">
+                            {%csrf_token%}
                             <div class="customer_name">
                                 <div class="form-floating">
                                     <input type="email" class="form-control email" name="email"
@@ -267,7 +124,8 @@
                                     alt="" width="20px">
                             </span>
                         </label>
-                        <form action="">
+                        <form action="" method="POST">
+                            {%csrf_token%}
                             <div class="customer_name">
                                 <div class="form-floating">
                                     <input type="number" class="form-control mobile" name="mobile"
@@ -280,7 +138,7 @@
                         </form>
                     </div>
                 </div><br>
-                <a class="change_password">Change Password</a>
+                <a href="/forgot_password" class="change_password">Change Password</a>
             </div>
             <div class="section address noshow">
                 <div class="address">
@@ -290,6 +148,7 @@
                         </span>
                     </label>
                     <form action="">
+                        {%csrf_token%}
                         <div class="customer_name">
                             <div class="form-floating">
                                 <input class="form-control address" name="address" placeholder="{{Active_User.address}}"
@@ -308,10 +167,11 @@
                                     alt="" width="20px">
                             </span>
                         </label>
-                        <form action="">
+                        <form action="" method="POST">
+                            {%csrf_token%}
                             <div class="customer_name">
                                 <div class="form-floating">
-                                    <select class="form-select state form-select-lg mb-3" id="state"
+                                    <select name="state" class="form-select state form-select-lg mb-3" id="state"
                                         aria-label=".form-select-lg example" disabled
                                         style="margin-bottom: 0!important;">
                                         <option selected>{{Active_User.state}}</option>
@@ -331,7 +191,8 @@
                                     src="{% static 'service/images/edit.png' %}" alt="" width="20px">
                             </span>
                         </label>
-                        <form action="">
+                        <form action="" method="POST">
+                            {%csrf_token%}
                             <div class="customer_name">
                                 <div class="form-floating">
                                     <input class="form-control city" name="city_village"
@@ -350,7 +211,8 @@
                                     width="20px">
                             </span>
                         </label>
-                        <form action="">
+                        <form action="" method="POST">
+                            {%csrf_token%}
                             <div class="customer_name">
                                 <div class="form-floating">
                                     <input class="form-control pin" type="number" name="PIN"
@@ -394,64 +256,6 @@
 {% block javascript %}
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $('li.link').click(function () {
-        $('li.link').removeClass('active_link')
-        $(this).addClass('active_link')
-    })
-    $('li.section').click(function () {
-        var id = $(this).attr('id')
-        $('div.section').addClass('noshow')
-        $('div.' + id).removeClass('noshow')
-    })
-    $('span#name').click(function () {
-        console.log('wprking')
-        $('input.name').attr('disabled', false)
-        $('button.name').removeClass('noshow')
-    })
-    $('span#father_name').click(function () {
-        console.log('wprking')
-        $('input.father_name').attr('disabled', false)
-        $('button.father_name').removeClass('noshow')
-    })
-    $('span#email').click(function () {
-        console.log('wprking')
-        $('input.email').attr('disabled', false)
-        $('button.email').removeClass('noshow')
-    })
-    $('span#mobile').click(function () {
-        console.log('wprking')
-        $('input.mobile').attr('disabled', false)
-        $('button.mobile').removeClass('noshow')
-    })
-
-    $('span#address').click(function () {
-        console.log('wprking')
-        $('input.address').attr('disabled', false)
-        $('button.address').removeClass('noshow')
-    })
-
-    $('span#state').click(function () {
-        console.log('wprking')
-        $('select.state').attr('disabled', false)
-        $('button.state').removeClass('noshow')
-    })
-
-    $('span#city').click(function () {
-        console.log('wprking')
-        $('input.city').attr('disabled', false)
-        $('button.city').removeClass('noshow')
-    })
-    $('span#pin').click(function () {
-        console.log('wprking')
-        $('input.pin').attr('disabled', false)
-        $('button.pin').removeClass('noshow')
-    })
-    $('span#adhaar').click(function () {
-        console.log('wprking')
-        $('input.adhaar').attr('disabled', false)
-        $('button.adhaar').removeClass('noshow')
-    })
-</script>
 <script src="{% static 'service/js/customer_dashboard.js' %}"></script>
+<script src="{% static 'service/js/my_account.js' %}"></script>
 {% endblock %}

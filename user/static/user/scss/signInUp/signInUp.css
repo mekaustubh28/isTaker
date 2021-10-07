@@ -8,6 +8,23 @@ body * {
   padding: 0;
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+div.choice {
+  display: flex;
+  width: 100% !important;
+  width: max-content;
+}
+
+div.choice input {
+  width: 5% !important;
+  ;
+}
+
 body div.signInUp {
   width: 100%;
 }
@@ -37,8 +54,8 @@ body div.signInUp div.Login label.option:hover {
   transition: 0.3s ease-in-out;
 }
 
-body div.signInUp div.Login input.option:checked + label.option {
-  background-color: blue;
+body div.signInUp div.Login input.option:checked+label.option {
+  background-color: #ff844f;
   color: white;
 }
 
@@ -55,8 +72,8 @@ body div.signInUp div.Login div.fill div.service_boy {
   top: 0;
   left: 0;
   padding: 20px;
-  border: 3px solid blue;
-  border-radius: 20px;
+  border: 2px solid gray;
+  border-radius: 10px;
 }
 
 body div.signInUp div.Login div.fill div.customer a,
@@ -70,16 +87,50 @@ body div.signInUp div.Login div.fill div.service_boy input {
   width: 80%;
   padding: 10px;
   font-size: 15px;
-  border: 1px solid blue;
+  border: 1px solid gray;
   outline: none;
   color: black;
   border-radius: 5px;
 }
 
+input[type='radio']{
+  opacity: 0;
+}
+
+div.choice label:before {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: 2px;
+  left: -10px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+
+div.choice input[type=radio]:checked + label:before {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: 2px;
+  left: -10px;
+  position: relative;
+  background-color: #ffa500;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+
 body div.signInUp div.Login div.fill div.customer input.submit,
 body div.signInUp div.Login div.fill div.service_boy input.submit {
   width: 40%;
-  background-color: blue;
+  background-color: #ff844f;
   font-size: 20px;
   color: white;
   outline: none;
@@ -89,10 +140,12 @@ body div.signInUp div.Login div.fill div.service_boy input.submit {
 body div.signInUp div.Login div.fill div.customer input.submit:hover,
 body div.signInUp div.Login div.fill div.service_boy input.submit:hover {
   cursor: pointer;
-  background-color: #0606bd;
+  background-color:#ee7946;
 }
 
 body div.signInUp div.Login div.fill div.hide {
   display: none;
 }
+
 /*# sourceMappingURL=signInUp.css.map */
+

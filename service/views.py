@@ -50,10 +50,28 @@ def my_account(request, myid):
                 first_name = request.POST.get('first_name','')
                 last_name = request.POST.get('last_name','')
                 father_name = request.POST.get('father_name', '')
+                email = request.POST.get('email', '')
+                mobile = request.POST.get('mobile', '')
+                address = request.POST.get('address', '')
+                state = request.POST.get('state', '')
+                city_village = request.POST.get('city_village', '')
+                PIN = request.POST.get('PIN', '')
                 if first_name != '':
                     Customer_User.update(first_name=first_name, last_name=last_name)
                 if father_name != '':
                     Customer_User.update(father_husband_name=father_name)
+                if email != '':
+                    Customer_User.update(email=email)
+                if mobile != '':
+                    Customer_User.update(mobile=mobile)
+                if address != '':
+                    Customer_User.update(address=address)
+                if state != '':
+                    Customer_User.update(state=state)
+                if city_village != '':
+                    Customer_User.update(city_village=city_village)
+                if PIN != '':
+                    Customer_User.update(PIN=PIN)
                 return redirect('/customer_dashboard/' + str(myid) + '/my_account')
 
             return render(request, "service/my_account.html", {
@@ -196,7 +214,7 @@ def service_boy_on_way(request, myid):
             while len(customer_exist) == 0:
                 if(time.time()-start_time < 1.1):
                     time.sleep(1)
-                if(time.time()-start_time < 60.1):
+                if(time.time()-start_time < 15.1):
                     hospital = Hospital_Detail.objects.filter(
                         hospital_id=int(Active_Service['hospital_id']))[0]
                     # print(50, hospital)
@@ -518,7 +536,7 @@ def search(request, myid):
 
                 service_boys_available = Service_Boy.objects.filter(
                     pin_serve__contains=hospital_pin, status=True, available=True)
-
+                
                 # print(Active_User['PIN'])
                 try:
                     return render(request, "service/search.html", {

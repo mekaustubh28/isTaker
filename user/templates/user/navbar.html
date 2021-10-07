@@ -20,120 +20,14 @@
 </head>
 
 <style>
-    button.btn:hover path.search {
-        fill: white;
-    }
-
-    div.cart {
-        position: relative;
-        width: 40px;
-    }
-
-    div.cart svg {
-        right: 40px;
-    }
-
-    span.items {
-        position: absolute;
-        right: 0;
-        border: 1px solid red;
-        padding: 0 5px 0 5px;
-        border-radius: 50%;
-        background-color: red;
-    }
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    /* Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-
-    li.cart-items {
-        margin: 0;
-        border-bottom: 1px solid rgba(128, 128, 128, 0.219);
-    }
-
-    button.cart_submit {
-        border: 0px;
-        margin: 0;
-        background-color: transparent;
-        padding: 10px;
-    }
-
-    div.hospital_name {
-        padding: 10px 0px 0px 10px;
-        border-bottom: 1px solid gray;
-    }
-
-    div.hospital_name p {
-        margin: 0;
-        font-size: small;
-        margin-right: 5%;
-    }
-
-    div.hospital_name h6 {
-        margin: 0;
-    }
-
-    div.hospital_name div {
-        display: flex;
-    }
-
-    input.rating_star {
+    .hidden{
         display: none;
-    }
-
-    label.fas {
-        color: rgb(255, 216, 21);
-        margin-top: 1.5%;
-        font-size: x-small;
-    }
-
-    ul.hospitals {
-        padding: 0;
-    }
-
-    div.all_city_list {
-        overflow: hidden;
-    }
-
-    div.all_city_list ul {
-        animation: marquee1 8s linear infinite;
-
-    }
-
-    div.all_service_list {
-        overflow: hidden;
-    }
-
-    div.all_service_list ul {
-        animation: marquee1 8s linear infinite;
-        overflow: hidden;
-    }
-
-    @keyframes marquee1 {
-        0% {
-            transform: translateY(-40%);
-        }
-
-        50% {
-            transform: translateY(0);
-        }
-
-        100% {
-            transform: translateY(-50%);
-        }
     }
 </style>
 
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"
+        style="position: fixed;top: 0;left: 0%;background-color: #fff!important;box-shadow: 1px 0px 5px black;z-index: 9;">
         <div class="container-fluid">
             <a href="/"><img class="logo" src="{% static 'service_boy/images/isTaker.png' %}" alt="logo.png"
                     width="100px" style="margin-right: 20px;"></a>
@@ -154,10 +48,11 @@
                         <option value="{{hospital}}">
                             {% endfor %}
                     </datalist>
-                    <button id="btn_search_by_place" class="btn btn-outline-primary" style="border-radius: 0 5px 5px 0;"
-                        type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                    <button id="btn_search_by_place" class="btn btn-outline-primary"
+                        style="border-radius: 0 5px 5px 0;border-color:#ff844f" type="submit"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
                             class="svelte-gvo0bu">
-                            <path fill="blue" class="search"
+                            <path fill="#ff844f" class="search"
                                 d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
                             </path>
                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -194,10 +89,11 @@
                     {% csrf_token%}
                     <input class="form-control" name="search_by_pin" style="border-radius: 5px 0 0 5px;" type="number"
                         placeholder="Search by Pin" aria-label="Search" value="{{search_by_pin}}" required>
-                    <button id="btn_search_by_pin" class="btn btn-outline-primary" style="border-radius: 0 5px 5px 0;"
-                        type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                    <button id="btn_search_by_pin" class="btn btn-outline-primary"
+                        style="border-radius: 0 5px 5px 0;border-color:#ff844f" type="submit"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
                             class="svelte-gvo0bu">
-                            <path fill="blue" class="search"
+                            <path fill="#ff844f" class="search"
                                 d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
                             </path>
                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -206,21 +102,25 @@
                 </form>
                 <form action="/login" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-primary mx-2">Login</button>
+                    <button type="submit" class="btn btn-primary mx-2 button_props">Login</button>
                 </form>
             </div>
         </div>
     </nav>
 
-    <div class="top-container">
+    <div class="top-container" style="margin-top: 70px;">
         <div class="container side left-container">
             <div class="mini top-rated" style="overflow:hidden;">
-                Top Rated Spot Filter on City Wise
+                <div class="Hotbg">
+                    <input type="text" name="" id="input_search_by_city" class="Hotbg-txt" placeholder="Search By City">
+                </div>
+                <span class="heading">Top Rated Spot Filter on City Wise</span>
+                <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
                 <div class="accordion accordion-flush all_city_list" style="height: 100%" id="accordionFlushExample">
-                    <ul class="hospitals" style="text-align: left;height: 80%">
+                    <ul class="hospitals top_rated_hospital_citywise" id="" style="text-align: left;height: 80%">
                         <br>
                         {% for i in hospital_city_wise %}
-                        <div class="hospital_name">
+                        <div class="hospital_name hospital_name_city_wise" id="{{forloop.counter}}">
                             <p>{{i.hospital_city}}</p>
                             <h6>{{i}}</h6>
                             <div>
@@ -255,10 +155,12 @@
                 </div>
             </div>
             <div class="mini all-services" style="overflow: hidden;">
-                All Service List
+                <span class="heading">All Service List</span>
+                <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
+
                 <div class="accordion accordion-flush all_service_list" style="height: 100%;overflow:hidden"
                     id="accordionFlushExample">
-                    <ul style="text-align: left;">
+                    <ul style="text-align: left;padding:0">
                         <br>
                         {% for i in package_dict %}
                         <ul id="package{{forloop.counter}}">
@@ -277,10 +179,14 @@
         </div>
         <div class="container side right-container">
             <div class="mini top-rated">
-                Top Rating City
+                <span class="heading">Top Rating City</span>
+                <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
+
             </div>
             <div class="mini deals">
-                Deals
+                <span class="heading">Deals and Offers</span>
+                <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
+
                 <div class="accordion accordion-flush" style="height: 100%" id="accordionFlushExample">
                     <ul class="hospitals" style="text-align: left;height: 80%">
                         <br>
@@ -305,6 +211,20 @@
     <script>
         $('button.cart_submit').click(function () {
             $('input#cart_value_id').attr('value', $(this).attr('value'))
+        })
+        $('input#input_search_by_city').on('change keyup paste', function () {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("input_search_by_city")
+            filter = input.value;
+            // console.log(filter, typeof(filter))
+            div = document.getElementsByClassName('hospital_name_city_wise');
+            console.log(div)
+            $('div.hospital_name_city_wise').addClass('hidden');
+            for (i = 0; i < div.length; i++) {
+                if (div[i].innerText.toLowerCase().indexOf(filter.toLowerCase()) != -1) {
+                    $('div#' + div[i].id).removeClass('hidden')
+                }
+            }
         })
     </script>
     <script src="{% static 'user/js/navbar.js' %}"></script>

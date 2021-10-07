@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $('input#search_filter').on('change keyup paste', function () {
         var input, filter, ul, li, a, i, txtValue;
         input = document.getElementById("search_filter")

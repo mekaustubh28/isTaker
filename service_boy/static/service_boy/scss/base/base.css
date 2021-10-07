@@ -1,0 +1,62 @@
+div.middle-container {
+    width: 100%;
+}
+
+nav.navbar {
+    position: fixed;
+    top: 0;
+    left: 0%;
+    background-color: #fff !important;
+    box-shadow: 1px 0px 5px black;
+    z-index: 9;
+}
+
+div.top-container {
+    margin-top: 60px;
+    background-color: rgba(128, 128, 128, 0.048);
+}
+
+button.btn:hover path.search {
+    fill: white;
+}
+
+div.cart {
+    position: relative;
+    width: 40px;
+}
+
+div.cart svg {
+    right: 40px;
+}
+
+span.items {
+    position: absolute;
+    right: 0;
+    border: 1px solid red;
+    padding: 0 5px 0 5px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+li.cart-items {
+    margin: 0;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.219);
+}
+
+button.cart_submit {
+    border: 0px;
+    margin: 0;
+    background-color: transparent;
+    padding: 10px;
+}

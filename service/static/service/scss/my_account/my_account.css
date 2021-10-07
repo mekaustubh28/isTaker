@@ -1,0 +1,143 @@
+span img.edit_info {
+    margin-left: 30px;
+    padding: 5px;
+    width: 30px;
+    transition: 0.3s ease-in-out;
+}
+
+span img.edit_info:hover {
+    background-color: rgba(128, 128, 128, 0.233);
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+div.info_control {
+    display: flex;
+    width: 100%;
+}
+
+div.info_panel {
+    width: 30%;
+}
+
+div.info_change {
+    width: 70%;
+}
+
+div.name {
+    padding: 10px;
+    display: flex;
+    margin: 10px;
+}
+
+div.greeting span {
+    font-size: 80%;
+}
+
+div.img {
+    margin-right: 20px;
+}
+
+div.sidebar {
+    margin: 0 10px 10px 10px;
+}
+
+div.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.24);
+}
+
+li.order_select:hover {
+    cursor: pointer;
+    background-color: #ff4d0034;
+}
+
+li.order_select:hover a {
+    color: #ff844f;
+}
+
+ul.category li {
+    text-transform: uppercase;
+    color: rgb(61, 61, 61);
+    padding: 10px 30px 10px 10px;
+    font-size: 1.1vw;
+}
+
+ul.subcategory li {
+    cursor: pointer;
+    padding: 10px 85px;
+    font-size: 1vw;
+    font-weight: 300;
+}
+
+ul.subcategory li:hover {
+    font-weight: 400;
+    background-color: #ff4d0034;
+    border-bottom: 1px solid #ff844f6e;
+    color: #ff844f;
+}
+
+.active_link {
+    font-weight: 400 !important;
+    background-color: #ff4d0034;
+    border-bottom: 1px solid #ff844f6e;
+    color: #ff844f;
+}
+
+div.info_change {
+    margin: 10px 10px 10px 0;
+    padding: 20px;
+}
+
+div.name,
+div.sidebar,
+div.info_change {
+    border: 1px solid rgb(190, 190, 190);
+    background-color: rgba(209, 209, 209, 0.13);
+}
+
+div.customer_name {
+    display: flex;
+}
+
+div.customer_name div {
+    flex: none;
+    margin: 10px 30px 10px 0;
+}
+
+label.label_info {
+    font-weight: 500;
+    margin: 0px 0 0px 20px;
+    font-size: 20px;
+}
+
+button.save {
+    text-align: center;
+    padding: 5px 40px;
+    border: none;
+    color: white;
+    outline: 1px solid #ff844f;
+    background-color: #ff844f;
+}
+
+.noshow {
+    display: none;
+}
+
+div.email_mobile,
+div.state_city_pin {
+    display: flex;
+}
+
+a.orders {
+    text-decoration: none !important;
+    color: black;
+    padding: 10px 30px 10px 10px;
+}
+
+a.change_password {
+    text-decoration: underline;
+    cursor: pointer;
+}

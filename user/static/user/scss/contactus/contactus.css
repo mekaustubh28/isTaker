@@ -1,0 +1,18 @@
+div.contact_us {
+    width: max-content;
+    margin: 2% auto;
+    background-color: rgba(128, 128, 128, 0.041);
+    padding: 30px;
+    border-radius: 2px;
+    border: 1px solid gray;
+}
+
+div.row {
+    justify-content: space-around;
+}
+
+div.address {
+    margin-top: 50px;
+    font-weight: 400;
+    width: max-content;
+}

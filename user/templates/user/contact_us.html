@@ -1,35 +1,11 @@
-{% extends 'user/navbar.html' %}
-
-{% block title %} isTaker - Contact Us {% endblock %}
-
-{% block stylesheet %}
+{% extends 'user/navbar.html' %} {% block title %} isTaker - Contact Us {% endblock %} {% block stylesheet %}
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'user/scss/signInUp/signInUp.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'user/scss/contactus/contactus.css' %}">
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}"> -->
-<style>
-  div.contact_us {
-    width: max-content;
-    margin: 2% auto;
-    background-color: rgba(128, 128, 128, 0.048);
-    padding: 30px;
-    border-radius: 10px;
-  }
 
-  div.row {
-    justify-content: space-around;
-  }
-
-  div.address {
-    margin-top: 50px;
-    font-weight: 400;
-    width: max-content;
-  }
-</style>
-{% endblock %}
-
-
-{% block body %}
+{% endblock %} {% block body %}
 <div class="contact_us">
   <h1>Contact Us</h1>
   <section class="form-section">
@@ -87,12 +63,12 @@
       </div>
       <div class="col-md-6 address">
         <h5>Call Us / Whatsapp</h5>
-        <p><a href="https://wa.me/+919874563210" target="_blank"><i class="fas fa-phone"> +(91) 9874563210</i></a><br>
+        <p><a style="color: #fd7034!important;" href="https://wa.me/+919874563210" target="_blank"><i class="fas fa-phone"> +(91) 9874563210</i></a><br>
         </p>
         <h5>Email / Website</h5>
         <p>
-          <a href="mailto:isTaker@gmail.com" target="_blank"><i class="fas fa-envelope"></i> isTaker@gmail.com</a><br>
-          <a href="/" target="_blank"><i class="fas fa-globe"></i> www.isTaker.herokuapp.com</a>
+          <a style="color: #fd7034!important;" href="mailto:isTaker@gmail.com" target="_blank"><i class="fas fa-envelope"></i> isTaker@gmail.com</a><br>
+          <a style="color: #fd7034!important;" href="/" target="_blank"><i class="fas fa-globe"></i> www.isTaker.herokuapp.com</a>
         </p>
         <h5>Calling Hours</h5>
         <p>Mon - Fri : 9am - 6pm (IST) </p>
@@ -110,11 +86,8 @@
   </section>
 </div>
 
-{% endblock %}
-
-{% block javascript %}
+{% endblock %} {% block javascript %}
 <script src="{% static 'user/js/signIn.js' %}"></script>
 <script>
-
 </script>
 {% endblock %}

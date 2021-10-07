@@ -1,4 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+/* CSS for scroller */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.Hotbg {
+  height: 20px;
+  background: #fff;
+}
+
+.Hotbg-txt {
+  /* background-color: red; */
+  outline: none;
+  margin-bottom: 10px;
+  float: left;
+  padding-left: 10px;
+  font-size: 16px;
+  transition: 0.4s;
+  width: 100%;
+  height: 30px;
+  line-height: 40px;
+}
+
 body {
   -webkit-transition: all 0.3s ease-in-out 0s;
   transition: all 0.3s ease-in-out 0s;
@@ -6,10 +46,132 @@ body {
   transition: all .3s ease 0s;
   background-size: cover;
   background-position: center center;
-  height: 100%;
+  /* height: 100%; */
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
   font-size: 16px;
+}
+
+button.button_props {
+  background-color: #ff844f;
+  border-color: #ff844f;
+}
+
+button.button_props:hover {
+  background-color: #ee7946;
+  border-color: #ee7946;
+}
+
+div.top-container {
+  background-color: rgba(128, 128, 128, 0.048);
+}
+
+button.btn:hover path.search {
+  fill: white;
+}
+
+div.cart {
+  position: relative;
+  width: 40px;
+}
+
+div.cart svg {
+  right: 40px;
+}
+
+span.items {
+  position: absolute;
+  right: 0;
+  padding: 0 5px 0 5px;
+  border-radius: 50%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+li.cart-items {
+  margin: 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.219);
+}
+
+button.cart_submit {
+  border: 0px;
+  margin: 0;
+  background-color: transparent;
+  padding: 10px;
+}
+
+div.hospital_name {
+  padding: 10px 0px 0px 10px;
+  border-bottom: 1px solid gray;
+}
+
+div.hospital_name p {
+  margin: 0;
+  font-size: small;
+  margin-right: 5%;
+}
+
+div.hospital_name h6 {
+  margin: 0;
+}
+
+div.hospital_name div {
+  display: flex;
+}
+
+input.rating_star {
+  display: none;
+}
+
+label.fas {
+  color: rgb(255, 216, 21);
+  margin-top: 1.5%;
+  font-size: x-small;
+}
+
+ul.hospitals {
+  padding: 0;
+}
+
+div.all_city_list {
+  overflow: hidden;
+}
+
+div.all_city_list ul {
+  animation: marquee1 8s linear infinite;
+
+}
+
+div.all_service_list {
+  overflow: hidden;
+}
+
+div.all_service_list ul {
+  animation: marquee1 8s linear infinite;
+  overflow: hidden;
+}
+
+@keyframes marquee1 {
+  0% {
+    transform: translateY(-40%);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-50%);
+  }
 }
 
 a {
@@ -22,13 +184,14 @@ header {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 0px 200px;
 }
 
 nav {
   margin-left: 200px;
+
 }
 
 .logo {
@@ -85,7 +248,7 @@ nav {
   height: 70px;
   width: 70px;
   -webkit-box-shadow: 0 10px 10px #98ded9;
-          box-shadow: 0 10px 10px #98ded9;
+  box-shadow: 0 10px 10px #98ded9;
   float: right;
   margin: 0 5px;
   border-radius: 50px;
@@ -141,11 +304,28 @@ div.top-container div.side div.mini {
   margin: 10px 0 10px;
   padding: 5px;
   text-align: center;
-  border: 3px solid blue;
-  border-radius: 10px;
+  border-bottom: 3px solid gray;
 }
 
 div.top-container div.middle-container {
   width: 70%;
 }
+
+button#btn_search_by_place:hover,
+button#btn_search_by_pin:hover {
+  background-color: #ff844f;
+}
+
 /*# sourceMappingURL=navbar.css.map */
+
+
+
+div.top-container {
+  height: 100%;
+}
+
+div.middle-container {
+  height: 90vh;
+  overflow: hidden;
+  overflow-y: scroll;
+}

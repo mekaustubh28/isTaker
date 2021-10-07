@@ -10,7 +10,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'service/scss/base/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'service_boy/scss/base/base.css' %}">
     {% block stylesheet %}{% endblock %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,65 +19,12 @@
 </head>
 
 <style>
-
-    nav.navbar{
-        position: fixed;
-        top: 0;
-    }
-
-    div.top-container{
-        margin-top: 60px;
-    }
-
-    button.btn:hover path.search {
-        fill: white;
-    }
-
-    div.cart {
-        position: relative;
-        width: 40px;
-    }
-
-    div.cart svg {
-        right: 40px;
-    }
-
-    span.items {
-        position: absolute;
-        right: 0;
-        border: 1px solid red;
-        padding: 0 5px 0 5px;
-        border-radius: 50%;
-        background-color: red;
-    }
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    /* Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-
-    li.cart-items {
-        margin: 0;
-        border-bottom: 1px solid rgba(128, 128, 128, 0.219);
-    }
-
-    button.cart_submit {
-        border: 0px;
-        margin: 0;
-        background-color: transparent;
-        padding: 10px;
-    }
+    
 </style>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%;">
         <div class="container-fluid">
             <a href="/service_boy/{{Active_Service_Boy.ID}}"><img class="logo" src="{% static 'service_boy/images/isTaker.png' %}" alt="logo.png" width="100px" style="margin-right: 20px;margin-top:-5px"></a>
             <!-- <a class="navbar-brand" href="/">is-Taker</a> -->
@@ -97,10 +45,10 @@
                         <option value="{{hospital}}">
                             {% endfor %}
                     </datalist>
-                    <button id="btn_search_by_place" class="btn btn-outline-primary" style="border-radius: 0 5px 5px 0;"
+                    <button id="btn_search_by_place" class="btn btn-outline-primary" style="border-radius: 0 5px 5px 0;border-color:#ff844f"
                         type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
                             class="svelte-gvo0bu">
-                            <path fill="blue" class="search"
+                            <path fill="#fd7034" class="search"
                                 d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
                             </path>
                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -137,10 +85,10 @@
                     {% csrf_token%}
                     <input class="form-control" name="search_by_pin" style="border-radius: 5px 0 0 5px;" type="number"
                         placeholder="Search by Pin" aria-label="Search" value="{{search_by_pin}}" required>
-                    <button id="btn_search_by_pin" class="btn btn-outline-primary" style="border-radius: 0 5px 5px 0;"
+                    <button id="btn_search_by_pin" class="btn btn-outline-primary" style="border-radius: 0 5px 5px 0;border-color:#ff844f"
                         type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
                             class="svelte-gvo0bu">
-                            <path fill="blue" class="search"
+                            <path fill="#fd7034" class="search"
                                 d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
                             </path>
                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -151,14 +99,14 @@
                     {{Active_Service_Boy.first_name}}</a>
                 <form action="/logout" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-primary mx-2">Logout</button>
+                    <button type="submit" class="btn btn-primary mx-2 custom_btn">Logout</button>
                 </form>
                 <div class="btn-group">
                     <button type="button" style="border: 0px;background-color:transparent;line-height:normal;"
                         class="cartbutton" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="cart">
                             <span class="items">{{cart_length}}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#ff844f"
                                 class="bi bi-cart" viewBox="0 0 16 16">
                                 <path
                                     d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
@@ -180,8 +128,8 @@
         </div>
     </nav>
 
-    <div class="top-container">
-        <div class="container side left-container">
+    <div class="top-container" style="background-color: red;">
+        <!-- <div class="container side left-container">
             <div class="mini top-rated">
                 Top Rated Spot Filter on City Wise
                 <ul>
@@ -190,18 +138,18 @@
             <div class="mini all-services">
                 All Service List
             </div>
-        </div>
-        <div class="container middle-container">
+        </div> -->
+        <div class="container-fluid middle-container" style="width: 90%;height:100%;background-color:red;">
             {% block body %} {% endblock %}
         </div>
-        <div class="container side right-container">
+        <!-- <div class="container side right-container">
             <div class="mini top-rated">
                 Top Rating City
             </div>
             <div class="mini deals">
                 Deals
             </div>
-        </div>
+        </div> -->
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

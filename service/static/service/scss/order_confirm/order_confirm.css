@@ -1,0 +1,184 @@
+div.order_cont {
+        border: 2px solid gray;
+        padding: 1%;
+        border-radius: 5px;
+        background-color: rgba(128, 128, 128, 0.075);
+}
+
+div.promo_code {
+        color: #ff844f !important;
+}
+
+div.selected_hospital {
+        text-align: center;
+        margin: 2% auto;
+        padding: 1% 2%;
+        border: 1px solid rgba(0, 0, 0, 0.336);
+        border-radius: 10px;
+        width: 50%;
+        background-color: rgba(128, 128, 128, 0.075);
+}
+
+div.order {
+        width: 100%;
+        display: flex;
+}
+
+div.alert-custom {
+        background-color: #ff844f23;
+        color: #ff844f;
+}
+
+div.order div {
+        flex: none;
+        width: 50%;
+}
+
+div.services {
+        margin: auto;
+}
+
+div.confirm {
+        margin-left: 10%;
+}
+
+div.confirm button {
+        display: block;
+        margin: 2%;
+        width: 100px;
+}
+
+form.promo div {
+        width: 100%;
+}
+
+div.Loader {
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+}
+
+/************************************ Loader CSS *******************************************/
+
+div.loader {
+        z-index: +9;
+        background-color: rgba(0, 0, 0, 0.767);
+        width: 100%;
+        height: 100%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+}
+
+div.loader h4 {
+        z-index: +11;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        color: rgb(0, 255, 213);
+        transform: translate(-50%, -50%);
+}
+
+h3.timeleft {
+        z-index: +11;
+        position: absolute;
+        left: 50%;
+        color: rgb(0, 255, 213);
+        transform: translate(-50%, 0);
+}
+
+.lds-ring {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+}
+
+.lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+
+}
+
+.lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+        0% {
+
+                color: rgb(0, 255, 213);
+                transform: rotate(0deg);
+                border: 8px solid rgb(225, 0, 255);
+                border-color: rgb(225, 0, 255) transparent transparent transparent;
+        }
+
+        20% {
+                border: 8px solid blue;
+                border-color: blue transparent transparent transparent;
+        }
+
+        40% {
+                border: 8px solid violet;
+                border-color: violet transparent transparent transparent;
+        }
+
+        60% {
+
+                color: rgb(255, 0, 221);
+                border: 8px solid rgb(0, 195, 255);
+                border-color: rgb(0, 195, 255) transparent transparent transparent;
+        }
+
+
+        80% {
+                border: 8px solid rgb(0, 255, 115);
+                border-color: rgb(0, 255, 115) transparent transparent transparent;
+        }
+
+        100% {
+                transform: rotate(360deg);
+                border: 8px solid rgb(136, 255, 0);
+                border-color: rgb(136, 255, 0) transparent transparent transparent;
+
+        }
+}
+
+.no-display {
+        display: none;
+}
+
+label.meeting-time {
+        color: #fd7034;
+        font-size: 25px;
+        font-weight: 500;
+        margin-bottom: 10px;
+}
+
+input#meeting_time {
+        padding: 5px 20px;
+        font-size: larger;
+        border-radius: 5px;
+        border: 1px solid #fd7034;
+        margin-bottom: 20px;
+}

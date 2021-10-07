@@ -43,12 +43,13 @@
     <div class="service">
         <div class="second-container">
             <h5>Available Services</h5>
+            <hr style="padding:0;margin:10px 0 0 0;width:90%;">
             <div class="available-services">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     {% for i in package_dict %}
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-heading{{forloop.counter}}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" style="background-color: rgba(128, 128, 128, 0.048);"
                                 data-bs-target="#flush-collapse{{forloop.counter}}" aria-expanded="false"
                                 aria-controls="flush-collapse{{forloop.counter}}" id=plan{{forloop.counter}}
                                 value="package {{forloop.counter}}">
@@ -57,7 +58,7 @@
                         </h2>
                         <div id="flush-collapse{{forloop.counter}}" class="accordion-collapse collapse"
                             aria-labelledby="flush-heading{{forloop.counter}}" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body" style="background-color: rgba(128, 128, 128, 0.048);">
                                 <ul id="ul{{forloop.counter}}">
                                     {% for j in i %}
                                     <div style="padding: 10px; cursor:pointer" class="selected">
@@ -76,6 +77,7 @@
         </div>
         <div class="third-container">
             <h5>Services Details</h5>
+            <hr style="padding:0;margin:10px 0 0 0;width:90%;">
             <div style="height: 75%; overflow:hidden;overflow-y:scroll">
                 <table class="table">
                     <thead>
@@ -93,10 +95,10 @@
                 {% csrf_token %}
                 <input type="hidden" name="service" id="service_list">
                 <input type="hidden" name="total_price" id="total_price" placeholder="Total Price">
-                <button class="btn btn-primary" id="service_reset" style="border-radius:5px;" type="button" disabled>
+                <button class="btn btn-primary custom_btn" id="service_reset" style="border-radius:5px;" type="button" disabled>
                     Reset
                 </button>
-                <button class="btn btn-primary mx-2" id="service_confirm" style="border-radius:5px;" type="submit"
+                <button class="btn btn-primary mx-2 custom_btn" id="service_confirm" style="border-radius:5px;" type="submit"
                     disabled>
                     Confirm
                 </button>
@@ -108,59 +110,7 @@
 
 {% block javascript %}
 <script>
-    var x = 0
-
-    $('input[type="checkbox"]').click(function () {
-        $('button#service_confirm').attr('disabled', false)
-        $('button#service_reset').attr('disabled', false)
-        var service = $(this).attr('id')
-        var price = $(this).attr('name')
-        if ($(this).prop("checked") == true) {
-            addTable(price, service)
-        } else if ($(this).prop("checked") == false) {
-            deleteTable(price, service)
-        }
-    });
-
-    function addTable(price, service) {
-        x = x + parseInt(price)
-        var table = '<tr value="' + service + '"><td>' + service + '</td><th scope="row">₹' + price + '/-</th></tr>'
-        document.getElementById('table-content').innerHTML += table
-    }
-
-    function deleteTable(price, service) {
-        x = x - parseInt(price)
-        var table = $('tr[value="' + service + '"]')
-        table[0].remove()
-    }
-
-    $('button#service_confirm').click(function () {
-        var service_list = []
-        var service_price = []
-        $('input[type="checkbox"]').attr('disabled', true)
-        $('button#service_reset').attr('disabled', false)
-        var table_content = $('#table-content').find('tr')
-        var table = document.getElementsByTagName('table')[0];
-        //console.log(table)
-        for (let index = 0; index < table_content.length; index++) {
-            var Row = table.rows[index + 1];
-            var Content = Row.firstChild.textContent;
-            var price = Row.children[1].innerHTML;
-            price = price.substring(1, price.length - 2)
-            service_price.push(price)
-            service_list.push(Content)
-        }
-        service_price.push(x)
-        $('input#service_list').attr('value', service_list)
-        $('input#total_price').attr('value', service_price)
-    })
-
-    $('button#service_reset').click(function(){
-        $('input[type="checkbox"]').prop("checked", false)
-        document.getElementById('table-content').innerHTML = ''
-        $('button#service_confirm').attr('disabled', true)
-        $('button#service_reset').attr('disabled', true)
-    })
+    
 </script>
 <script src="{% static 'service/js/customer_dashboard.js' %}"></script>
 {% endblock %}

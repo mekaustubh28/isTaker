@@ -190,20 +190,11 @@ def service_boy_dashboard(request, ID):
 
 def start_ride(request, ID):
     Active_Service_Boy = request.session['Active_Service_Boy']
-    # request.session['once_start_ride'] = False
-    # if (request.session['trip_ID'] != None and request.session['once_start_ride'] != False):
-    #     print(request.session['trip_ID'])
-
-    #     ongoingtrip = Service_Boy_Ongoing_Trip.objects.filter(service_boy_trip_id=request.session['trip_ID'])
-    #     print(ongoingtrip.values())
-    #     print(Service_Boy_Service_Hist.objects.filter(service_boy_trip_id=request.session['trip_ID']).values())
-    #     print(int(ongoingtrip[0].start_date_time.timestamp()))
 
     if request.method == 'POST':
         request.session['date_not_yet'] = False
         if(request.POST.get('assignService', '') != ''):
             request.session['trip_ID'] = request.POST.get('assignService', '')
-
         sendOTP = request.POST.get('send_OTP', '')
         OTP_entered = request.POST.get('OTP_entered', '')
         stop = request.POST.get('stop', '')
@@ -223,7 +214,7 @@ def start_ride(request, ID):
             convert_services = convert_services.replace(
                 character, "")
         convert_services = convert_String_to_List(convert_services)
-        if dt_string != date_of_service:
+        if dt_string == date_of_service:
             print('date not yet')
             request.session['date_not_yet'] = True
             return redirect('/service_boy/' + str(ID))

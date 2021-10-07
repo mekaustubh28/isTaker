@@ -3,7 +3,7 @@ div.customer_container div.carousel div.carousel-inner div.carousel-item {
 }
 
 div.customer_container div.carousel div.carousel-inner div.carousel-item img.carousel-img {
-  border-radius: 15px;
+  border-radius: 0px;
 }
 
 div.customer_container div.service {
@@ -42,7 +42,8 @@ div.customer_container div.service div.third-container {
           flex: none;
   margin: 10px;
   padding: 10px;
-  border: 3px solid blue;
-  border-radius: 10px;
+  border: 3px solid gray;
+  border-radius: 2px;
 }
+
 /*# sourceMappingURL=customer_dashboard.css.map */

@@ -13,7 +13,7 @@
         display: none;
     }
 
-    span.submitted_on{
+    span.submitted_on {
         font-size: 5px;
     }
 </style>
@@ -48,24 +48,26 @@
     <div class="service">
         <div class="second-container">
             <h5>Available Services</h5>
+            <hr style="padding:0;margin:10px 0 0 0;width:90%;">
             <div class="available-services">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     {% for i in package_dict %}
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-heading{{forloop.counter}}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapse{{forloop.counter}}" aria-expanded="false"
-                                aria-controls="flush-collapse{{forloop.counter}}" id=plan{{forloop.counter}}
-                                value="package {{forloop.counter}}">
+                            <button class="accordion-button collapsed"
+                                style="background-color:rgba(128, 128, 128, 0.048);" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapse{{forloop.counter}}"
+                                aria-expanded="false" aria-controls="flush-collapse{{forloop.counter}}"
+                                id=plan{{forloop.counter}} value="package {{forloop.counter}}">
                                 package {{forloop.counter}}
                             </button>
                         </h2>
                         <div id="flush-collapse{{forloop.counter}}" class="accordion-collapse collapse"
                             aria-labelledby="flush-heading{{forloop.counter}}" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body" style="background-color: rgba(128, 128, 128, 0.048);">
                                 <ul id="ul{{forloop.counter}}">
                                     {% for j in i %}
-                                    <div style="padding: 10px;" class="selected">
+                                    <div style="padding: 10px;background-color:transparent;" class="selected">
                                         <label style="width: 80%" for="{{j.2}}">{{j.2}}<span
                                                 style="float: right;">₹{{j.3}}/-</span></label>
                                     </div>
@@ -81,6 +83,7 @@
         </div>
         <div class="third-container">
             <h5>Success Stories</h5>
+            <hr style="padding:0;margin:10px 0 0 0;width:90%;">
             <div style="height:90%;overflow:hidden;overflow-y:scroll;text-align:center">
                 <div id="carouselTestimonailControls" class="first-container carousel slide" data-bs-ride="carousel"
                     style="height: 100%;">
@@ -90,14 +93,16 @@
                         <div class="carousel-item active">
                             "{{j.0}}"
                             <br><br>
-                            <span style="float: right;">-{{j.1}}<br><span class="submitted_on" style="font-size: 10px;">{{j.2}}</span></span>
-                            
+                            <span style="float: right;">-{{j.1}}<br><span class="submitted_on"
+                                    style="font-size: 10px;">{{j.2}}</span></span>
+
                         </div>
                         {% else %}
                         <div class="carousel-item">
                             "{{j.0}}"
                             <br><br>
-                            <span style="float: right;">-{{j.1}}<br><span class="submitted_on" style="font-size: 10px;">{{j.2}}</span></span>
+                            <span style="float: right;">-{{j.1}}<br><span class="submitted_on"
+                                    style="font-size: 10px;">{{j.2}}</span></span>
                         </div>
                         {% endif %}
                         {% endfor %}

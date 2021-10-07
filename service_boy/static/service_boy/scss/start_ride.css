@@ -1,0 +1,159 @@
+.receipt {
+  width: 40%;
+  background-color: rgba(0, 0, 255, 0.014);
+  border-radius: 30px;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(128, 128, 128, 0.295);
+  padding: 20px
+}
+
+/* Heading */
+.name {
+  text-transform: uppercase;
+  text-align: center;
+  color: #6c8b8e;
+  letter-spacing: 10px;
+  font-size: 1.8em;
+  margin-top: 10px
+}
+
+/* Big thank */
+.greeting {
+  font-size: 21px;
+  text-transform: capitalize;
+  text-align: center;
+  color: #6f8d90;
+  margin: 10px 0;
+  letter-spacing: 1.2px
+}
+
+/* Order info */
+.order p {
+  font-size: 17px;
+  color: gray;
+  padding-left: 10px;
+  margin-bottom: 5px;
+  letter-spacing: .7px
+}
+
+/* Our line */
+hr {
+  border: .7px solid #ddd;
+  margin: 0px;
+}
+
+/* Order details */
+.details {
+  padding-left: 10px;
+  margin-bottom: 35px;
+  overflow: hidden
+}
+
+.details h3 {
+  font-weight: 400;
+  color: #6c8b8e;
+  font-size: 1.5em;
+  margin: 0px;
+}
+
+/* Image and the info of the order */
+.product {
+  float: left;
+  width: 83%
+}
+
+.product img {
+  width: 65px;
+  float: left
+}
+
+.product .info {
+  float: left;
+  margin-left: 15px;
+  width: 100%;
+}
+
+.product .info h4 {
+  color: #6f8d90;
+  font-size: large;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.product .info p {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* Net price */
+.details>p {
+  color: #6f8d90;
+  margin-top: 25px;
+  font-size: 15px
+}
+
+/* Total price */
+.totalprice p {
+  padding-left: 10px
+}
+
+.totalprice .sub,
+.totalprice .del {
+  font-size: 18px;
+  color: gray;
+}
+
+.totalprice span {
+  float: right;
+  margin-right: 17px
+}
+
+.totalprice .tot {
+  color: #6f8d90;
+  font-size: 15px
+}
+
+button.btn-service {
+  border: 0;
+  background-color: rgba(0, 0, 255, 0.644);
+
+}
+
+div.btn_service {
+  text-align: center;
+}
+
+input.OTP {
+  border: 2px solid gray;
+}
+
+.noshow {
+  display: none;
+}
+
+
+div.timer {
+  text-align: center;
+  margin: 20px;
+  color: #FF834F;
+  border: 1px solid gray;
+  background-color: rgba(66, 66, 66, 0.11);
+  width: fit-content;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+div.modalbg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.438);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
