@@ -61,27 +61,13 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                        <a class="nav-link active" aria-current="page" href="/">Apply for Leave</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link active" aria-current="page" href="/service_boy/{{Active_Service_Boy.ID}}/availability">Availability</a>
                     </li>
                 </ul>
-                <form class="d-flex" action="/customer_dashboard/{{Active_User.customer_id}}/search" method="POST">
+                <form class="d-flex" action="/search" method="POST">
                     {% csrf_token%}
                     <input class="form-control" name="search_by_pin" style="border-radius: 5px 0 0 5px;" type="number"
                         placeholder="Search by Pin" aria-label="Search" value="{{search_by_pin}}" required>
@@ -102,7 +88,7 @@
                     <button type="submit" class="btn btn-primary mx-2 custom_btn">Logout</button>
                 </form>
                 <div class="btn-group">
-                    <button type="button" style="border: 0px;background-color:transparent;line-height:normal;"
+                    <!-- <button type="button" style="border: 0px;background-color:transparent;line-height:normal;"
                         class="cartbutton" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="cart">
                             <span class="items">{{cart_length}}</span>
@@ -112,7 +98,7 @@
                                     d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                             </svg>
                         </div>
-                    </button>
+                    </button> -->
                     <ul class="dropdown-menu dropdown-menu-end" style="text-align: center; width:max-content;">
                         <form action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm" method="post">
                             {% csrf_token %}
@@ -128,7 +114,7 @@
         </div>
     </nav>
 
-    <div class="top-container" style="background-color: red;">
+    <div class="top-container" style="background-color:rgba(128, 128, 128, 0.048) ;">
         <!-- <div class="container side left-container">
             <div class="mini top-rated">
                 Top Rated Spot Filter on City Wise
@@ -139,7 +125,7 @@
                 All Service List
             </div>
         </div> -->
-        <div class="container-fluid middle-container" style="width: 90%;height:100%;background-color:red;">
+        <div class="container-fluid middle-container" style="width: 90%;height:100%;">
             {% block body %} {% endblock %}
         </div>
         <!-- <div class="container side right-container">

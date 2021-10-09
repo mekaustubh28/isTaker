@@ -1,0 +1,72 @@
+div.availablity {
+        height: 100vh;
+}
+
+div.availablity div.check_uncheck {
+        position: fixed;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+}
+
+div.check_uncheck h1 {
+        font-size: 3vw;
+        color: #fd7034;
+}
+
+div.form-group {
+        font-size: 2vw;
+}
+
+button.submit_btn {
+        font-size: 2vw;
+}
+
+div.current_status{
+        font-size: 3vw;
+        position: fixed;
+        top: 20%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+}
+
+span.not_available{
+        padding: 10px 30px;
+        border-radius: 10px;
+        background-color: red;
+        color: white;
+}
+
+span.available{
+        /* font-size: 2vw; */
+        padding: 10px 30px;
+        border-radius: 10px;
+        background-color: green;
+        color: white;
+}
+
+@media screen and (max-width:466px) {
+        
+span.not_available,
+span.available{
+        display: block;
+        width: 70%;
+        margin: auto;
+}
+div.check_uncheck h1 {
+        font-size: 6vw;
+}
+
+div.form-group {
+        font-size: 4vw;
+}
+
+button.submit_btn {
+        font-size: 4vw;
+}
+
+div.current_status{
+        font-size: 6vw;
+}
+}

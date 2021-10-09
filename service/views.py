@@ -18,7 +18,13 @@ def contact_us(request, myid):
         package_dict = covnert_Set_to_dict(package_count)
         Customer_User = Customer.objects.filter(customer_id=int(myid))
         Active_User = Customer_User.values()[0]
-
+        delete_service = request.POST.get('delete_service','')
+        print(delete_service,"kamariya")
+        # if delete_service != '':
+        #     Service_Chosen.objects.filter(service_chosen_id=request.session['Active_Service']['service_id']).delete()
+        #     del request.session['Active_Service']
+        #     return redirect('/customer_dashboard/'+str(myid))
+            
         cart = Cart(Customer_User[0])
         return render(request, "service/contact_us.html",{
             'customer': Customer_User[0],
@@ -585,13 +591,19 @@ def customer_dashboard(request, myid):
         request.session['Services'] = package_dict
 
         Active_Service = request.session.get('Active_Service')
-        print(Active_Service, type(Active_Service))
+        # print(Active_Service, type(Active_Service))
         Active_User = request.session.get('Active_User')
 
         if Active_Service == None or Active_User['customer_id'] != Active_Service['customer_id']:
             Create_Session(request, '', [], ['0'], myid, '', '')
             Active_Service = request.session.get('Active_Service')
 
+        if request.method == "POST":
+            delete_service = request.POST.get('delete_service','')
+            if delete_service != '':
+                Service_Chosen.objects.filter(service_chosen_id=delete_service, status='In Cart').delete()
+                return redirect('/customer_dashboard/'+str(myid))
+        
         cart = Cart(Customer.objects.filter(
             customer_id=Active_Service['customer_id'])[0])
         customer = Customer.objects.filter(

@@ -1,0 +1,55 @@
+{% extends 'service_boy/base.html' %}
+
+{% block title %} Availability {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'service_boy/scss/dashboard/dashboard.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'service_boy/scss/availability/availability.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="availablity">
+        <div class="current_status">
+                <h1>Your Current Status:
+                        {% if available%}
+                        <span class="available">Available</span> 
+                        {% else %}
+                        <span class="not_available">Not Available</span>
+                        {% endif %}
+                </h1>
+        </div>
+        <div class="check_uncheck">
+                {%if available%}
+                <h1>Fill This in case of Off Today</h1>
+                <form action="/service_boy/{{Active_Service_Boy.ID}}/availability" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group form-check">
+                                <input type="checkbox" name="check" class="form-check-input" id="exampleCheck1" required>
+                                <label class="form-check-label" for="exampleCheck1">Check This to mark as Off</label>
+                        </div><br>
+                        <div class="form-group">
+                                <label for="exampleFormControlTextarea1">State the Reason for Off</label>
+                                <textarea class="form-control" name="reason" id="exampleFormControlTextarea1" rows="6" required></textarea>
+                        </div><br>
+                        <button type="submit" class="btn custom_btn submit_btn btn-primary">Submit</button>
+                </form>
+                {% else %}
+                <h1>Fill This in case of available</h1>
+                <form action="/service_boy/{{Active_Service_Boy.ID}}/availability" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group form-check">
+                                <input type="checkbox" name="available_check" class="form-check-input" id="exampleCheck1" required>
+                                <label class="form-check-label" for="exampleCheck1">Check This in case you are available</label>
+                        </div><br>
+                        <button type="submit" class="btn custom_btn submit_btn btn-primary">Submit</button>
+                </form>
+                
+                {% endif %}
+        </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

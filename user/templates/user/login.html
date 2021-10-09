@@ -37,6 +37,10 @@
                     <input type="email" class="email" name="email" id="c_email" placeholder="email" required><br>
                     <input class="password" type="password" name="password" id="c_password" placeholder="password"
                         required><br>
+                    <!-- recaptcha -->
+                    <button class="g-recaptcha" data-sitekey="6LfFFLscAAAAAFgsWSR0akvUtdXYxGRKwsIN53ij"
+                        data-callback='onSubmit' data-action='submit'>Submit</button>
+                    <!-- recaptcha -->
                     <a href="/forgot_password" style="float:left;margin-left:10%">Forget password?</a><br>
                     <input type="submit" class="submit" onclick="saveInfoCustomer()" value="Login">
                     <hr>
@@ -57,6 +61,10 @@
                     <input type="email" class="email" name="email" id="s_email" placeholder="email" required><br>
                     <input class="password" type="password" name="password" id="s_password" placeholder="password"
                         required><br>
+                    <!-- recaptcha -->
+                    <button class="g-recaptcha" data-sitekey="6LfFFLscAAAAAFgsWSR0akvUtdXYxGRKwsIN53ij"
+                        data-callback='onSubmit' data-action='submit'>Submit</button>
+                    <!-- recaptcha -->
                     <a href="/forgot_password" style="float:left;margin-left:10%">Forget password?</a><br>
                     <input type="submit" class="submit" onclick="saveInfoServiceBoy()" value="Login">
                     <hr>
@@ -70,7 +78,15 @@
 {% endblock %}
 
 {% block javascript %}
+<!-- recaptcha -->
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<!-- recaptcha -->
 <script src="{% static 'user/js/signIn.js' %}"></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("demo-form").submit();
+    }
+</script>
 <script>
     function saveInfoCustomer() {
         var email = $('input#c_email').val()

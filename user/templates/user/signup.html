@@ -1,7 +1,13 @@
-{% extends 'user/navbar.html' %} {% block title %} isTaker - SignUp {% endblock %} {% block stylesheet %} {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'user/scss/signUp/signUp.css' %}">
+{% extends 'user/navbar.html' %}
+{% block title %} isTaker - SignUp {% endblock %}
+{% block stylesheet %}
+{% load static %}
 <link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" /> {% endblock %} {% block body %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+<link rel="stylesheet" type="text/css" href="{% static 'user/scss/signUp/signUp.css' %}">
+
+{% endblock %}
+{% block body %}
 <div class="signInUp">
 
     <div class="Login">
@@ -22,9 +28,11 @@
                     <input type="text" name="who" value="customer" style="display: none;">
                     <input type="text" class="fname" id="c_fname" name="firstname" placeholder="First name" required>
                     <input type="text" class="lname" id="c_lname" name="lastname" placeholder="Last name" required>
-                    <input type="text" class="father_husband_name" id="c_fathername" name="father_husband_name" placeholder="Father's/Husband's name" required>
+                    <input type="text" class="father_husband_name" id="c_fathername" name="father_husband_name"
+                        placeholder="Father's/Husband's name" required>
                     <input type="email" class="email" name="email" id="c_email" placeholder="email" required>
-                    <input type="number" class="number" name="number" id="c_number" placeholder="(+234) 123 2352" required>
+                    <input type="number" class="number" name="number" id="c_number" placeholder="(+234) 123 2352"
+                        required>
                     <input type="text" class="address" id="c_address" name="address" placeholder="Address" required><br>
                     <select class="state" id="c_state" name="state" required>
                         <option value="select_a_state">select a state</option>
@@ -33,17 +41,27 @@
                         <option value="usa">USA</option>
                     </select>
 
-                    <input class="city_village" type="text" id="c_city_village" name="city_village" placeholder="city/village" required>
+                    <input class="city_village" type="text" id="c_city_village" name="city_village"
+                        placeholder="city/village" required>
                     <input class="pin" type="number" name="pin" id="c_pin" placeholder="PIN" required>
-                    <input class="adhaar" type="number" name="adhaar" id="c_adhaar" placeholder="Adhaar Card/ Passport Number" required>
+                    <input class="adhaar" type="number" name="adhaar" id="c_adhaar"
+                        placeholder="Adhaar Card/ Passport Number" required>
                     <!-- <input class="password" type="password" name="password" id="password" placeholder="password" required>
           <input class="again_password" type="password" name="again_password" id="again_password"
             placeholder="password confirm" required> -->
-                    <input type="password" id="psw" name="password" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
+                    <input type="password" id="psw" name="password" placeholder="password"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
                         required>
-                    <input type="password" id="" name="again_password" placeholder="password confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
+                    <input type="password" id="" name="again_password" placeholder="password confirm"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
                         required>
-
+                    <div class="tnc" style="width: fit-content;margin-left:60px">
+                        <input type="checkbox" class="" id="customer_check" required style="width: 30px!important">
+                        <label class="" for="customer_check">Please Check me to Accept <a href="">Terms and
+                                Condition</a> of isTaker</label>
+                    </div>
                     <div id="message" class="message">
                         <p>Password must contain the following:</p>
                         <div class="validation">
@@ -55,7 +73,7 @@
                         </div>
                     </div>
 
-                    <input type="submit" class="submit disabled" id="submit_customer_signup" onclick="saveInfoCustomer()" disabled>
+                    <input type="submit" class="submit" id="submit_customer_signup" onclick="saveInfoCustomer()">
                     <hr>
                     <a href="/login">Already a member?</a>
                 </form>
@@ -67,33 +85,40 @@
                     <p class="succesmsg" style="color:green;margin:0;padding:0">{{success}}</p>
 
                     <!-- First Page -->
-                    <div id="1" class="signUp_page">
+                    <div id="1" class="signUp_page personal_info">
                         <input type="text" name="who" id="service_boy" value="service_boy" style="display: none;">
-                        <input type="text" class="fname" id="s_fname" name="firstname" placeholder="First name" required>
+                        <input type="text" class="fname" id="s_fname" name="firstname" placeholder="First name"
+                            required>
                         <input type="text" class="lname" id="s_lname" name="lastname" placeholder="Last name" required>
-                        <input type="text" class="fathername" id="s_fathername" name="father_husband_name" placeholder="Father's name" required>
+                        <input type="text" class="fathername" id="s_fathername" name="father_husband_name"
+                            placeholder="Father's name" required>
                         <select class="gender" id="s_gender" name="gender" required>
                             <option value="Select_your_Gender">Select your Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Rather Not Discuss">Rather Not Discuss</option>
                         </select>
-                        <input type="text" class="address" id="s_address" name="address" placeholder="Address" required style="width: 82%;">
-                        <input class="city_village" type="text" id="s_city_village" name="city_village" placeholder="city/village" required>
-                        <input class="district" type="text" name="district" is="s_district" placeholder="district" required>
+                        <input type="text" class="address" id="s_address" name="address" placeholder="Address" required
+                            style="width: 82%;">
+                        <input class="city_village" type="text" id="s_city_village" name="city_village"
+                            placeholder="city/village" required>
+                        <input class="district" type="text" name="district" is="s_district" placeholder="district"
+                            required>
                         <select class="state" id="s_state" name="state" required>
                             <option value="select your State">select your State</option>
                             <option value="australia">Australia</option>
                             <option value="canada">Canada</option>
                             <option value="usa">USA</option>
                         </select>
-                        <input type="number" class="pin_code" id="s_pin_code" name="pin" placeholder="pin code" required>
+                        <input type="number" class="pin_code" id="s_pin_code" name="pin" placeholder="pin code"
+                            required>
                     </div>
-
+                    <hr style="width: 70%; margin:20px auto;">
                     <!-- Second Page -->
-                    <div id="2" class="signUp_page display">
+                    <div id="2" class="signUp_page background">
                         <input type="email" class="email" id="s_email" name="email" placeholder="email" required><br>
-                        <input type="text" class="mother_tongue" id="s_mother_tongue" name="mother_tongue" placeholder="Type Your Mother Tongue" required><br>
+                        <input type="text" class="mother_tongue" id="s_mother_tongue" name="mother_tongue"
+                            placeholder="Type Your Mother Tongue" required><br>
                         <select class="education" id="s_education" name="education" required>
                             <option value="Select_your_Education">Select your Education</option>
                             <option value="Student">Student</option>
@@ -104,28 +129,55 @@
                             <option value="below_12th">below 12th</option>
                             <option value="No_former_Education">No former Education</option>
                         </select><br>
-                        <input type="text" name="DOB" id="s_DOB" placeholder="Select Date Of Birth" onfocus="(this.type='date')" onblur="(this.type='text')" required><br><br>
-                        <input type="text" style="width: 100%;" value="" data-role="tagsinput" class="pin serve" id="s_pin_serve" name="pin_serve" placeholder="Type all pincode where you will serve" required><br><br>
-                        <input type="text" value="" style="width: 100%;" data-role="tagsinput" class="languages" id="s_languages" name="languages" placeholder="Type all languages you know" required><br><br>
+                        <input type="text" name="DOB" id="s_DOB" placeholder="Select Date Of Birth"
+                            onfocus="(this.type='date')" onblur="(this.type='text')" required><br><br>
+                        <input type="number" style="width: 100%;" value="" data-role="tagsinput" class="pin serve"
+                            id="s_pin_serve" name="pin_serve" placeholder="Type all pincode where you will serve"
+                            required><br><br>
+                        <strong>Select Language:</strong>
+                        <select id="languages_dropdown">
+                            <option class="lang" value="">select language from dropdown</option>
+                            <option class="lang" value="HINDI">HINDI</option>
+                            <option class="lang" value="ENGLISH">ENGLISH</option>
+                            <option class="lang" value="GERMAN">GERMAN</option>
+                            <option class="lang" value="FRENCH">FRENCH</option>
+                        </select><br>
+                        <input type="text" id="venom" id="s_languages" disabled name="languages" class="languages"
+                            value="" placeholder="All languages Selected will be shown here">
+                        <!-- <input type="text" value="yo" style="width: 100%;" data-role="tagsinput" class="languages"
+                            id="s_languages" name="languages" aria-label="search"
+                            placeholder="Type all languages you know" required><br><br> -->
+
                     </div>
-                    Customer Service-Boy
+
+                    <hr style="width: 70%; margin:20px auto;">
                     <!-- Third Page -->
-                    <div id="3" class="signUp_page display">
-                        <input type="number" class="number" name="number" id="s_number" placeholder="Your Contact Number eg:9876543210" required>
-                        <input class="adhaar" type="number" name="adhaar" id="s_adhaar" placeholder="Adhaar Card/Passport Number" required>
-                        <input class="pan" type="number" name="pan" id="s_pan" placeholder="Your Pan Card Number" required>
-                        <input class="Bank_Account" type="number" name="Bank_Account" id="s_Bank_Account" placeholder="Your Bank Account Number" required>
-                        <input class="IFSC_code" type="text" name="IFSC_code" id="s_IFSC_code" placeholder="Your IFSC code" required>
-                        <input class="branch" type="text" name="branch" id="s_branch" placeholder="Your Bank Branch" required>
+                    <div id="3" class="signUp_page government_req">
+                        <input type="number" class="number" name="number" id="s_number"
+                            placeholder="Your Contact Number eg:9876543210" required>
+                        <input class="adhaar" type="number" name="adhaar" id="s_adhaar"
+                            placeholder="Adhaar Card/Passport Number" required>
+                        <input class="pan" type="number" name="pan" id="s_pan" placeholder="Your Pan Card Number"
+                            required>
+                        <input class="Bank_Account" type="number" name="Bank_Account" id="s_Bank_Account"
+                            placeholder="Your Bank Account Number" required>
+                        <input class="IFSC_code" type="text" name="IFSC_code" id="s_IFSC_code"
+                            placeholder="Your IFSC code" required>
+                        <input class="branch" type="text" name="branch" id="s_branch" placeholder="Your Bank Branch"
+                            required>
                     </div>
 
+                    <hr style="width: 70%; margin:20px auto;">
                     <!-- Fourth Page -->
-
-                    <div id="4" class="signUp_page display">
+                    <div id="4" class="signUp_page confidential">
                         <input type="file" name="image" id="image" accept=".png,.jpeg,.jpg" required><br>
-                        <input type="password" id="psw_s" name="password" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
+                        <input type="password" id="psw_s" name="password" placeholder="password"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
                             required>
-                        <input type="password" id="" name="again_password" placeholder="password confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
+                        <input type="password" id="" name="again_password" placeholder="password confirm"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
                             required>
                         <div id="message_s" class="message">
                             <p>Password must contain the following:</p>
@@ -138,22 +190,33 @@
                             </div>
                         </div>
                         <br>
-                        <input type="submit" class="submit disabled" id="submit_customer_signup" value="Register" onclick="saveInfoServiceBoy()" disabled>
+                        <div class="tnc" style="width: fit-content;margin-left:60px">
+                            <input type="checkbox" class="" id="service_boy_check" required
+                                style="width: 30px!important">
+                            <label class="" for="service_boy_check">Please Check me to Accept <a href="">Terms and
+                                    Condition</a> of isTaker</label>
+                        </div>
+                        <input type="submit" class="submit" id="submit_customer_signup" value="Register"
+                            onclick="saveInfoServiceBoy()">
                     </div>
                     <br>
-                    <a id="back" class="back with_service_boy display">
-                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" space="preserve">
+                    <!-- <a id="back" class="back with_service_boy display">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"
+                            x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20"
+                            enable-background="new 0 0 20 20" space="preserve">
                             <path fill="#ff844f"
                                 d="M18.008,7.667L16.606,9,11,3.627V20H9V3.627L3.392,9l-1.4-1.336L10-.012Z"></path>
                         </svg>
                     </a>
 
                     <a id="next" class="next with_service_boy display">
-                        <svg class="turn" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" space="preserve">
+                        <svg class="turn" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px"
+                            viewBox="0 0 20 20" enable-background="new 0 0 20 20" space="preserve">
                             <path fill="#ff844f"
                                 d="M18.008,7.667L16.606,9,11,3.627V20H9V3.627L3.392,9l-1.4-1.336L10-.012Z"></path>
                         </svg>
-                    </a>
+                    </a> -->
                     <!-- <button type="button" style="padding:10px 40px;" id="back" class="back with_service_boy btn btn-primary mx-2"
             disabled><a style="font-size:20px;">BACK</a></button>
           <button type="button" style="padding:10px 40px;" id="next" class="btn btn-primary mx-2"><a
@@ -167,169 +230,28 @@
     </div>
 </div>
 {% endblock %} {% block javascript %}
+<script src="{% static 'user/js/signIn.js' %}"></script>
+<script src="{% static 'user/js/signUp.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 <script>
-    var myInput = document.getElementById("psw");
-    var letter = document.getElementById("letter");
-    var capital = document.getElementById("capital");
-    var number = document.getElementById("number");
-    var length = document.getElementById("length");
-    var character = document.getElementById("character");
-
-    var myInput_s = document.getElementById("psw_s");
-    var letter_s = document.getElementById("letter_s");
-    var capital_s = document.getElementById("capital_s");
-    var number_s = document.getElementById("number_s");
-    var length_s = document.getElementById("length_s");
-    var character_s = document.getElementById("character_s");
-
-    // When the user clicks on the password field, show the message box
-    myInput.onfocus = function() {
-        document.getElementById("message").style.display = "block";
-    }
-
-    // When the user clicks outside of the password field, hide the message box
-    myInput.onblur = function() {
-        document.getElementById("message").style.display = "none";
-    }
-
-    // When the service clicks on the password field, show the message box
-    myInput_s.onfocus = function() {
-        document.getElementById("message_s").style.display = "block";
-    }
-
-    // When the service clicks outside of the password field, hide the message box
-    myInput_s.onblur = function() {
-        document.getElementById("message_s").style.display = "none";
-    }
-
-    // When the user starts to type something inside the password field
-    myInput.onkeyup = function() {
-        // Validate lowercase letters
-        var lowerCaseLetters = /[a-z]/g;
-        if (myInput.value.match(lowerCaseLetters)) {
-            letter.classList.remove("invalid");
-            letter.classList.add("valid");
+    $('select#languages_dropdown').click(function () {
+        prev_langauges = $('input#venom').val()
+        current_language = $(this).val()
+        $("select#languages_dropdown option[value=" + current_language + "]").remove();
+        if (prev_langauges == '') {
+            $('input#venom').attr('value', current_language)
         } else {
-            letter.classList.remove("valid");
-            letter.classList.add("invalid");
+            $('input#venom').attr('value', prev_langauges + ", " + current_language)
         }
+    });
 
-        // Validate capital letters
-        var upperCaseLetters = /[A-Z]/g;
-        if (myInput.value.match(upperCaseLetters)) {
-            capital.classList.remove("invalid");
-            capital.classList.add("valid");
-        } else {
-            capital.classList.remove("valid");
-            capital.classList.add("invalid");
-        }
-
-        // Validate numbers
-        var numbers = /[0-9]/g;
-        if (myInput.value.match(numbers)) {
-            number.classList.remove("invalid");
-            number.classList.add("valid");
-        } else {
-            number.classList.remove("valid");
-            number.classList.add("invalid");
-        }
-
-        // Validate length
-        if (myInput.value.length >= 8) {
-            length.classList.remove("invalid");
-            length.classList.add("valid");
-        } else {
-            length.classList.remove("valid");
-            length.classList.add("invalid");
-        }
-
-        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-        if (format.test(myInput.value)) {
-            character.classList.remove("invalid");
-            character.classList.add("valid");
-        } else {
-            character.classList.remove("valid");
-            character.classList.add("invalid");
-        }
-
-        if (myInput.value.match(lowerCaseLetters) && myInput.value.match(upperCaseLetters) && myInput.value.match(
-                numbers) && myInput.value.length >= 8 && format.test(myInput.value)) {
-            $('input#submit_customer_signup').attr('disabled', false);
-        } else {
-            $('input#submit_customer_signup').attr('disabled', true);
-        }
-
-    }
-
-    myInput_s.onkeyup = function() {
-        // Validate lowercase letters
-        var lowerCaseLetters = /[a-z]/g;
-        if (myInput_s.value.match(lowerCaseLetters)) {
-            letter_s.classList.remove("invalid");
-            letter_s.classList.add("valid");
-        } else {
-            letter_s.classList.remove("valid");
-            letter_s.classList.add("invalid");
-        }
-
-        // Validate capital letters
-        var upperCaseLetters = /[A-Z]/g;
-        if (myInput_s.value.match(upperCaseLetters)) {
-            capital_s.classList.remove("invalid");
-            capital_s.classList.add("valid");
-        } else {
-            capital_s.classList.remove("valid");
-            capital_s.classList.add("invalid");
-        }
-
-        // Validate numbers
-        var numbers = /[0-9]/g;
-        if (myInput_s.value.match(numbers)) {
-            number_s.classList.remove("invalid");
-            number_s.classList.add("valid");
-        } else {
-            number_s.classList.remove("valid");
-            number_s.classList.add("invalid");
-        }
-
-        // Validate length
-        if (myInput_s.value.length >= 8) {
-            length_s.classList.remove("invalid");
-            length_s.classList.add("valid");
-        } else {
-            length_s.classList.remove("valid");
-            length_s.classList.add("invalid");
-        }
-
-        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-        if (format.test(myInput_s.value)) {
-            character_s.classList.remove("invalid");
-            character_s.classList.add("valid");
-        } else {
-            character_s.classList.remove("valid");
-            character_s.classList.add("invalid");
-        }
-
-        if (myInput_s.value.match(lowerCaseLetters) && myInput_s.value.match(upperCaseLetters) && myInput_s.value
-            .match(
-                numbers) && myInput_s.value.length >= 8 && format.test(myInput_s.value)) {
-            $('input#submit_customer_signup').attr('disabled', false);
-        } else {
-            $('input#submit_customer_signup').attr('disabled', true);
-        }
-
-    }
-
-    /********************** Password Validation *************************/
-
-
-
-
-    $('label.customer').click(function() {
+    $('label.customer').click(function () {
         $('.with_service_boy').addClass('display')
     })
 
-    $('label.service_boy').click(function() {
+    $('label.service_boy').click(function () {
         $('.with_service_boy').removeClass('display')
     })
 
@@ -341,12 +263,11 @@
         }
         $('div.progress').attr('style', 'width: ' + (progress / 4 * 100) + '%')
         for (let index = 1; index <= 4; index++) {
+            console.log(progress, index)
             if (index == progress) {
                 $('div#' + index).removeClass('display')
-                console.log('remove')
             } else {
                 $('div#' + index).addClass('display')
-                console.log('add')
             }
         }
         if (progress > 1 && progress <= 4) {
@@ -356,7 +277,6 @@
             $('a#back').addClass('display')
             $('a#back').attr('disabled', true)
         }
-        console.log(progress)
 
         if (progress == 4) {
             $('a#next').attr('disabled', true)
@@ -371,10 +291,8 @@
         for (let index = 1; index <= 4; index++) {
             if (index == progress) {
                 $('div#' + index).removeClass('display')
-                console.log('remove')
             } else {
                 $('div#' + index).addClass('display')
-                console.log('add')
             }
         }
         console.log(progress)
@@ -551,10 +469,160 @@
 
         }
     }
+
+
+    var myInput = document.getElementById("psw");
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+    var character = document.getElementById("character");
+
+    var myInput_s = document.getElementById("psw_s");
+    var letter_s = document.getElementById("letter_s");
+    var capital_s = document.getElementById("capital_s");
+    var number_s = document.getElementById("number_s");
+    var length_s = document.getElementById("length_s");
+    var character_s = document.getElementById("character_s");
+
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function () {
+        document.getElementById("message").style.display = "block";
+    }
+
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function () {
+        document.getElementById("message").style.display = "none";
+    }
+
+    // When the service clicks on the password field, show the message box
+    myInput_s.onfocus = function () {
+        document.getElementById("message_s").style.display = "block";
+    }
+
+    // When the service clicks outside of the password field, hide the message box
+    myInput_s.onblur = function () {
+        document.getElementById("message_s").style.display = "none";
+    }
+
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function () {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if (myInput.value.match(lowerCaseLetters)) {
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+        } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if (myInput.value.match(upperCaseLetters)) {
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+        } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+        }
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if (myInput.value.match(numbers)) {
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+        } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+        }
+
+        // Validate length
+        if (myInput.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        if (format.test(myInput.value)) {
+            character.classList.remove("invalid");
+            character.classList.add("valid");
+        } else {
+            character.classList.remove("valid");
+            character.classList.add("invalid");
+        }
+
+        if (myInput.value.match(lowerCaseLetters) && myInput.value.match(upperCaseLetters) && myInput.value.match(
+                numbers) && myInput.value.length >= 8 && format.test(myInput.value)) {
+            $('input#submit_customer_signup').attr('disabled', false);
+        } else {
+            $('input#submit_customer_signup').attr('disabled', true);
+        }
+
+    }
+
+    myInput_s.onkeyup = function () {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if (myInput_s.value.match(lowerCaseLetters)) {
+            letter_s.classList.remove("invalid");
+            letter_s.classList.add("valid");
+        } else {
+            letter_s.classList.remove("valid");
+            letter_s.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if (myInput_s.value.match(upperCaseLetters)) {
+            capital_s.classList.remove("invalid");
+            capital_s.classList.add("valid");
+        } else {
+            capital_s.classList.remove("valid");
+            capital_s.classList.add("invalid");
+        }
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if (myInput_s.value.match(numbers)) {
+            number_s.classList.remove("invalid");
+            number_s.classList.add("valid");
+        } else {
+            number_s.classList.remove("valid");
+            number_s.classList.add("invalid");
+        }
+
+        // Validate length
+        if (myInput_s.value.length >= 8) {
+            length_s.classList.remove("invalid");
+            length_s.classList.add("valid");
+        } else {
+            length_s.classList.remove("valid");
+            length_s.classList.add("invalid");
+        }
+
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        if (format.test(myInput_s.value)) {
+            character_s.classList.remove("invalid");
+            character_s.classList.add("valid");
+        } else {
+            character_s.classList.remove("valid");
+            character_s.classList.add("invalid");
+        }
+
+        if (myInput_s.value.match(lowerCaseLetters) && myInput_s.value.match(upperCaseLetters) && myInput_s.value
+            .match(
+                numbers) && myInput_s.value.length >= 8 && format.test(myInput_s.value)) {
+            $('input#submit_customer_signup').attr('disabled', false);
+        } else {
+            $('input#submit_customer_signup').attr('disabled', true);
+        }
+
+    }
+
+    /********************** Password Validation *************************/
 </script>
-<script src="{% static 'user/js/signIn.js' %}"></script>
-<script src="{% static 'user/js/signUp.js' %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 {% endblock %}

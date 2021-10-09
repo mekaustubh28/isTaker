@@ -142,24 +142,24 @@ ul.hospitals {
   padding: 0;
 }
 
-div.all_city_list {
+/* div.all_city_list {
   overflow: hidden;
-}
+} */
 
-div.all_city_list ul {
+/* div.all_city_list ul {
   animation: marquee1 8s linear infinite;
 
-}
+} */
 
-div.all_service_list {
+/* div.all_service_list {
   overflow: hidden;
-}
+} */
 
-div.all_service_list ul {
-  animation: marquee1 8s linear infinite;
-  overflow: hidden;
-}
-
+/* div.all_service_list ul { */
+  /* animation: marquee1 8s linear infinite; */
+  /* overflow: hidden; */
+/* } */
+/* 
 @keyframes marquee1 {
   0% {
     transform: translateY(-40%);
@@ -172,7 +172,7 @@ div.all_service_list ul {
   100% {
     transform: translateY(-50%);
   }
-}
+} */
 
 a {
   text-decoration: none;
@@ -328,4 +328,63 @@ div.middle-container {
   height: 90vh;
   overflow: hidden;
   overflow-y: scroll;
+}
+
+
+.container_slider {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider {
+  position: relative;
+  box-sizing: border-box;
+  animation: slider 15s linear infinite;
+  list-style-type: none;
+  text-align: center;
+}
+
+.slider:hover {
+  animation-play-state: paused;
+}
+
+@keyframes slider {
+  0% {
+      top: 100%
+  }
+
+  100% {
+      top: -175%;
+  }
+}
+
+.blur .slider {
+  margin: 0;
+  padding: 0 1em;
+  line-height: 1.5em;
+}
+
+.blur:before,
+.blur::before,
+.blur:after,
+.blur::after {
+  left: 0;
+  z-index: 1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2em;
+}
+
+.blur:after,
+.blur::after {
+  bottom: 0;
+  transform: rotate(180deg);
+}
+
+.blur:before,
+.blur::before {
+  top: 0;
 }

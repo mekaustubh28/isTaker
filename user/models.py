@@ -59,6 +59,7 @@ class Service_Boy(models.Model):
     image = models.FileField(upload_to='user/images')
     password = models.CharField(max_length=200, default='')
     status = models.BooleanField(default=False)
+    reason = models.CharField(default='', max_length=1000)
     current_status = models.CharField(default='available', max_length=100)
     available = models.BooleanField(default=True)
     created_on = models.DateField(default=timezone.now())

@@ -101,7 +101,7 @@
         </div>
         <form action="/service_boy/{{Active_Service_Boy.ID}}/start_ride" method="post" class="confirm_service">
             {% csrf_token %}
-            <input type="text" value="" name="assignService" id="assignService">
+            <input type="hidden" value="" name="assignService" id="assignService">
             <button type="submit" id="assignServiceButton" class="btn btn-primary mx-2 custom_btn" disabled>Confirm</button>
         </form>
     </div>

@@ -102,33 +102,33 @@ div.all_city_list {
         overflow: hidden;
 }
 
-div.all_city_list ul {
+/* div.all_city_list ul {
         animation: marquee1 8s linear infinite;
 
-}
+} */
 
 div.all_service_list {
         overflow: hidden;
 }
 
 div.all_service_list ul {
-        animation: marquee1 8s linear infinite;
+        /* animation: marquee1 8s linear infinite; */
         overflow: hidden;
 }
 
-@keyframes marquee1 {
-        0% {
-                transform: translateY(-30%);
-        }
-
-        50% {
-                transform: translateY(0);
-        }
-
-        100% {
-                transform: translateY(-30%);
-        }
+/* @keyframes marquee1 {
+0% {
+        transform: translateY(-30%);
 }
+
+50% {
+        transform: translateY(0);
+}
+
+100% {
+        transform: translateY(-30%);
+}
+} */
 
 button.custom_btn {
         background-color: #ff844f;
@@ -148,4 +148,47 @@ div.middle-container {
         height: 90vh;
         overflow: hidden;
         overflow-y: scroll;
+}
+
+li.cart-items {
+        position: relative;
+}
+
+li.cart-items span {
+        position: absolute;
+        top: 0;
+        right: 0;
+}
+
+li.cart-items {
+        display: flex;
+}
+
+li.cart-items form {
+        height: max-content;
+        width: max-content;
+}
+
+
+li.cart-items span svg {
+        border: 1px solid #fd7034;
+        border-radius: 100px;
+        opacity: 0;
+        background-color: #fd7034;
+        transition: 0.1s ease-in-out;
+}
+
+li.cart-items:hover span svg {
+        opacity: 1;
+        transition: 0.1s ease-in-out;
+}
+
+button.non_usage_btn {
+        font-size: 20px;
+        outline: none;
+        border: 0;
+        display: flex;
+        background-color: transparent;
+        height: max-content;
+        width: max-content;
 }

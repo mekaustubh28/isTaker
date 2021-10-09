@@ -150,6 +150,7 @@ div.progress {
   height: 2px;
   background-color: #ff844f;
   transition: 0.5s ease-in-out;
+  z-index: +99;
 }
 
 .with_service_boy {
@@ -218,3 +219,10 @@ span.label-info {
 .disabled {
   cursor: grab;
 }
+
+div.tnc input{
+  width: 20px!important;
+}
+
+
+

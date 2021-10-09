@@ -3,6 +3,7 @@ from user.models import Admin_Staff, Customer, Service_Boy
 from hospital.models import Hospital_Detail
 from admin_control.models import Customer_Ongoing_Trip, Customer_Service_Hist, Service_Boy_Ongoing_Trip, Service_Boy_Service_Hist
 
+import smtplib
 
 def admin_control(request):
     try:
@@ -76,27 +77,31 @@ def service_boys(request):
 
 
 def pending_applications(request):
-    try:
+    # try:
+    if(request.method == 'POST'):
+        pending_ID = request.POST.get('pending_ID', '')
+        print(pending_ID)
+        service_boy_pending = Service_Boy.objects.filter(
+            status=False, ID=int(pending_ID))
+        email = service_boy_pending[0].email
+        name = service_boy_pending[0].first_name
 
-        if(request.method == 'POST'):
-            pending_ID = request.POST.get('pending_ID', '')
-            print(pending_ID)
-            Service_Boy.objects.filter(
-                status=False, ID=int(pending_ID)).update(status=True)
-            return redirect('/jhbo92dasdSABoiu8o08BFjkl/pending_applications')
+        service_boy_pending.update(status=True)
+        
+        confirmation_message(email, pending_ID, name)
 
-        Session_ID = request.session['Admin_Staff']
-        staff_admin = Admin_Staff.objects.filter(admin_staff_id=Session_ID)[0]
-        service_boy = Service_Boy.objects.filter(status=False).values()
-
-        # service_boy_service_hist = Service_Boy_Service_Hist.objects.filter()
-        return render(request, 'admin_control/pending_applications.html', {
-            'active_link': 'All Service Boys',
-            'staff_admin': staff_admin,
-            'service_boy': service_boy,
-        })
-    except:
-        return redirect('/jhbo92dasdSABoiu8o08BFjkl')
+        return redirect('/jhbo92dasdSABoiu8o08BFjkl/pending_applications')
+    Session_ID = request.session['Admin_Staff']
+    staff_admin = Admin_Staff.objects.filter(admin_staff_id=Session_ID)[0]
+    service_boy = Service_Boy.objects.filter(status=False).values()
+    # service_boy_service_hist = Service_Boy_Service_Hist.objects.filter()
+    return render(request, 'admin_control/pending_applications.html', {
+        'active_link': 'All Service Boys',
+        'staff_admin': staff_admin,
+        'service_boy': service_boy,
+    })
+    # except:
+    #     return redirect('/jhbo92dasdSABoiu8o08BFjkl')
 
 
 def hospitals(request):
@@ -209,3 +214,16 @@ def admin_staff_logout(request):
 
 
 # Create your views here.
+# Send Message
+
+
+def confirmation_message(email, service_boy_id, name):
+
+    mail_server = smtplib.SMTP('smtp.gmail.com', 587)
+    mail_server.starttls()
+    mail_server.login("vermakaustubh28@gmail.com", "uvbulppoaoxlwzhu")
+    SUBJECT = "Welcome to isTaker"   
+    TEXT = 'Hi '+str(name)+',\nwelcome to isTaker Family. Your Application Request is Completed and is Fit for our services.\nYour Service Boy ID is '+str(service_boy_id)
+
+    message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
+    mail_server.sendmail('&&&&&&&&&&&', email, message)

@@ -6,12 +6,13 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'user/scss/signUp/signUp.css' %}">
 <style>
-    input.get_OTP{
+    input.get_OTP {
         background-color: transparent;
         cursor: pointer;
         transition: 0.3s ease-in-out;
     }
-    input.get_OTP:hover{
+
+    input.get_OTP:hover {
         background-color: rgba(0, 0, 0, 0.034);
         transition: 0.3s ease-in-out;
     }
@@ -26,15 +27,16 @@
         <div class="fill">
             <div class="service_boy signup-service_boy">
                 <p style="margin: 0; padding:0;color:red;">{{otp_error}}</p>
-                <form action="/create_new_account" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="email" class="email" name="email" placeholder="email" value="{{email}}" disabled><br>
-                    <input type="text" class="OTP" id="OTP" name="OTP" placeholder="Enter OTP" required><br>
-                    <input type="submit" class="submit" value="Register">
-                </form>
+                <input type="email" class="email" name="email" placeholder="email" value="{{email}}" disabled><br>
                 <form action="/create_new_account" method="post">
                     {% csrf_token %}
                     <input type="submit" class="get_OTP" value="Get OTP" name="get_OTP">
+                </form>
+                <form action="/create_new_account" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" class="email" name="email" placeholder="email" value="{{email}}" disabled><br>
+                    <input type="text" class="OTP" id="OTP" name="OTP" placeholder="Enter OTP" required><br>
+                    <input type="submit" class="submit" value="Register">
                 </form>
             </div>
         </div>
