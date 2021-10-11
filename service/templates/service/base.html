@@ -39,7 +39,7 @@
         <form class="d-flex" action="/customer_dashboard/{{Active_User.customer_id}}/search" method="POST">
           {% csrf_token %}
           <input list="browsers" class="form-control" style="border-radius: 5px 0 0 5px;" type="search"
-            name="search_bycustom_btn_place" aria-label="Search" value="{{search_by_place}}"
+            name="search_by_place" aria-label="Search" value="{{search_by_place}}"
             placeholder="Search by Hospital" id="browser" autocomplete="off" required>
           <datalist id="browsers">
             {% for hospital in hospital %}

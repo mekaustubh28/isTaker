@@ -3,7 +3,7 @@
 /* CSS for scroller */
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */
@@ -22,7 +22,7 @@
 }
 
 .Hotbg {
-  height: 20px;
+  height: 2vw;
   background: #fff;
 }
 
@@ -32,11 +32,15 @@
   margin-bottom: 10px;
   float: left;
   padding-left: 10px;
-  font-size: 16px;
+  font-size: 1vw;
   transition: 0.4s;
   width: 100%;
-  height: 30px;
+  height: 2vw;
   line-height: 40px;
+}
+
+* {
+  font-size: 1vw;
 }
 
 body {
@@ -116,8 +120,13 @@ div.hospital_name {
 
 div.hospital_name p {
   margin: 0;
-  font-size: small;
   margin-right: 5%;
+}
+
+div.hospital_name p,
+div.hospital_name h6,
+div.hospital_name label {
+  font-size: 1vw;
 }
 
 div.hospital_name h6 {
@@ -132,6 +141,10 @@ input.rating_star {
   display: none;
 }
 
+span.heading {
+  font-size: 1vw;
+}
+
 label.fas {
   color: rgb(255, 216, 21);
   margin-top: 1.5%;
@@ -141,38 +154,6 @@ label.fas {
 ul.hospitals {
   padding: 0;
 }
-
-/* div.all_city_list {
-  overflow: hidden;
-} */
-
-/* div.all_city_list ul {
-  animation: marquee1 8s linear infinite;
-
-} */
-
-/* div.all_service_list {
-  overflow: hidden;
-} */
-
-/* div.all_service_list ul { */
-  /* animation: marquee1 8s linear infinite; */
-  /* overflow: hidden; */
-/* } */
-/* 
-@keyframes marquee1 {
-  0% {
-    transform: translateY(-40%);
-  }
-
-  50% {
-    transform: translateY(0);
-  }
-
-  100% {
-    transform: translateY(-50%);
-  }
-} */
 
 a {
   text-decoration: none;
@@ -316,10 +297,6 @@ button#btn_search_by_pin:hover {
   background-color: #ff844f;
 }
 
-/*# sourceMappingURL=navbar.css.map */
-
-
-
 div.top-container {
   height: 100%;
 }
@@ -352,11 +329,11 @@ div.middle-container {
 
 @keyframes slider {
   0% {
-      top: 100%
+    top: 100%
   }
 
   100% {
-      top: -175%;
+    top: -175%;
   }
 }
 
@@ -387,4 +364,39 @@ div.middle-container {
 .blur:before,
 .blur::before {
   top: 0;
+}
+div.carousel-item img{
+  height: 430px;
+}
+
+@media screen and (max-width:800px) {
+  /* CSS for scroller */
+  /* width */
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+}
+
+
+@media screen and (max-width:1194px) {
+  /* CSS for scroller */
+  /* width */
+  div.carousel-item img{
+    height: 380px;
+  }
+}
+
+
+@media screen and (max-height:640px) {
+  div.carousel-item img{
+    height: 200px;
+  }
 }

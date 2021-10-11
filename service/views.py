@@ -542,7 +542,7 @@ def search(request, myid):
 
                 service_boys_available = Service_Boy.objects.filter(
                     pin_serve__contains=hospital_pin, status=True, available=True)
-                
+                # print(hospital_available.values())
                 # print(Active_User['PIN'])
                 try:
                     return render(request, "service/search.html", {

@@ -15,7 +15,7 @@ div.customer_container div.service {
 }
 
 div.customer_container div.service div.second-container {
-  width: 58%;
+  width: 50%;
 }
 
 div.customer_container div.service div.second-container div.available-services {
@@ -25,7 +25,7 @@ div.customer_container div.service div.second-container div.available-services {
 }
 
 div.customer_container div.service div.third-container {
-  width: 38%;
+  width: 50%;
   position: relative;
 }
 
@@ -40,10 +40,28 @@ div.customer_container div.service div.third-container {
   -webkit-box-flex: 0;
       -ms-flex: none;
           flex: none;
-  margin: 10px;
+  margin: 10px 5px 10px 5px;
   padding: 10px;
   border: 3px solid gray;
   border-radius: 2px;
 }
 
 /*# sourceMappingURL=customer_dashboard.css.map */
+
+@media screen and (max-width:800px) { 
+  div.customer_container div.service div.second-container,
+  div.customer_container div.service div.third-container{
+    width: 50%;
+    margin: 1px;
+    border: 1px solid gray;
+  }
+}
+
+
+
+@media screen and (max-height:640px) {
+  div.second-container,
+  div.third-container{
+    height: 70%;
+  }
+}
