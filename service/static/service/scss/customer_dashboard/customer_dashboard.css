@@ -57,18 +57,3 @@ div.customer_container div.service div.third-container {
   }
 }
 
-
-
-@media screen and (max-height:640px) {
-  div.second-container,
-  div.third-container{
-    height: 70%;
-  }
-}
-
-@media screen and (max-width:512px) and (max-height:821px) {
-  div.second-container,
-  div.third-container{
-    height: 70%;
-  }
-}

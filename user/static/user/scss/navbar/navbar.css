@@ -387,21 +387,10 @@ div.carousel-item img{
 
 
 @media screen and (max-width:1194px) {
-  /* CSS for scroller */
-  /* width */
   div.carousel-item img{
-    height: 380px;
+    height: 45vh;
   }
-}
-
-@media screen and (max-height:640px) {
-  div.carousel-item img{
-    height: 200px;
-  }
-}
-
-@media screen and (max-width:512px) and (max-height:821px) {
-  div.carousel-item img{
-    height: 170px;
+  div.third-container{
+    height: 100%;
   }
 }
