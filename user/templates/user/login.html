@@ -30,17 +30,20 @@
                     <label for="email_c_choice">Login with Email</label>
                     <input type="radio" id="number_c_choice" name="c_login" value="Login with Contact Number">
                     <label for="number_c_choice">Login with Contact Number</label>
-                </div>
+                </div><br>
                 <form action="/login" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="who" value="customer">
-                    <input type="email" class="email" name="email" id="c_email" placeholder="email" required><br>
-                    <input class="password" type="password" name="password" id="c_password" placeholder="password"
-                        required><br>
-                    <!-- recaptcha -->
-                    <button class="g-recaptcha" data-sitekey="6LfFFLscAAAAAFgsWSR0akvUtdXYxGRKwsIN53ij"
-                        data-callback='onSubmit' data-action='submit'>Submit</button>
-                    <!-- recaptcha -->
+                    <div class="form-group">
+                        <label for="c_email" id="c_email_number">Email address</label>
+                        <input type="email" class="email form-control" name="email" id="c_email" required
+                            placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="c_password">Password</label>
+                        <input type="password" class="password form-control" name="password" id="c_password" required
+                            placeholder="password min 8 character" required>
+                    </div>
                     <a href="/forgot_password" style="float:left;margin-left:10%">Forget password?</a><br>
                     <input type="submit" class="submit" onclick="saveInfoCustomer()" value="Login">
                     <hr>
@@ -57,14 +60,22 @@
                 <form action="/login" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="who" value="service_boy">
-                    <input type="number" class="ID" name="ID" id="ID" placeholder="ID" required><br>
-                    <input type="email" class="email" name="email" id="s_email" placeholder="email" required><br>
-                    <input class="password" type="password" name="password" id="s_password" placeholder="password"
-                        required><br>
-                    <!-- recaptcha -->
-                    <button class="g-recaptcha" data-sitekey="6LfFFLscAAAAAFgsWSR0akvUtdXYxGRKwsIN53ij"
-                        data-callback='onSubmit' data-action='submit'>Submit</button>
-                    <!-- recaptcha -->
+                    <br>
+                    <div class="form-group">
+                        <label for="ID">Unique ID</label>
+                        <input type="number" class="ID form-control" name="ID" id="ID" required
+                            placeholder="Unique ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="s_email" id="s_email_number">Email</label>
+                        <input type="email" class="email form-control" name="email" id="s_email" required
+                            placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="ID">Password</label>
+                        <input type="password" class="password form-control" name="password" id="s_password" required
+                            placeholder="password">
+                    </div>
                     <a href="/forgot_password" style="float:left;margin-left:10%">Forget password?</a><br>
                     <input type="submit" class="submit" onclick="saveInfoServiceBoy()" value="Login">
                     <hr>
@@ -78,15 +89,8 @@
 {% endblock %}
 
 {% block javascript %}
-<!-- recaptcha -->
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<!-- recaptcha -->
 <script src="{% static 'user/js/signIn.js' %}"></script>
-<script>
-    function onSubmit(token) {
-        document.getElementById("demo-form").submit();
-    }
-</script>
+
 <script>
     function saveInfoCustomer() {
         var email = $('input#c_email').val()

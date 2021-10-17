@@ -120,7 +120,7 @@ div.hospital div {
 img.hospital_image {
   border-radius: 50%;
   border: 1px solid gray;
-  padding: 10px;
+  padding: 0.3vw;
 }
 
 div.hospital_info h2 {
@@ -141,6 +141,8 @@ input.checkbox {
   position: absolute;
   right: 20px;
   top: 20px;
+  width: 1vw;
+  height: 1vw;
   border-radius: 50%;
   transform: scale(1.5);
 }

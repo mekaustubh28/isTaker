@@ -32,7 +32,17 @@ body div.signInUp {
 body div.signInUp div.Login {
   text-align: center;
 }
+div.form-group{
+  padding:0;
+  text-align:left;
+  width: 80%;
+  margin: auto;
+}
 
+div.form-group input{
+  margin-left: 0!important;
+  width: 100%!important;
+}
 body div.signInUp div.Login input.option {
   display: none;
 }
@@ -131,7 +141,7 @@ body div.signInUp div.Login div.fill div.customer input.submit,
 body div.signInUp div.Login div.fill div.service_boy input.submit {
   width: 40%;
   background-color: #ff844f;
-  font-size: 20px;
+  font-size: 1.5vw;
   color: white;
   outline: none;
   border: none;
@@ -148,4 +158,10 @@ body div.signInUp div.Login div.fill div.hide {
 }
 
 /*# sourceMappingURL=signInUp.css.map */
+input.form-control{
+  height: 2.5vw!important;
+}
 
+a{
+  font-size: 1vw!important;
+}

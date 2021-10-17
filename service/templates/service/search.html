@@ -46,7 +46,7 @@
     <div class="service_boys">
       {% for i in service_boys_available%}
       <div class="card__header">
-        <img class="card__thumb" src="/media/{{i.image}}" alt="{{i.first_name}} DP" />
+        <img class="card__thumb" src="/media/{{i.image}}" alt="{{i.first_name}} DP" style="width:5vw;height:5vw"/>
         <div class="card__header-text">
           <h3 class="card__title">{{i.first_name}}</h3>
         </div>
@@ -59,7 +59,7 @@
       id="hospital_submit">
       {% csrf_token %}
       <input type="hidden" value="hospital_id" id="hospital_id" name="hospital_id">
-      <button class="btn btn-primary custom_btn" id="hospital_done" style="border-radius:5px;" type="submit" disabled>
+      <button class="btn btn-primary custom_btn" id="hospital_done" style="border-radius:5px;font-size:1vw" type="submit" disabled>
         Done
       </button>
     </form>
@@ -71,8 +71,7 @@
           <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}place">
         </div>
         <div class="hospital_image">
-          <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" width="180px"
-            height="180px">
+          <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" style="width: 11vw;height:11vw">
         </div>
         <div class="hospital_info">
           <h2 class="hospital_name">{{i.hospital_name}}</h2>
@@ -87,11 +86,10 @@
         <div class="hospital" id="hospital" name="{{i.hospital_id}}"
           style="display: block;margin:4%; width:30%; text-align:center">
           <div class="hospital_checkbox">
-            <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}">
+            <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}" style="font-size:2vw">
           </div>
           <div class="hospital_image">
-            <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" width="180px"
-              height="180px">
+            <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" style="width:11vw;height:11vw">
           </div>
           <div class="hospital_info">
             <h2 class="hospital_name">{{i.hospital_name}}</h2>

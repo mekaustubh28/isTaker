@@ -7,9 +7,6 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="{% static 'service/scss/orders/orders.css' %}">
 
-<style>
-    
-</style>
 {% endblock %}
 
 {% block body %}
@@ -45,16 +42,16 @@
             </div>
             <div class="order_action">
                 {% if i.order.status == 'Service Boy Assigned' %}
-                <h3 style="color: green;">{{i.order.status}}</h3>
+                <h3 style="color: green;font-size:1.2vw;">{{i.order.status}}</h3>
                 {% endif %}
                 {% if i.order.status == 'pending' %}
-                <h3>Pending</h3>
+                <h3 style="font-size:1.2vw;">Pending</h3>
                 {% endif %}
                 {% if i.order.status == 'Ride Completed' %}
-                <h3>Ride Completed</h3>
+                <h3 style="font-size:1.2vw;">Ride Completed</h3>
                 {% endif %}
                 {% if i.order.status == 'Cancelled' %}
-                <h3 style="color: red;">{{i.order.status}}</h3>
+                <h3 style="color: red;font-size:1.2vw;">{{i.order.status}}</h3>
                 {% endif %}
                 {% if i.order.status == 'Service Started' %}
                 <div class="service_started">
@@ -68,8 +65,8 @@
                 <br>
                 <div class="order_insiders">
                     <div class="img_services">
-                        <img src="/media/{{i.hospital.hospital_image}}" class="hospital_image"
-                            alt="{{i.hospital_name}}">
+                        <img src="/media/{{i.hospital.hospital_image}}" id="hospital_image" class="hospital_image"
+                            alt="{{i.hospital_name}}" style="width: 8vw;height:8vw">
                         <div class="dropdown">
                             <button class="btn services_list dropdown-toggle" type="button" id="dropdownMenu2"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -82,15 +79,15 @@
                             </ul>
                         </div>
                     </div>
-
+                    <br>
                     <div class="address">
-                        <h3 style="color: #FF834F;">{{i.hospital.hospital_name}}</h3>
+                        <h3 style="color: #FF834F;font-size:1.6vw">{{i.hospital.hospital_name}}</h3>
                         <p class="to_from">To:</p>
                         <p>{{i.hospital.hospital_address}}</p>
                         <hr style="margin: 10px 0 10px 0; width:90%">
                         <p class="to_from" style="margin-top: 10px;">From:</p>
                         <p>{{customer.address}}</p>
-                    </div>
+                    </div><br>
                     <div class="action">
                         {%if not i.order.status == 'Cancelled' %}
                         <a href="" class="{{i.order.customer_trip_id}}" type="button" data-bs-toggle="modal"

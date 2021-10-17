@@ -33,6 +33,16 @@ div.cart svg {
         right: 40px;
 }
 
+* {
+        font-size: 1vw;
+}
+
+div.hospital_name p,
+div.hospital_name h6,
+div.hospital_name label {
+        font-size: 1vw;
+}
+
 span.items {
         position: absolute;
         right: 0;

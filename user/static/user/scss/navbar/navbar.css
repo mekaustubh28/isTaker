@@ -390,7 +390,8 @@ div.carousel-item img{
   div.carousel-item img{
     height: 45vh;
   }
-  div.third-container{
+  div.third-container,
+  div.second-container{
     height: 100%;
   }
 }

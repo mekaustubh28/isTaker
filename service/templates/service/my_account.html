@@ -16,7 +16,7 @@
     <div class="info_control">
         <div class="info_panel">
             <div class="name">
-                <div class="img"><img src="{% static 'service/images/avatar.png' %}" alt="" width="60px"></div>
+                <div class="img"><img src="{% static 'service/images/avatar.png' %}" alt="" style="width: 4vw;height:4vw"></div>
                 <div class="greeting">
                     <span>Hello</span>,<br> <b>{{Active_User.first_name}} {{Active_User.last_name}}</b>
                 </div>
@@ -27,7 +27,7 @@
                         <li class="order_select">
                             <a href="/customer_dashboard/{{Active_User.customer_id}}/orders" target="_blank" class="orders">
                                 <span style="margin-right: 20px;">
-                                    <img src="{% static 'service/images/order.png' %}" alt="" width="40px">
+                                    <img src="{% static 'service/images/order.png' %}" alt="" style="width: 2vw;height:2vw">
                                 </span>
                                 My Orders
                             </a>
@@ -38,7 +38,7 @@
                     <ul class="category">
                         <li>
                             <span style="margin-right: 20px;margin-left: 5px;">
-                                <img src="{% static 'service/images/profile.png' %}" alt="" width="30px">
+                                <img src="{% static 'service/images/profile.png' %}" alt="" style="width: 2vw;height:2vw">
                             </span>
                             Profile Information
                         </li>
@@ -54,9 +54,9 @@
         <div class="info_change">
             <div class="section personal">
                 <div class="your_name">
-                    <label for="your_name" class="label_info">
+                    <label for="your_name" class="label_info" style="font-size:1.3vw">
                         Your Name<span id="name"><img class="edit_info" src="{% static 'service/images/edit.png' %}"
-                                alt="" width="20px">
+                                alt="">
                         </span>
                     </label>
                     <form action="/customer_dashboard/{{Active_User.customer_id}}/my_account" method="POST">
@@ -79,7 +79,7 @@
                     </form>
                 </div><br>
                 <div class="father_name">
-                    <label for="father_name" class="label_info">
+                    <label for="father_name" class="label_info" style="font-size:1.3vw">
                         Father/Hustand Name<span id="father_name"><img class="edit_info"
                                 src="{% static 'service/images/edit.png' %}" alt="" width="20px">
                         </span>
@@ -100,7 +100,7 @@
                 </div><br>
                 <div class="email_mobile">
                     <div class="email" style="margin-right: 60px;">
-                        <label for="email" class="label_info">
+                        <label for="email" class="label_info" style="font-size:1.3vw">
                             Email<span id="email"><img class="edit_info" src="{% static 'service/images/edit.png' %}"
                                     alt="" width="20px">
                             </span>
@@ -119,7 +119,7 @@
                         </form>
                     </div>
                     <div class="mobile">
-                        <label for="mobile" class="label_info">
+                        <label for="mobile" class="label_info" style="font-size:1.3vw">
                             Contact<span id="mobile"><img class="edit_info" src="{% static 'service/images/edit.png' %}"
                                     alt="" width="20px">
                             </span>
@@ -142,7 +142,7 @@
             </div>
             <div class="section address noshow">
                 <div class="address">
-                    <label for="address" class="label_info">
+                    <label for="address" class="label_info" style="font-size:1.3vw">
                         Address<span id="address"><img class="edit_info" src="{% static 'service/images/edit.png' %}"
                                 alt="" width="20px">
                         </span>
@@ -162,7 +162,7 @@
                 </div><br>
                 <div class="state_city_pin">
                     <div class="state">
-                        <label for="state" class="label_info">
+                        <label for="state" class="label_info" style="font-size:1.3vw">
                             State<span id="state"><img class="edit_info" src="{% static 'service/images/edit.png' %}"
                                     alt="" width="20px">
                             </span>
@@ -186,7 +186,7 @@
                         </form>
                     </div><br>
                     <div class="city">
-                        <label for="city" class="label_info">
+                        <label for="city" class="label_info" style="font-size:1.3vw">
                             City/Village<span id="city"><img class="edit_info"
                                     src="{% static 'service/images/edit.png' %}" alt="" width="20px">
                             </span>
@@ -206,7 +206,7 @@
                         </form>
                     </div><br>
                     <div class="pin">
-                        <label for="pin" class="label_info">
+                        <label for="pin" class="label_info" style="font-size:1.3vw">
                             PIN<span id="pin"><img class="edit_info" src="{% static 'service/images/edit.png' %}" alt=""
                                     width="20px">
                             </span>
@@ -228,7 +228,7 @@
             </div>
             <div class="section adhaar noshow">
                 <div class="adhaar">
-                    <label for="adhaar" class="label_info">
+                    <label for="adhaar" class="label_info" style="font-size:1.3vw">
                         Adhaar Card<span id="adhaar"><img class="edit_info" src="{% static 'service/images/edit.png' %}"
                                 alt="" width="20px">
                         </span>

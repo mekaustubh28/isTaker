@@ -67,7 +67,7 @@ ul.category li {
 
 ul.subcategory li {
     cursor: pointer;
-    padding: 10px 85px;
+    padding: 1vw 4vw;
     font-size: 1vw;
     font-weight: 300;
 }

@@ -12,6 +12,8 @@ $(document).ready(function () {
     $('input#email_s_choice').attr('checked', true);
 
     $('input#email_c_choice').click(function(){
+        document.getElementById('c_email_number').innerText='Email address'
+        // $('label#email_number').text('value','Email address')
         $('input#c_number').attr('type','email')
         $('input#c_number').attr('name','email')
         $('input#c_number').attr('placeholder','Email')
@@ -20,6 +22,7 @@ $(document).ready(function () {
     })
 
     $('input#number_c_choice').click(function(){
+        document.getElementById('c_email_number').innerText='Contact Number'
         $('input#c_email').attr('type','number')
         $('input#c_email').attr('name','number')
         $('input#c_email').attr('value','')
@@ -28,6 +31,7 @@ $(document).ready(function () {
     })
 
     $('input#email_s_choice').click(function(){
+        document.getElementById('s_email_number').innerText='Email'
         $('input#s_number').attr('type','email')
         $('input#s_number').attr('name','email')
         $('input#s_number').attr('placeholder','Email')
@@ -36,6 +40,7 @@ $(document).ready(function () {
     })
 
     $('input#number_s_choice').click(function(){
+        document.getElementById('s_email_number').innerText='Contact Number'
         $('input#s_email').attr('type','number')
         $('input#s_email').attr('name','number')
         $('input#s_email').attr('value','')
