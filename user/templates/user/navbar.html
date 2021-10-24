@@ -112,7 +112,22 @@
         <div class="container side left-container">
             <div class="mini top-rated" style="overflow:hidden;">
                 <div class="Hotbg">
-                    <input type="text" name="" id="input_search_by_city" class="Hotbg-txt" placeholder="Search By City">
+                    <span>
+                        <li class="nav-item dropdown dropdown_city">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_city" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Filter City
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown_city">
+                                {% for i in cities%}
+                                <li><input type="checkbox" class="filter_city" name="{{i}}"
+                                        id="{{forloop.counter}}"><label for="{{forloop.counter}}"
+                                        class="{{i}}">{{i}}</label></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </span>
+                    <!-- <input type="text" name="" id="input_search_by_city" class="Hotbg-txt" placeholder="Search By City"> -->
                 </div>
                 <span class="heading">Top Rated Spot Filter on City Wise</span>
                 <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
@@ -210,7 +225,6 @@
             </div>
         </div>
     </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
@@ -219,18 +233,47 @@
         $('button.cart_submit').click(function () {
             $('input#cart_value_id').attr('value', $(this).attr('value'))
         })
-        $('input#input_search_by_city').on('change keyup paste', function () {
-            var input, filter, ul, li, a, i, txtValue;
-            input = document.getElementById("input_search_by_city")
-            filter = input.value;
-            div = document.getElementsByClassName('hospital_name_city_wise');
+        var x = 0
+        var filter_array = []
+        $('input.filter_city').click(function () {
+            document.getElementById('navbarDropdown_city').innerHTML = ''
+            var service = $(this).attr('name')
+            var state = $(this).is(':checked')
+            if (state == true) {
+                filter_array.push(service)
+            } else {
+                var temp_array = []
+                for (var j = 0; j < filter_array.length; j++) {
+                    if (filter_array[j] != service) {
+                        temp_array.push(filter_array[j])
+                    }
+                }
+                filter_array = temp_array
+            }
+            for (var j = 0; j < filter_array.length; j++) {
+                document.getElementById('navbarDropdown_city').innerHTML = document.getElementById(
+                    'navbarDropdown_city').innerHTML + " " + filter_array[j]
+            }
+            document.getElementById('navbarDropdown_city').innerHTML = document.getElementById(
+                'navbarDropdown_city').innerHTML.slice(0, 15)
+            var price = $(this).attr('name')
             $('div.hospital_name_city_wise').addClass('hidden');
-            for (i = 0; i < div.length; i++) {
-                if (div[i].innerText.toLowerCase().indexOf(filter.toLowerCase()) != -1) {
-                    $('div#' + div[i].id).removeClass('hidden')
+            for (var j = 0; j < filter_array.length; j++) {
+                var filter, ul, li, a, i, txtValue;
+                filter = filter_array[j];
+                div = document.getElementsByClassName('hospital_name_city_wise');
+                for (i = 0; i < div.length; i++) {
+                    if (div[i].innerText.indexOf(filter) != -1) {
+                        $('div#' + div[i].id).removeClass('hidden')
+                    }
                 }
             }
-        })
+            console.log(filter_array.length)
+            if (filter_array.length == 0) {
+                document.getElementById('navbarDropdown_city').innerHTML = "Filter City"
+                $('div.hospital_name_city_wise').removeClass('hidden')
+            }
+        });
     </script>
     <script src="{% static 'user/js/navbar.js' %}"></script>
     {% block javascript %}{% endblock %}

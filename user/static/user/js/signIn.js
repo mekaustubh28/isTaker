@@ -1,4 +1,47 @@
 $(document).ready(function () {
+    pin_array = []
+    $('input#pin_dropdown').on('keyup', function(){
+        // tags = document.getElementsByClassName('tag')
+        value = $(this).val()
+        // for (var x=0;x<tags.length;x++){
+        //     tag_array.push(tags[x].innerText)
+        // }
+        if(value.length>5){
+            check = 0
+            for(var x=0;x<pin_array.length;x++){
+                if (value==pin_array[x]){
+                    check = 1
+                }
+            }
+            if(check == 0){
+                pin_array.push(value)
+            }
+            console.log(pin_array)
+        }
+        var all_pin = ''
+        for(var x=0;x<pin_array.length;x++){
+            if(x!=pin_array.length-1){
+                all_pin = all_pin + pin_array[x] + ","
+            }else{
+                all_pin = all_pin + pin_array[x]
+            }
+        }
+        $('input#s_pin_serve').attr('value', all_pin)
+        $('input#demo_pin_serve').attr('value', all_pin)
+    })
+
+    $('select#languages_dropdown').click(function () {
+        prev_langauges = $('input#s_languages').val()
+        current_language = $(this).val()
+        $("select#languages_dropdown option[value=" + current_language + "]").remove();
+        if (prev_langauges == '') {
+            $('input#s_languages').attr('value', current_language)
+        } else {
+            $('input#s_languages').attr('value', prev_langauges + ", " + current_language)
+        }
+        $('input#demo_languages').attr('value', $('input#s_languages').val())
+    });
+
     $('label.customer').click(function () {
         $('div.customer').removeClass('hide')
         $('div.service_boy').addClass('hide')

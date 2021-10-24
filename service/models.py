@@ -17,6 +17,7 @@ class Service(models.Model):
     package = models.ForeignKey(Package, on_delete=models.CASCADE)
     service_id = models.AutoField(primary_key=True)
     service_name = models.CharField(max_length=50, default='service')
+    service_desc = models.CharField(max_length=1000, default='')
     service_amount = models.IntegerField(default=0)
     service_addition_date = models.DateField()
 

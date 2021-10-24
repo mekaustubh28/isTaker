@@ -107,7 +107,8 @@ def index(request):
             i.testimonial,
             Customer.objects.filter(customer_id=int(i.customer_id))[
                 0].first_name+Customer.objects.filter(customer_id=int(i.customer_id))[0].last_name,
-            i.date_time
+            i.date_time,
+            i.customer_image
         ])
 
     return render(request, "user/index.html", {
@@ -267,7 +268,8 @@ def SignUp(request):
                 'hospital': Hospital_Detail.objects.all(),
                 'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all(),
-        'cities': All_Cities(Hospital_Detail.objects.all())
+                'cities': All_Cities(Hospital_Detail.objects.all()),
+                'PIN': All_PIN(Hospital_Detail.objects.all())
             })
 
         mother_tongue = request.POST.get('mother_tongue', '')
@@ -275,7 +277,6 @@ def SignUp(request):
         DOB = request.POST.get('DOB', '')
         pin_serve = request.POST.get('pin_serve', '')
         languages = request.POST.get('languages', '')
-
         number = request.POST.get('number', '')
         number_customer = Customer.objects.filter(mobile=number)
         number_service_boy = Service_Boy.objects.filter(mobile=number)
@@ -287,7 +288,8 @@ def SignUp(request):
                 'hospital': Hospital_Detail.objects.all(),
                 'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all(),
-        'cities': All_Cities(Hospital_Detail.objects.all())
+        'cities': All_Cities(Hospital_Detail.objects.all()),
+        'PIN': All_PIN(Hospital_Detail.objects.all())
             })
 
         adhaar = request.POST.get('adhaar', '')
@@ -301,7 +303,8 @@ def SignUp(request):
                 'hospital': Hospital_Detail.objects.all(),
                 'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all(),
-        'cities': All_Cities(Hospital_Detail.objects.all())
+        'cities': All_Cities(Hospital_Detail.objects.all()),
+        'PIN': All_PIN(Hospital_Detail.objects.all())
             })
 
         pan = request.POST.get('pan', 0)
@@ -314,7 +317,22 @@ def SignUp(request):
                 'hospital': Hospital_Detail.objects.all(),
                 'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all(),
-        'cities': All_Cities(Hospital_Detail.objects.all())
+        'cities': All_Cities(Hospital_Detail.objects.all()),
+        'PIN': All_PIN(Hospital_Detail.objects.all())
+            })
+        vehicle_name = request.POST.get('vehicle_name', 0)
+        vehicle_number = request.POST.get('vehicle_number', 0)
+        vehicle_service_boy = Service_Boy.objects.filter(vehicle_number=vehicle_number)
+        if vehicle_service_boy.exists():
+            found = 'Vehicle Number already exists'
+            return render(request, "user/signup.html", {
+                'found': found,
+                'package_dict': package_dict,
+                'hospital': Hospital_Detail.objects.all(),
+                'deal_offers': Deals_and_Offer.objects.all(),
+                'hospital_city_wise': Hospital_Detail.objects.all(),
+        'cities': All_Cities(Hospital_Detail.objects.all()),
+        'PIN': All_PIN(Hospital_Detail.objects.all())
             })
 
         Bank_Account = request.POST.get('Bank_Account', 0)
@@ -327,7 +345,8 @@ def SignUp(request):
                 'hospital': Hospital_Detail.objects.all(),
                 'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all(),
-        'cities': All_Cities(Hospital_Detail.objects.all())
+        'cities': All_Cities(Hospital_Detail.objects.all()),
+        'PIN': All_PIN(Hospital_Detail.objects.all())
             })
 
         IFSC_code = request.POST.get('IFSC_code', 0)
@@ -350,10 +369,9 @@ def SignUp(request):
                 'hospital': Hospital_Detail.objects.all(),
                 'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all(),
-        'cities': All_Cities(Hospital_Detail.objects.all())
+        'cities': All_Cities(Hospital_Detail.objects.all()),
+        'PIN': All_PIN(Hospital_Detail.objects.all())
             })
-
-        print(image)
 
         request.session['params'] = {
             'who': request.POST.get('who'),
@@ -375,6 +393,8 @@ def SignUp(request):
             'number': number,
             'adhaar': adhaar,
             'pan': pan,
+            'vehicle_number':vehicle_number,
+            'vehicle_name':vehicle_name,
             'Bank_Account': Bank_Account,
             'IFSC_code': IFSC_code,
             'branch': branch,
@@ -388,7 +408,7 @@ def SignUp(request):
             'deal_offers': Deals_and_Offer.objects.all(),
             'hospital_city_wise': Hospital_Detail.objects.all(),
         'cities': All_Cities(Hospital_Detail.objects.all()),
-        'cities': All_Cities(Hospital_Detail.objects.all())
+        'PIN': All_PIN(Hospital_Detail.objects.all())
         })
 
     return render(request, "user/signup.html", {
@@ -397,7 +417,8 @@ def SignUp(request):
         'hospital': Hospital_Detail.objects.all(),
         'deal_offers': Deals_and_Offer.objects.all(),
         'hospital_city_wise': Hospital_Detail.objects.all(),
-        'cities': All_Cities(Hospital_Detail.objects.all())
+        'cities': All_Cities(Hospital_Detail.objects.all()),
+        'PIN': All_PIN(Hospital_Detail.objects.all())
     })
 
 
@@ -409,7 +430,7 @@ def create_new_account(request):
     if (request.method == 'POST' and request.POST.get('get_OTP') == 'Get OTP'):
         email = params_dict['email']
         who = params_dict['who']
-        OTP = otp_generator(email)
+        OTP = otp_generator(email, 'Create New Account')
         request.session['OTP'] = OTP
         return render(request, 'user/create_new_account.html', {
             'who': who, 'email': email, 'sent': 'an OTP has been send to '+email, 'package_dict': package_dict,
@@ -442,6 +463,7 @@ def create_new_account(request):
                                                   'mother_tongue'], education=params_dict['education'],
                                               DOB=params_dict['DOB'], pin_serve=params_dict[
                                                   'pin_serve'], languages=params_dict['languages'],
+                                                vehicle_number=params_dict['vehicle_number'],vehicle_name=params_dict['vehicle_name'],
                                               mobile=params_dict['number'], adhaar=params_dict[
                                                   'adhaar'], pan=params_dict['pan'], account=params_dict['Bank_Account'],
                                               ifsc_code=params_dict['IFSC_code'], branch=params_dict['branch'], image=temp[0].image, password=params_dict['password'])
@@ -452,6 +474,8 @@ def create_new_account(request):
             return render(request, 'user/create_new_account.html', {
                 'otp_error': 'please enter correct 6 digit OTP',
                 'package_dict': package_dict,
+                'who':params_dict['who'],
+                'email':params_dict['email'],
                 'deal_offers': Deals_and_Offer.objects.all(),
                 'hospital': Hospital_Detail.objects.all(),
                 'hospital_city_wise': Hospital_Detail.objects.all(),
@@ -460,12 +484,14 @@ def create_new_account(request):
         return render(request, 'user/login.html', {
             'success': success, 'package_dict': package_dict,
             'hospital': Hospital_Detail.objects.all(),
+            'who':params_dict['who'],
+            'email':params_dict['email'],
             'deal_offers': Deals_and_Offer.objects.all(),
             'hospital_city_wise': Hospital_Detail.objects.all(),
         'cities': All_Cities(Hospital_Detail.objects.all())})
     return render(request, "user/create_new_account.html", {
-        # 'email' : params_dict['email'],
-        # 'who' : params_dict['who'],
+        'email' : params_dict['email'],
+        'who' : params_dict['who'],
         'package_dict': package_dict,
         'hospital': Hospital_Detail.objects.all(),
         'deal_offers': Deals_and_Offer.objects.all(),
@@ -492,7 +518,7 @@ def forgot_password(request):
         'cities': All_Cities(Hospital_Detail.objects.all())
                           })
         else:
-            OTP = otp_generator(email)
+            OTP = otp_generator(email, 'Change Password')
             request.session['OTP'] = OTP
 
             return render(request, 'user/forgot_password.html',
@@ -574,7 +600,7 @@ def customer_dashboard(request):
     return render(request, 'user/customer_dashboard.html')
 
 
-def otp_generator(email):
+def otp_generator(email, reason):
     OTP = ''
     for _ in range(6):
         random_num = random.randint(0, 9)
@@ -584,7 +610,7 @@ def otp_generator(email):
     mail_server = smtplib.SMTP('smtp.gmail.com', 587)
     mail_server.starttls()
     mail_server.login("vermakaustubh28@gmail.com", "uvbulppoaoxlwzhu")
-    SUBJECT = "Change Password"
+    SUBJECT = reason
     TEXT = "Please don't share this OTP with anyone. Your OTP is "+OTP
 
     message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
@@ -612,3 +638,12 @@ def All_Cities(hospitals):
     
     return cities
     # print(hospitals.values())
+
+def All_PIN(hospitals):
+    PIN = []
+    for i in hospitals.values():
+        pin = i['hospital_pin']
+        if(pin in PIN) == False:
+            PIN.append(pin)
+    
+    return PIN

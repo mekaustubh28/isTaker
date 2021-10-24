@@ -53,6 +53,8 @@ class Service_Boy(models.Model):
     mobile = models.IntegerField()
     adhaar = models.IntegerField()
     pan = models.IntegerField()
+    vehicle_name = models.CharField(max_length=100, default='')
+    vehicle_number = models.CharField(max_length=100, default='')
     account = models.CharField(max_length=200, default='')
     ifsc_code = models.CharField(max_length=200, default='')
     branch = models.CharField(max_length=200,default='')
@@ -60,8 +62,8 @@ class Service_Boy(models.Model):
     password = models.CharField(max_length=200, default='')
     status = models.BooleanField(default=False)
     reason = models.CharField(default='', max_length=1000)
-    current_status = models.CharField(default='available', max_length=100)
-    available = models.BooleanField(default=True)
+    current_status = models.CharField(default='not available', max_length=100)
+    available = models.BooleanField(default=False)
     created_on = models.DateField(default=timezone.now())
     
 

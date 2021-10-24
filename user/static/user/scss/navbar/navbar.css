@@ -21,11 +21,6 @@
   background: #555;
 }
 
-.Hotbg {
-  height: 2vw;
-  background: #fff;
-}
-
 .Hotbg-txt {
   /* background-color: red; */
   outline: none;
@@ -368,6 +363,20 @@ div.middle-container {
 div.carousel-item img{
   height: 430px;
 }
+
+li.dropdown_city{
+  list-style: none;
+  border: 1px solid black;
+  background-color: #fff;
+}
+li.dropdown_city a{
+  color: black;
+  padding: 0;
+}
+li.dropdown_city a:hover{
+  color: black;
+}
+
 
 @media screen and (max-width:800px) {
   /* CSS for scroller */

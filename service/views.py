@@ -204,10 +204,10 @@ def service_boy_on_way(request, myid):
         if request.method == 'POST':
             if request.POST.get('pendingOrder') == 'yes':
                 Service_Chosen.objects.filter(
-                    service_chosen_id=Active_Service['service_id']).update(status='In Cart')
+                    service_chosen_id=Active_Service['service_id']).update(status='ongoing')
                 print(37)
                 # print()
-                return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/search')
+                return redirect('/customer_dashboard/'+str(Active_Service['customer_id']))
             
             if request.POST.get('pendingOrder') == 'no':
                 Service_Chosen.objects.filter(

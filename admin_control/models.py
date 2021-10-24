@@ -95,5 +95,7 @@ class Service_Boy_Service_Hist(models.Model):
 class Testimonial(models.Model):
     testimonial = models.CharField(default='', max_length=1000)
     customer_id = models.IntegerField(default=0)
-    date_time = models.DateTimeField(default=datetime.datetime.now())
+    date_time = models.DateTimeField(default=datetime.datetime.now())    
+    customer_image = models.FileField(upload_to='admin_control/images', default='')
+
 
