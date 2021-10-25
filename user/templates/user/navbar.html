@@ -144,7 +144,7 @@
                         {% for i in hospital_city_wise %}
                         <form action="/hospital_search" method="post">
                             {% csrf_token %}
-                            <button type="submit" name="search_by_id" value="{{i.hospital_id}}" class="no_button">
+                            <button type="submit" name="search_by_id" value="{{i.hospital_id}}" class="no_button" style="color: #000;">
                                 <div class="hospital_name hospital_name_city_wise" id="{{forloop.counter}}">
                                     <p>{{i.hospital_city}}</p>
                                     <h6>{{i}}</h6>
