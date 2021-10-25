@@ -23,6 +23,12 @@
     .hidden {
         display: none;
     }
+    button.no_button{
+        border: 0;
+        outline: none;
+        background-color: transparent;
+        width: 100%;
+    }
 </style>
 
 <body>
@@ -120,7 +126,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown_city">
                                 {% for i in cities%}
-                                <li><input type="checkbox" class="filter_city" name="{{i}}"
+                                <li><input type="checkbox" class="filter_city" style="width: 1vw;height:1vw" name="{{i}}"
                                         id="{{forloop.counter}}"><label for="{{forloop.counter}}"
                                         class="{{i}}">{{i}}</label></li>
                                 {% endfor %}
@@ -136,36 +142,41 @@
                     <ul class="hospitals slider top_rated_hospital_citywise" id="" style="text-align: left;height: 80%">
                         <br>
                         {% for i in hospital_city_wise %}
-                        <div class="hospital_name hospital_name_city_wise" id="{{forloop.counter}}">
-                            <p>{{i.hospital_city}}</p>
-                            <h6>{{i}}</h6>
-                            <div>
-                                <p>{{i.hospital_pin}}</p>
-                                {% if i.hospital_rating == 0%}
-                                <p>No Rating</p>
-                                {% endif %}
-                                {% if i.hospital_rating > 0%}
-                                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                                <label for="rate-{{j}}" class="fas fa-star"></label>
-                                {% endif %}
-                                {% if i.hospital_rating > 1%}
-                                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                                <label for="rate-{{j}}" class="fas fa-star"></label>
-                                {% endif %}
-                                {% if i.hospital_rating > 2%}
-                                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                                <label for="rate-{{j}}" class="fas fa-star"></label>
-                                {% endif %}
-                                {% if i.hospital_rating > 3%}
-                                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                                <label for="rate-{{j}}" class="fas fa-star"></label>
-                                {% endif %}
-                                {% if i.hospital_rating > 4%}
-                                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                                <label for="rate-{{j}}" class="fas fa-star"></label>
-                                {% endif %}
-                            </div>
-                        </div>
+                        <form action="/hospital_search" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="search_by_id" value="{{i.hospital_id}}" class="no_button">
+                                <div class="hospital_name hospital_name_city_wise" id="{{forloop.counter}}">
+                                    <p>{{i.hospital_city}}</p>
+                                    <h6>{{i}}</h6>
+                                    <div>
+                                        <p>{{i.hospital_pin}}</p>
+                                        {% if i.hospital_rating == 0%}
+                                        <p>No Rating</p>
+                                        {% endif %}
+                                        {% if i.hospital_rating > 0%}
+                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                        <label for="rate-{{j}}" class="fas fa-star"></label>
+                                        {% endif %}
+                                        {% if i.hospital_rating > 1%}
+                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                        <label for="rate-{{j}}" class="fas fa-star"></label>
+                                        {% endif %}
+                                        {% if i.hospital_rating > 2%}
+                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                        <label for="rate-{{j}}" class="fas fa-star"></label>
+                                        {% endif %}
+                                        {% if i.hospital_rating > 3%}
+                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                        <label for="rate-{{j}}" class="fas fa-star"></label>
+                                        {% endif %}
+                                        {% if i.hospital_rating > 4%}
+                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                        <label for="rate-{{j}}" class="fas fa-star"></label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </button>
+                        </form>
                         {% endfor %}
                     </ul>
                 </div>

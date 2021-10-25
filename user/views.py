@@ -39,14 +39,16 @@ def hospital(request):
     no_hospital = ''
     if request.method == 'POST':
         search_by_place = request.POST.get('search_by_place', '')
-        search_by_pin = request.POST.get(
-            'search_by_pin', '')
+        search_by_pin = request.POST.get('search_by_pin', '')
+        search_by_id = request.POST.get('search_by_id', '')
+        print(search_by_id)
         # hospital_available = Hospital_Detail.objects.filter(
         #     hospital_pin=hospital_pin)
         if search_by_place != '':
             hospital_available = Hospital_Detail.objects.filter(
                 hospital_name__contains=search_by_place)
             search_by_pin = ''
+            search_by_id = ''
             try:
                 hospital_pin = hospital_available[0].hospital_pin
                 # print('error')
@@ -67,10 +69,28 @@ def hospital(request):
             id_pin = 'display'
             id_place = 'no-display'
             search_by_place = ''
+            search_by_id = ''
             if len(hospital_available) == 0:
                 no_hospital = 'sorry!, No Hospital Affiliated with us from this location.'
-    service_boys_available = Service_Boy.objects.filter(
-        pin_serve__contains=hospital_pin, status=True, available=True)
+                service_boys_available = Service_Boy.objects.filter(
+                pin_serve__contains=hospital_pin, status=True, available=True)
+        elif search_by_id != '':
+            hospital_available = Hospital_Detail.objects.filter(
+                hospital_id=search_by_id)
+            search_by_pin = ''
+            search_by_id = ''
+            try:
+                hospital_pin = hospital_available[0].hospital_pin
+                # print('error')
+                suggest_place = Hospital_Detail.objects.filter(hospital_pin=hospital_pin).exclude(
+                    hospital_name=hospital_available[0].hospital_name)
+                id_place = 'display'
+                id_pin = 'no-display'
+                if len(suggest_place) == 0:
+                    no_suggestion = 'Sorry, No suggested Hospital Near by.'
+            except:
+                no_hospital = 'Sorry!, No Hospital Found with this Name.'
+                id_place = 'no-display'
     # print(Active_User['PIN'])
     return render(request, 'user/hospital.html', {
         'package_dict': package_dict,
