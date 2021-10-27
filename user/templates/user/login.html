@@ -7,7 +7,25 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'user/scss/signInUp/signInUp.css' %}">
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}"> -->
+<style>
+    a#verify_answer {
+        cursor: pointer;
+        color: #fd7034;
+    }
 
+    a#verified_answer {
+        cursor: default;
+        color: green;
+    }
+
+    a#reload_question {
+        cursor: pointer;
+    }
+
+    a#invalid {
+        color: red;
+    }
+</style>
 {% endblock %}
 
 
@@ -43,9 +61,30 @@
                         <label for="c_password">Password</label>
                         <input type="password" class="password form-control" name="password" id="c_password" required
                             placeholder="password min 8 character" required>
+                    </div><br>
+                    <div id="c_human_verification">
+                        <label for="" style="text-align:left!important;">Solve the Below Problem!</label>
+                        <div class="form-group" style="display: flex;text-align:center;margin:auto!important">
+                            <input type="text" id="verification_ques" style="text-align: center;" class="form-control"
+                                disabled>
+                            <input type="number" id="verification_ans" style="text-align: center;" class="form-control"
+                                required>
+                            <div>
+                                <a href="" id="reload_question" onclick="saveInfoCustomer()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5vw" height="1.5vw" fill="#fd7034"
+                                        class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z" />
+                                        <path
+                                            d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z" />
+                                    </svg>
+                                </a>
+                                <a id="verify_answer" onclick="saveInfoCustomer()">Verify</a>
+                            </div>
+                        </div>
                     </div>
                     <a href="/forgot_password" style="float:left;margin-left:10%">Forget password?</a><br>
-                    <input type="submit" class="submit" onclick="saveInfoCustomer()" value="Login">
+                    <input type="submit" class="submit" onclick="saveInfoCustomer()" value="Login" disabled>
                     <hr>
                     <a href="/signUp">Create New Account?</a>
                 </form>
@@ -63,8 +102,7 @@
                     <br>
                     <div class="form-group">
                         <label for="ID">Unique ID</label>
-                        <input type="number" class="ID form-control" name="ID" id="ID" required
-                            placeholder="Unique ID">
+                        <input type="number" class="ID form-control" name="ID" id="ID" required placeholder="Unique ID">
                     </div>
                     <div class="form-group">
                         <label for="s_email" id="s_email_number">Email</label>
@@ -75,9 +113,30 @@
                         <label for="ID">Password</label>
                         <input type="password" class="password form-control" name="password" id="s_password" required
                             placeholder="password">
+                    </div><br>
+                    <div id="s_human_verification">
+                        <label for="" style="text-align:left!important;">Solve the Below Problem!</label>
+                        <div class="form-group" style="display: flex;text-align:center;margin:auto!important">
+                            <input type="text" id="verification_ques" style="text-align: center;" class="form-control"
+                                disabled>
+                            <input type="number" id="verification_ans" style="text-align: center;" class="form-control"
+                                required>
+                            <div>
+                                <a href="" id="reload_question" onclick="saveInfoServiceBoy()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5vw" height="1.5vw" fill="#fd7034"
+                                        class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z" />
+                                        <path
+                                            d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z" />
+                                    </svg>
+                                </a>
+                                <a id="verify_answer" onclick="saveInfoServiceBoy()">Verify</a>
+                            </div>
+                        </div>
                     </div>
                     <a href="/forgot_password" style="float:left;margin-left:10%">Forget password?</a><br>
-                    <input type="submit" class="submit" onclick="saveInfoServiceBoy()" value="Login">
+                    <input type="submit" class="submit" onclick="saveInfoServiceBoy()" value="Login" disabled>
                     <hr>
                     <a href="/signUp">Create New Account?</a>
                 </form>
