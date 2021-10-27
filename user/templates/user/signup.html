@@ -378,7 +378,7 @@
         }
         $('div.progress').attr('style', 'width: ' + (progress / 4 * 100) + '%')
         for (let index = 1; index <= 4; index++) {
-            console.log(progress, index)
+            //console.log(progress, index)
             if (index == progress) {
                 $('div#' + index).removeClass('display')
             } else {
@@ -410,7 +410,7 @@
                 $('div#' + index).addClass('display')
             }
         }
-        console.log(progress)
+        //console.log(progress)
         if (progress != 4) {
             $('a#next').removeClass('display')
             $('a#next').attr('disabled', false)

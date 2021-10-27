@@ -41,7 +41,7 @@ def hospital(request):
         search_by_place = request.POST.get('search_by_place', '')
         search_by_pin = request.POST.get('search_by_pin', '')
         search_by_id = request.POST.get('search_by_id', '')
-        print(search_by_id)
+        # print(search_by_id)
         # hospital_available = Hospital_Detail.objects.filter(
         #     hospital_pin=hospital_pin)
         if search_by_place != '':
@@ -161,7 +161,7 @@ def Login(request):
 
             if User_Info.exists():
                 found_email = User_Info[0].email
-                print(User_Info)
+                # print(User_Info)
             else:
                 if email != '' and not Email_Exist.exists():
                     return render(request, 'user/login.html', {
@@ -232,7 +232,7 @@ def Login(request):
                     })
                 else:
                     pass
-                print('service_boy exists')
+                # print('service_boy exists')
             else:
                 return render(request, 'user/login.html', {
                     'not_found': 'No service_boy found with given Credentials',
@@ -248,8 +248,8 @@ def Login(request):
                 Service_Boy_Info.values()[0]['created_on'])
 
             request.session['Active_Service_Boy'] = Current_Service_Boy
-            print(request.session['Active_Service_Boy'],
-                  '********************************')
+            # print(request.session['Active_Service_Boy'],
+            #       '********************************')
             return redirect('service_boy/'+str(Current_Service_Boy['ID']))
 
     return render(request, "user/login.html", {
@@ -582,7 +582,7 @@ def forgot_password(request):
                             'cities': All_Cities(Hospital_Detail.objects.all())
                            })
         else:
-            print(email)
+            # print(email)
             User_Exist = Customer.objects.filter(email=email)
             Service_Boy_Exist = Service_Boy.objects.filter(email=email)
             if (User_Exist.exists()):
@@ -625,7 +625,7 @@ def otp_generator(email, reason):
     for _ in range(6):
         random_num = random.randint(0, 9)
         OTP = OTP + str(random_num)
-    print(OTP)
+    # print(OTP)
 
     mail_server = smtplib.SMTP('smtp.gmail.com', 587)
     mail_server.starttls()

@@ -12,11 +12,11 @@ $(document).ready(() => {
         })
 
         $('button#btn_search_by_place').click(function () {
-                console.log('id="btn_search_by_place"')
+                // console.log('id="btn_search_by_place"')
         })
 
         $('button#btn_search_by_pin').click(function () {
-                console.log('id="btn_search_by_pin"')
+                // console.log('id="btn_search_by_pin"')
         })
 
 });

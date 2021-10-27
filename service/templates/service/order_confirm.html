@@ -37,15 +37,17 @@
         </div>
     </div>
 
-    {% if offer_failure != '' %}
+    {% if offer_failure != 'no_failure' %}
     <div class="alert alert-danger" role="alert">
         {{offer_failure}}
     </div>
-    {% elif offer_success != '' %}
+    {% endif %}
+    {% if offer_success != 'no_sucess' %}
     <div class="alert alert-success" role="alert">
         {{offer_success}}
     </div>
-    {% elif offer_amount != 0 %}
+    {% endif %}
+    {% if offer_amount != 0 %}
     <div class="alert alert-primary" role="alert">
         Coupon Already Applied
     </div>

@@ -5,7 +5,7 @@
 {% block stylesheet %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'service_boy/scss/start_ride.css' %}">
-    
+
 <style>
 
 </style>
@@ -14,47 +14,19 @@
 {% block body %}
 {% if otp_enter %}
 {% if otp_correct%}
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header" style="background-color: rgba(67, 228, 19, 0.561);">
-      <strong class="me-auto">isTaker</strong>
-      <small>10 sec ago</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body" style="color: green;background-color:rgba(94, 255, 0, 0.075);">
-      Hurrah!, OTP is Correct, Best Wishs for Your Journey!!
-    </div>
-  </div>
+<div class="alert alert-success" id="otp_is_correct" role="alert">
+  Hurrah!, OTP is Correct, Best Wishs for Your Journey!!
 </div>
-{% endif %}
-{% if not otp_correct %}
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header" style="background-color: rgba(255, 0, 0, 0.322);">
-      <strong class="me-auto">isTaker</strong>
-      <small>10 sec ago</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body" style="color: red;background-color:rgba(255, 0, 0, 0.075);">
-      Sorry, OTP Entered is not Correct!!
-    </div>
-  </div>
+{% else %}
+<div class="alert alert-danger" id="otp_not_correct" role="alert">
+  Sorry, OTP Entered is not Correct!!
 </div>
 {% endif %}
 {% endif %}
 
 {% if otp_send %}
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header" style="background-color: rgba(67, 228, 19, 0.561);">
-      <strong class="me-auto">isTaker</strong>
-      <small>10 sec ago</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body" style="color: green;background-color:rgba(94, 255, 0, 0.075);">
-      OTP has been send to customer registered email ID
-    </div>
-  </div>
+<div class="alert alert-success" role="alert">
+  OTP has been send to customer registered email ID
 </div>
 {% endif %}
 
@@ -62,8 +34,8 @@
   <h2>Time Spend</h2>
   <h3 id="timer">00:00:00</h3>
 </div>
-<div class="container" style="width: 100%;height: 100%;">
 
+<div class="container" style="width: 100%;height: 100%;">
   <div class="receipt">
     <h2 class="name"> {{customer_service_hist.hospital_name}} </h2>
 
@@ -164,7 +136,20 @@
 var toastLiveExample = document.getElementById('liveToast')
 var toast = new bootstrap.Toast(toastLiveExample)
 toast.show() -->
+
+{% if otp_correct%}
 <script>
+  if (localStorage.getItem("button_press") == 'true') {
+    $('div#stopwatch').removeClass('noshow')
+  }
+</script>
+{% endif %}
+
+<script>
+  $(document).click(function () {
+    $('div.alert').remove();
+  })
+
   function startwatch() {
     localStorage.setItem('watch_time', new Date().getTime())
     localStorage.setItem('button_press', true)
@@ -173,9 +158,8 @@ toast.show() -->
   function stopwatch() {
     localStorage.setItem('button_press', false)
   }
-  if (localStorage.getItem("button_press") == 'true') {
-    $('div#stopwatch').removeClass('noshow')
-  }
+
+  
 
 
   var refresh = setInterval(function () {

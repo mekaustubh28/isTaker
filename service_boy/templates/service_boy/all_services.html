@@ -1,0 +1,49 @@
+{% extends 'service_boy/base.html' %}
+
+{% block title %} All_Services {% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'service_boy/scss/dashboard/dashboard.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="all_services">
+    <br>
+    <div class="top" style="background-color:white;">
+        <h5>All Service Request Details</h5>
+        <div class="service_request">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Cust. Name</th>
+                        <th scope="col">services</th>
+                        <th scope="col">pick-up</th>
+                        <th scope="col">drop</th>
+                        <th scope="col">date of booking</th>
+                        <th scope="col">date of service</th>
+                        <th scope="col">price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in Order %}
+                    <tr id="{{order.Order_ID}}" class="order">
+                        <td>{{order.customer}}</td>
+                        <td>{{order.service_chosen}}</td>
+                        <td>{{order.pickup_address}}</td>
+                        <td>{{order.drop_address}}</td>
+                        <td>{{order.order_date}}</td>
+                        <td>{{order.service_date_time}}</td>
+                        <td>₹{{order.price}}/-</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

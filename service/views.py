@@ -19,7 +19,7 @@ def contact_us(request, myid):
         Customer_User = Customer.objects.filter(customer_id=int(myid))
         Active_User = Customer_User.values()[0]
         delete_service = request.POST.get('delete_service','')
-        print(delete_service,"kamariya")
+
         # if delete_service != '':
         #     Service_Chosen.objects.filter(service_chosen_id=request.session['Active_Service']['service_id']).delete()
         #     del request.session['Active_Service']
@@ -50,7 +50,7 @@ def my_account(request, myid):
             package_dict = covnert_Set_to_dict(package_count)
             Customer_User = Customer.objects.filter(customer_id=int(myid))
             Active_User = Customer_User.values()[0]
-            print(Customer_User)
+            # print(Customer_User)
             cart = Cart(Customer_User[0])
             if request.method == "POST":
                 first_name = request.POST.get('first_name','')
@@ -155,14 +155,8 @@ def orders(request, myid):
                     Service_Boy.objects.filter(ID=int(Order_customer_found[0].service_boy_id)).update(current_status='available')
                 # print(reason_for_cancel)
             if time_taken != '':
-                print(Order_ID)
+                # print(Order_ID)
                 time_taken = int(time_taken)/(1000 * 60)
-                # days = math.floor(time_taken / (60 * 60 * 24 * 1000))
-                # hours = math.floor((time_taken % (60 * 60 * 24 * 1000)) / (1000 * 60 * 60));
-                # minutes = math.floor((time_taken % (60 * 60 * 1000)) / (1000 * 60));
-                # seconds = math.floor((time_taken % (60 * 1000)) / 1000);
-                # start_time = str(days) + 'd,' + str(hours) + 'hrs: ' + str(minutes) + 'm: ' + str(seconds) + 's'
-                print(time_taken)
                 ride_complete(int(Order_ID), time_taken, Customer_Service_Hist,
                                             Service_Boy_Service_Hist, Customer_Ongoing_Trip, Service_Boy_Ongoing_Trip)
             return redirect('/customer_dashboard/'+str(myid)+'/orders')
@@ -184,34 +178,35 @@ def orders(request, myid):
         return redirect('/')
 
 def service_boy_on_way(request, myid):
-    try:
-        print(request.session['Active_User'])
+    # try:
+        # print(request.session['Active_User'])
         package_count = Package.objects.count()
         package_dict = covnert_Set_to_dict(package_count)
 
         customer_exist = ''
         start_time = time.time()
         Active_Service = request.session.get('Active_Service')
-        print(25, Active_Service)
-        print()
+        # print(25, Active_Service)
+        # print()
 
         customer = Customer.objects.filter(
             customer_id=Active_Service['customer_id'])[0]
-        print(28, customer)
-        print()
+        # print(28, customer)
+        # print()
         dt_string = ''
         # try:
         if request.method == 'POST':
             if request.POST.get('pendingOrder') == 'yes':
                 Service_Chosen.objects.filter(
                     service_chosen_id=Active_Service['service_id']).update(status='ongoing')
-                print(37)
+                # print(37)
                 # print()
                 return redirect('/customer_dashboard/'+str(Active_Service['customer_id']))
             
             if request.POST.get('pendingOrder') == 'no':
                 Service_Chosen.objects.filter(
                     service_chosen_id=Active_Service['service_id']).update(status='In Cart')
+                Customer_Service_Hist(customer_trip_id=request.session.get('customer_trip_id')).delete()
                 return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/search')
             c = 0
             service_date_time = convert_date_and_time(
@@ -242,6 +237,7 @@ def service_boy_on_way(request, myid):
                             hospital_id=hospital.hospital_id,
                             selected_service=Active_Service['service_list'],
                         )
+                        request.session['customer_trip_id'] = Customer_Order.customer_trip_id
                         Customer_Order.save()
                         # print(70, Customer_Order)
                         # print()
@@ -286,30 +282,20 @@ def service_boy_on_way(request, myid):
                             'price': customer_exist[0].amount,
                             'PIN': hospital_correct.hospital_pin,
                         }
-                        print("******************************************")
-                        print('request.session[""]')
-                        print(request.session['Your_Order'])
-                        print("******************************************")
+                        # print("******************************************")
+                        # print('request.session[""]')
+                        # print(request.session['Your_Order'])
+                        # print("******************************************")
                         Service_Chosen.objects.filter(
                             service_chosen_id=Active_Service['service_id']).update(status='ongoing')
                         return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/service_boy_on_way')
                 else:
                     request.session['No_Service_Boy'] = True
-                    print(118)
+                    # print(118)
                     # print()
                     return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/service_boy_on_way')
                     break
         cart = Cart(customer)
-
-        # if (request.session['Your_Order']['Order_ID'] != request.session['active_order_ID'] or request.session['Your_Order']['hospital_name'] != request.session['Active_Service']['hopital_name']):
-        #     print('Order_ID', request.session['Your_Order']['Order_ID'])
-        #     print('active_order_ID', request.session['active_order_ID'])
-        #     # request.session['error1'] = True
-        #     Customer_Service_Hist.objects.filter(
-        #         customer_trip_id=request.session['active_order_ID']).update(status='Garbage')
-        #     Service_Boy_Service_Hist.objects.filter(
-        #         service_boy_trip_id=request.session['active_order_ID']).update(status='Garbage')
-            # return redirect('/customer_dashboard/'+str(Active_Service['customer_id'])+'/order_confirm')
 
         return render(request, 'service/service_boy_on_way.html', {
             'Active_Service': Active_Service,
@@ -329,25 +315,25 @@ def service_boy_on_way(request, myid):
         # except:
         #     request.session['wrong'] = True
         #     return redirect('/customer_dashboard/'+str(Active_Service['customer_id']))
-    except:
-        return redirect('/')
+    # except:
+    #     return redirect('/')
 
 def order_confirm(request, myid):
     try:
-        print(request.session['Active_User'])
+        # print(request.session['Active_User'])
         # if request.session.get('error1') == None:
         #     request.session['error1'] = False
         # else:
         #     pass
         now = datetime.now()
         current_date_time = now.strftime("%Y-%m-%dT%H:%M")
-        print(current_date_time, '2018-06-07T00:00')
+        # print(current_date_time, '2018-06-07T00:00')
 
         package_count = Package.objects.count()
         package_dict = covnert_Set_to_dict(package_count)
         Active_Service = request.session.get('Active_Service')
-        offer_success = ''
-        offer_failure = ''
+        offer_success = 'no_sucess'
+        offer_failure = 'no_failure'
         coupon = Active_Service['coupon']
         offer_amount = Active_Service['offer_amount']
         customer = Customer.objects.filter(customer_id=myid)[0]
@@ -366,6 +352,7 @@ def order_confirm(request, myid):
             if coupon != '' and request.session.get('Active_Service')['coupon'] == '':
                 coupon_exist = Deals_and_Offer.objects.filter(offer_code=coupon)
                 if coupon_exist.exists():
+                    print(coupon_exist)
                     price = int(request.session.get('Active_Service')['price'])
                     offer_amount = (coupon_exist[0].offer_amount) / 100 * price
                     price = price - offer_amount
@@ -482,8 +469,8 @@ def search(request, myid):
                         hospital_pin=hospital_pin)
                     if service_list != '':
                         try:
-                            print('******************************')
-                            print(request.session['Active_Service'])
+                            # print('******************************')
+                            # print(request.session['Active_Service'])
                             Create_Session(request, '', convert_String_to_List(
                                 service_list), convert_String_to_List(total_price), myid, '', '')
                         except:
@@ -565,7 +552,7 @@ def search(request, myid):
                         'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer_chosen[0].city_village),
                     })
                 except:
-                    print('except2')
+                    # print('except2')
                     return redirect('/customer_dashboard/'+str(myid))
             else:
                 return redirect('users:Login')
@@ -702,7 +689,7 @@ def otp_generator():
     for _ in range(4):
         random_num = random.randint(0, 9)
         OTP = OTP + str(random_num)
-    print(OTP)
+    # print(OTP)
 
     return OTP
 

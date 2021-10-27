@@ -17,19 +17,12 @@
 </div>
 {% endif %}
 
-{% if date_not_yet %}
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header" style="background-color: rgba(255, 0, 0, 0.322);">
-            <strong class="me-auto">isTaker</strong>
-            <small>10 sec ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body" style="color: red;background-color:rgba(255, 0, 0, 0.075);">
-            Still Few Days Left for this Order!!
-        </div>
-    </div>
-</div>{% endif %}
+{% if not date_not_yet %}
+<div class="alert alert-danger" role="alert">
+    Still Few Days Left for this Order!!
+</div>
+{% endif %}
+
 <div class="service_boy_container">
     <div class="top" style="background-color:white;">
         <h5>New Service Request Details</h5>
@@ -64,7 +57,8 @@
         <form action="/service_boy/{{Active_Service_Boy.ID}}" method="post" class="confirm_service">
             {% csrf_token %}
             <input type="hidden" value="" name="newService" id="newService">
-            <button type="submit" id="newServiceButton" class="btn btn-primary mx-2 custom_btn" disabled>Confirm</button>
+            <button type="submit" id="newServiceButton" class="btn btn-primary mx-2 custom_btn"
+                disabled>Confirm</button>
         </form>
     </div>
     <div class="top" style="background-color:white;">
@@ -102,7 +96,8 @@
         <form action="/service_boy/{{Active_Service_Boy.ID}}/start_ride" method="post" class="confirm_service">
             {% csrf_token %}
             <input type="hidden" value="" name="assignService" id="assignService">
-            <button type="submit" id="assignServiceButton" class="btn btn-primary mx-2 custom_btn" disabled>Confirm</button>
+            <button type="submit" id="assignServiceButton" class="btn btn-primary mx-2 custom_btn"
+                disabled>Confirm</button>
         </form>
     </div>
 </div>
@@ -110,15 +105,10 @@
 
 {% block javascript %}
 
-{% if date_not_yet %}
 <script>
-    var x = 0
-    var toastLiveExample = document.getElementById('liveToast')
-    var toast = new bootstrap.Toast(toastLiveExample)
-    toast.show()
-</script>
-{% endif %}
-<script>
+    $(document).click(function () {
+        $('div.alert').remove();
+    })
     $('tr.order').click(function () {
         $('tr.order').removeClass('select')
         $(this).addClass('select')

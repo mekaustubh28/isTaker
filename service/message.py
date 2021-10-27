@@ -15,7 +15,7 @@ import smtplib
 # VCl1P6KAQzeOnnEjodG5h2OcCSkrGb14
 
 def send_message_to_available_service_boy(service_boys, Your_Order):
-    print(Your_Order)
+    # print(Your_Order)
 
     # for service_boy in service_boys:
     mail_server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -26,4 +26,4 @@ def send_message_to_available_service_boy(service_boys, Your_Order):
 
     message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
     mail_server.sendmail('&&&&&&&&&&&', service_boys[0].email, message)
-    print(service_boys[0].email)
+    # print(service_boys[0].email)

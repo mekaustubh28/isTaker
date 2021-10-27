@@ -19,7 +19,14 @@
 </head>
 
 <style>
-    
+   a.total_earning{
+       border:1px solid red;
+       border-radius:0.5vw;
+       margin-left:1vw;
+       color:#fff!important;
+       font-size:1.2vw;
+       background-color:#fd7034;
+   } 
 </style>
 
 <body>
@@ -58,13 +65,16 @@
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/service_boy/{{Active_Service_Boy.ID}}/all_services">All Services</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Apply for Leave</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/service_boy/{{Active_Service_Boy.ID}}/availability">Availability</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active total_earning" aria-current="page" href="">Total Earning: ₹{{Total_Earning}} /-</a>
                     </li>
                 </ul>
                 <form class="d-flex" action="/search" method="POST">

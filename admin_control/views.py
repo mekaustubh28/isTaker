@@ -21,12 +21,12 @@ def admin_control(request):
             status='pending')
         service_boy_ongoing_trip = Service_Boy_Ongoing_Trip.objects.all()
         service_boy_service_hist = Service_Boy_Service_Hist.objects.all()
-        print(customer)
-        print(service_boy)
-        print(customer_ongoing_trip)
-        print(customer_service_hist)
-        print(service_boy_ongoing_trip)
-        print(service_boy_service_hist)
+        #print(customer)
+        #print(service_boy)
+        #print(customer_ongoing_trip)
+        #print(customer_service_hist)
+        #print(service_boy_ongoing_trip)
+        #print(service_boy_service_hist)
         return render(request, 'admin_control/index.html', {
             'active_link': 'Admin',
             'staff_admin': staff_admin,
@@ -80,13 +80,15 @@ def pending_applications(request):
     # try:
     if(request.method == 'POST'):
         pending_ID = request.POST.get('pending_ID', '')
-        print(pending_ID)
+        #print(pending_ID)
         service_boy_pending = Service_Boy.objects.filter(
-            status=False, ID=int(pending_ID))
+            ID=pending_ID)
+        print(service_boy_pending)
+        print(pending_ID)
         email = service_boy_pending[0].email
         name = service_boy_pending[0].first_name
 
-        service_boy_pending.update(status=True)
+        service_boy_pending.update(status=True, available=True, current_status="available")
         
         confirmation_message(email, pending_ID, name)
 
@@ -126,19 +128,19 @@ def pending_service(request):
             customer_trip_id = request.POST.get('customer_trip_id', '')
             customer_id = request.POST.get('customer_id', '')
             service_boy = request.POST.get('service_boy', '')
-            print('customer_trip_id= ', customer_trip_id)
-            print('customer_id= ', customer_id)
-            print('service_boy= ', service_boy)
+            #print('customer_trip_id= ', customer_trip_id)
+            #print('customer_id= ', customer_id)
+            #print('service_boy= ', service_boy)
             customer_service_hist = Customer_Service_Hist.objects.filter(
                 customer_trip_id=int(customer_trip_id),
                 customer_id=int(customer_id)
             )
-            service_boy = Service_Boy.objects.filter(ID=int(service_boy))[0]
+            service_boy = Service_Boy.objects.filter(ID=service_boy)[0]
             customer = Customer.objects.filter(customer_id=int(customer_id))[0]
-            # print(customer_service_hist.values())
-            # print(service_boy.values())
-            # print(customer.values())
-            # print('#')
+            # #print(customer_service_hist.values())
+            # #print(service_boy.values())
+            # #print(customer.values())
+            # #print('#')
             customer_service_hist.update(
                 service_boy_id=int(service_boy.ID),
                 service_boy_name=service_boy.first_name +
@@ -192,21 +194,19 @@ def pending_service(request):
 
 
 def all_services(request):
-    try:
+    # try:
         Session_ID = request.session['Admin_Staff']
         staff_admin = Admin_Staff.objects.filter(admin_staff_id=Session_ID)[0]
         customer_services = Customer_Service_Hist.objects.all().values()
-
         for i in customer_services:
-            i['service_boy_system_ID'] = Service_Boy.objects.filter(ID=int(i['service_boy_id']))[0].service_boy_id
-
+            i['service_boy_system_ID'] = Service_Boy.objects.filter(ID=str(i['service_boy_id']))[0].service_boy_id
         return render(request, 'admin_control/all_services.html', {
             'active_link': 'All Services Centre',
             'staff_admin': staff_admin,
             'customer_services': customer_services,
         })
-    except:
-        return redirect('/jhbo92dasdSABoiu8o08BFjkl')
+    # except:
+    #     return redirect('/jhbo92dasdSABoiu8o08BFjkl')
 
 def admin_staff_logout(request):
     del request.session['Admin_Staff']

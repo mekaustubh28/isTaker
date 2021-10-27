@@ -5,7 +5,13 @@
 {% block stylesheet %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'service/scss/search/search.css' %}">
-
+<style>
+  div.service_boys{
+    overflow: hidden;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+  }
+</style>
 {% endblock %}
 
 {% block body %}
