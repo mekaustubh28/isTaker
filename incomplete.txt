@@ -63,7 +63,14 @@ done 6. Top rating hosp table is not created city wise
 17. Package info Icon with desc.
 18. success story focus
 
-
+19. success story photo up
+20. filter city design
+21. deals and offers font size
+22. hotels near by
+23. 5 Images of hotels
+24. Details and Price of Hotels 
+25. make section of hotels in Admin
+26. Contact Use
 
 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
 #ff844f

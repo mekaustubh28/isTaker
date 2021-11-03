@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Package, Service, Service_Chosen, Deals_and_Offer
 from user.models import Customer, Service_Boy
-from hospital.models import Hospital_Detail
+from hospital.models import Hospital_Detail, Hotel_Detail
 from admin_control.models import Admin_Control, Customer_Service_Hist, Service_Boy_Service_Hist, Customer_Ongoing_Trip, Service_Boy_Ongoing_Trip
 import time
 from . import message
@@ -452,6 +452,7 @@ def search(request, myid):
                 customer_chosen = Customer.objects.filter(customer_id=myid)
                 suggest_place = ''
                 no_suggestion = ''
+                no_suggestion_hotels = ''
                 hospital_available = ''
                 hospital_pin = Active_User['PIN']
                 id_pin = ''
@@ -467,10 +468,10 @@ def search(request, myid):
                         'search_by_pin', Active_User['PIN'])
                     hospital_available = Hospital_Detail.objects.filter(
                         hospital_pin=hospital_pin)
+                    hotels_available = Hotel_Detail.objects.filter(
+                        hotel_pin=hospital_pin)
                     if service_list != '':
                         try:
-                            # print('******************************')
-                            # print(request.session['Active_Service'])
                             Create_Session(request, '', convert_String_to_List(
                                 service_list), convert_String_to_List(total_price), myid, '', '')
                         except:
@@ -502,14 +503,16 @@ def search(request, myid):
                         hospital_available = Hospital_Detail.objects.filter(
                             hospital_name__contains=search_by_place)
                         search_by_pin = ''
-
                         try:
                             hospital_pin = hospital_available[0].hospital_pin
                             # print('error')
                             suggest_place = Hospital_Detail.objects.filter(hospital_pin=hospital_pin).exclude(
                                 hospital_name=hospital_available[0].hospital_name)
+                            suggest_hotels = Hotel_Detail.objects.filter(hotel_pin=hospital_pin)
                             id_place = 'display'
                             id_pin = 'no-display'
+                            if len(suggest_hotels) == 0:
+                                no_suggestion_hotels = 'Sorry, No Hotels Affiliated Near by.'
                             if len(suggest_place) == 0:
                                 no_suggestion = 'Sorry, No suggested Hospital Near by.'
                         except:
@@ -540,7 +543,9 @@ def search(request, myid):
                         'search_by_place': search_by_place,
                         'search_by_pin': search_by_pin,
                         'suggest_place': suggest_place,
-                        'no_suggestion': no_suggestion,
+                        'no_suggestion': no_suggestion,        
+                        'suggest_hotels': suggest_hotels,
+                        'no_suggestion_hotels': no_suggestion_hotels,
                         'deal_offers':Deals_and_Offer.objects.all(),
                         'id_pin': id_pin,
                         'id_place': id_place,

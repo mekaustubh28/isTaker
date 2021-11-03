@@ -1,145 +1,216 @@
-{% extends 'service/base.html' %}
-
-{% block title %} isTaker | Search {% endblock %}
-
-{% block stylesheet %}
-{% load static %}
+{% extends 'service/base.html' %} {% block title %} isTaker | Search {% endblock %} {% block stylesheet %} {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'service/scss/search/search.css' %}">
 <style>
-  div.service_boys{
-    overflow: hidden;
-    overflow-x: scroll;
-    padding-bottom: 10px;
-  }
+    div.service_boys {
+        overflow: hidden;
+        overflow-x: scroll;
+        padding-bottom: 10px;
+    }
+    
+    div.suggest_place {
+        height: 25vh;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+    
+    div.suggest_place_hotels {
+        height: 30vh;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
 </style>
-{% endblock %}
-
-{% block body %}
+{% endblock %} {% block body %}
 <div class="main-container">
-  <div class="tabs">
-    <div style="width: 100%;">
-      <p>
-        <a class="btn btn-primary custom_btn" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
-          aria-expanded="false" aria-controls="multiCollapseExample1">View Services</a>
-      </p>
-      <div class="row" style="width: 30%;">
-        <div class="collapse multi-collapse" id="multiCollapseExample1">
-          <div class="card card-body" id="view_service">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">index</th>
-                  <th scope="col">service</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for i in Active_Service.service_list %}
-                <tr>
-                  <th scope="row">{{forloop.counter}}</th>
-                  <td>{{i}}</td>
-                </tr>
+    <div class="tabs">
+        <div style="width: 100%;">
+            <p>
+                <a class="btn btn-primary custom_btn" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">View Services</a>
+            </p>
+            <div class="row" style="width: 30%;">
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card card-body" id="view_service">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">index</th>
+                                    <th scope="col">service</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in Active_Service.service_list %}
+                                <tr>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>{{i}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="available available_service_boy" style="border:3px solid gray;border-radius:5px;">
+        <h4>Available Service Boy</h4>
+
+        <div class="service_boys">
+            {% for i in service_boys_available%}
+            <div class="card__header">
+                <img class="card__thumb" src="/media/{{i.image}}" alt="{{i.first_name}} DP" style="width:5vw;height:5vw" />
+                <div class="card__header-text">
+                    <h3 class="card__title">{{i.first_name}}</h3>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="available place_and_address">
+        <form action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm" method="post" class="hospital_submit" id="hospital_submit">
+            {% csrf_token %}
+            <input type="hidden" value="hospital_id" id="hospital_id" name="hospital_id">
+            <button class="btn btn-primary custom_btn" id="hospital_done" style="border-radius:5px;font-size:1vw" type="submit" disabled>
+                Done
+            </button>
+        </form>
+        <h1><br>{{no_hospital}}</h1>
+        <div class="search_by_pin" id="{{id_pin}}">
+            {% for i in hospital_available %}
+            <div class="hospital" id="hospital" name="{{i.hospital_id}}">
+                <div class="hospital_checkbox">
+                    <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}place">
+                </div>
+                <div class="hospital_image">
+                    <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" style="width: 11vw;height:11vw">
+                </div>
+                <div class="hospital_info">
+                    <h2 class="hospital_name">{{i.hospital_name}}</h2>
+                    <p class="hospital_address"><b>Address:</b> {{i.hospital_address}}</p>
+                    <p class="hospital_address"><b>Pin Code:</b> {{i.hospital_pin}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="search_by_place" id="{{id_place}}">
+            <div class="search_by_place">
+                {% for i in hospital_available%}
+                <div class="hospital" id="hospital" name="{{i.hospital_id}}" style="display: block;margin:4%; width:30%; text-align:center">
+                    <div class="hospital_checkbox">
+                        <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}" style="font-size:2vw">
+                    </div>
+                    <div class="hospital_image">
+                        <br>
+                        <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" style="width:11vw;height:11vw">
+                    </div>
+                    <div class="hospital_info">
+                        <h2 class="hospital_name">{{i.hospital_name}}</h2>
+                        <p class="hospital_address"><b>Address:</b> {{i.hospital_address}}</p>
+                        <p class="hospital_address"><b>PIN Code:</b> {{i.hospital_pin}}</p>
+                    </div>
+                </div>
                 {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="available available_service_boy" style="border:3px solid gray;border-radius:5px;">
-    <h4>Available Service Boy</h4>
+                <div>
 
-    <div class="service_boys">
-      {% for i in service_boys_available%}
-      <div class="card__header">
-        <img class="card__thumb" src="/media/{{i.image}}" alt="{{i.first_name}} DP" style="width:5vw;height:5vw"/>
-        <div class="card__header-text">
-          <h3 class="card__title">{{i.first_name}}</h3>
+                    <div class="suggest_hospitals">
+                        <h2 style="margin-top: 20%;">Hospitals Near By</h2>
+                        <h6>{{no_suggestion}}</h6>
+                        <div class="suggest_place">
+                            {% for i in suggest_place %}
+                            <div class="card" style="width: 18rem;margin:10px;
+                                background-color: rgba(128, 128, 128, 0.034);border-color:gray;">
+                                <a href="" style="color: black; text-decoration:none;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{i.hospital_name}}</h5>
+                                        <hr>
+                                        <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                                        <p class="card-text"><b>Address: </b>{{i.hospital_address}}</p>
+                                        <!-- <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a> -->
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="suggest_hospitals">
+                        <h2 style="margin-top: 0;">Hotels Near By</h2>
+                        <h6>{{no_suggestion_hotels}}</h6>
+                        <div class="suggest_place_hotels">
+                            {% for i in suggest_hotels %}
+                            <div class="card" style="width: 18rem;margin:10px;background-color:rgba(128, 128, 128, 0.034);border:1px solid gray;">
+                                <a style="color: black; text-decoration:none;">
+                                    <br>
+                                    <div id="carouselExampleControls" class="first-container carousel slide" data-bs-ride="carousel" style="height:100%;">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active hospital_image">
+                                                <img src="/media/{{i.hotel_image_1}}" class="hotel_image hospital_image" alt="{{i.hotel_name}}" style="width: 10vw;height:10vw;padding:0.2vw;">
+                                            </div>
+                                            <div class="carousel-item hospital_image">
+                                                <img src="/media/{{i.hotel_image_2}}" class="hotel_image hospital_image" alt="{{i.hotel_name}}" style="width: 10vw;height:10vw;padding:0.2vw;">
+                                            </div>
+                                            <div class="carousel-item hospital_image">
+                                                <img src="/media/{{i.hotel_image_3}}" class="hotel_image hospital_image" alt="{{i.hotel_name}}" style="width: 10vw;height:10vw;padding:0.2vw;">
+                                            </div>
+                                            <div class="carousel-item hospital_image">
+                                                <img src="/media/{{i.hotel_image_4}}" class="hotel_image hospital_image" alt="{{i.hotel_name}}" style="width: 10vw;height:10vw;padding:0.2vw;">
+                                            </div>
+                                            <div class="carousel-item hospital_image">
+                                                <img src="/media/{{i.hotel_image_5}}" class="hotel_image hospital_image" alt="{{i.hotel_name}}" style="width: 10vw;height:10vw;padding:0.2vw;">
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{i.hotel_name}}</h5>
+                                        {% if i.hospital_rating == 0%}
+                                        <p>No Rating</p>
+                                        {% endif %} {% if i.hotel_rating > 0%}
+                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                        <label for="rate-{{j}}" style="font-size:1vw;" class="fas fa-star"></label> {% endif %} {% if i.hotel_rating > 1%}
+                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                        <label for="rate-{{j}}" style="font-size:1vw;" class="fas fa-star"></label> {% endif %} {% if i.hotel_rating > 2%}
+                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                        <label for="rate-{{j}}" style="font-size:1vw;" class="fas fa-star"></label> {% endif %} {% if i.hotel_rating > 3%}
+                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                        <label for="rate-{{j}}" style="font-size:1vw;" class="fas fa-star"></label> {% endif %} {% if i.hotel_rating > 4%}
+                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                        <label for="rate-{{j}}" style="font-size:1vw;" class="fas fa-star"></label> {% endif %}
+                                        <br><br>
+                                        <h5>Price: ₹{{i.hotel_price}}/room</h5>
+                                        <hr>
+                                        <b>Hotel Facilities: <br></b>
+                                        <p class="card-text hotel_description" id="{{i.hotel_id}}_hotel" style="text-align: left;padding:5%;">
+                                            {{i.hotel_description}}
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      {% endfor %}
     </div>
-  </div>
-  <div class="available place_and_address">
-    <form action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm" method="post" class="hospital_submit"
-      id="hospital_submit">
-      {% csrf_token %}
-      <input type="hidden" value="hospital_id" id="hospital_id" name="hospital_id">
-      <button class="btn btn-primary custom_btn" id="hospital_done" style="border-radius:5px;font-size:1vw" type="submit" disabled>
-        Done
-      </button>
-    </form>
-    <h1><br>{{no_hospital}}</h1>
-    <div class="search_by_pin" id="{{id_pin}}">
-      {% for i in hospital_available %}
-      <div class="hospital" id="hospital" name="{{i.hospital_id}}">
-        <div class="hospital_checkbox">
-          <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}place">
-        </div>
-        <div class="hospital_image">
-          <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" style="width: 11vw;height:11vw">
-        </div>
-        <div class="hospital_info">
-          <h2 class="hospital_name">{{i.hospital_name}}</h2>
-          <p class="hospital_address"><b>Address:</b> {{i.hospital_address}}</p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="search_by_place" id="{{id_place}}">
-      <div class="search_by_place">
-        {% for i in hospital_available%}
-        <div class="hospital" id="hospital" name="{{i.hospital_id}}"
-          style="display: block;margin:4%; width:30%; text-align:center">
-          <div class="hospital_checkbox">
-            <input type="checkbox" class="checkbox" name="{{i.hospital_id}}" id="{{i.hospital_id}}" style="font-size:2vw">
-          </div>
-          <div class="hospital_image">
-            <img src="/media/{{i.hospital_image}}" class="hospital_image" alt="{{i.hospital_name}}" style="width:11vw;height:11vw">
-          </div>
-          <div class="hospital_info">
-            <h2 class="hospital_name">{{i.hospital_name}}</h2>
-            <p class="hospital_address"><b>Address:</b> {{i.hospital_address}}</p>
-            <p class="hospital_address"><b>PIN Code:</b> {{i.hospital_pin}}</p>
-          </div>
-        </div>
-        {% endfor %}
-        <div class="suggest_hospitals">
-          <h2 style="margin-top: 20%;">Hospitals Near By</h2>
-          <h6>{{no_suggestion}}</h6>
-          {% for i in suggest_place %}
-          <div class="card" style="width: 18rem;margin:10px;
-          background-color: rgba(128, 128, 128, 0.034);border-color:gray;">
-            <a href="" style="color: black; text-decoration:none;">
-              <div class="card-body">
-                <h5 class="card-title">{{i.hospital_name}}</h5>
-                <hr>
-                <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-                <p class="card-text"><b>Address: </b>{{i.hospital_address}}</p>
-                <!-- <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a> -->
-              </div>
-            </a>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
-{% endblock %}
-
-{% block javascript %}
+{% endblock %} {% block javascript %}
 <script>
-  if (document.referrer.endsWith('customer_dashboard/{{Active_User.customer_id}}') == false && document.referrer
-    .endsWith('customer_dashboard/{{Active_User.customer_id}}/order_confirm') == false && document.referrer
-    .endsWith('customer_dashboard/{{Active_User.customer_id}}/search') == false) {
-    var done = document.getElementById('hospital_submit');
-    var view_service = document.getElementById('view_service');
-    done.remove();
-    view_service.innerHTML =
-      "<p>No Serivce Added <a href='/customer_dashboard/{{Active_User.customer_id}}'>Click Here</a> to add Services.</p>"
-  }
+    if (document.referrer.endsWith('customer_dashboard/{{Active_User.customer_id}}') == false && document.referrer
+        .endsWith('customer_dashboard/{{Active_User.customer_id}}/order_confirm') == false && document.referrer
+        .endsWith('customer_dashboard/{{Active_User.customer_id}}/search') == false) {
+        var done = document.getElementById('hospital_submit');
+        var view_service = document.getElementById('view_service');
+        done.remove();
+        view_service.innerHTML =
+            "<p>No Serivce Added <a href='/customer_dashboard/{{Active_User.customer_id}}'>Click Here</a> to add Services.</p>"
+    }
 </script>
 <script src="{% static 'service/js/customer_dashboard.js' %}"></script>
 <script src="{% static 'service/js/search.js' %}"></script>

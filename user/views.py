@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Service_Boy, Customer, Temp
 from service.views import covnert_Set_to_dict
-from hospital.models import Hospital_Detail
+from hospital.models import Hospital_Detail, Hotel_Detail
 from admin_control.models import Testimonial
 from service.models import Package,Deals_and_Offer
-
+from .hashing_256 import hashing_256
 
 import os
 import math
@@ -32,6 +32,7 @@ def hospital(request):
     package_dict = covnert_Set_to_dict(package_count)
     suggest_place = ''
     no_suggestion = ''
+    no_suggestion_hotels = ''
     hospital_available = ''
     # hospital_pin = Active_User['PIN']
     id_pin = ''
@@ -54,8 +55,11 @@ def hospital(request):
                 # print('error')
                 suggest_place = Hospital_Detail.objects.filter(hospital_pin=hospital_pin).exclude(
                     hospital_name=hospital_available[0].hospital_name)
+                suggest_hotels = Hotel_Detail.objects.filter(hotel_pin=hospital_pin)
                 id_place = 'display'
                 id_pin = 'no-display'
+                if len(suggest_hotels) == 0:
+                    no_suggestion_hotels = 'Sorry, No Hotels Affiliated Near by.'
                 if len(suggest_place) == 0:
                     no_suggestion = 'Sorry, No suggested Hospital Near by.'
             except:
@@ -84,8 +88,11 @@ def hospital(request):
                 # print('error')
                 suggest_place = Hospital_Detail.objects.filter(hospital_pin=hospital_pin).exclude(
                     hospital_name=hospital_available[0].hospital_name)
+                suggest_hotels = Hotel_Detail.objects.filter(hotel_pin=hospital_pin)
                 id_place = 'display'
                 id_pin = 'no-display'
+                if len(suggest_hotels) == 0:
+                    no_suggestion_hotels = 'Sorry, No Hotels Affiliated Near by.'
                 if len(suggest_place) == 0:
                     no_suggestion = 'Sorry, No suggested Hospital Near by.'
             except:
@@ -99,9 +106,11 @@ def hospital(request):
         'hospital_available': hospital_available,
         'search_by_place': search_by_place,
         'search_by_pin': search_by_pin,
-                    'deal_offers':Deals_and_Offer.objects.all(),
+        'deal_offers':Deals_and_Offer.objects.all(),
         'suggest_place': suggest_place,
         'no_suggestion': no_suggestion,
+        'suggest_hotels': suggest_hotels,
+        'no_suggestion_hotels': no_suggestion_hotels,
         'id_pin': id_pin,
         'id_place': id_place,
         'no_hospital': no_hospital,
@@ -110,7 +119,7 @@ def hospital(request):
 
 
 def index(request):
-
+    
     if ('Active_User' in request.session):
         return redirect('customer_dashboard/'+str(request.session['Active_User']['customer_id']))
     
@@ -125,8 +134,9 @@ def index(request):
     for i in testimonial:
         testimonials.append([
             i.testimonial,
-            Customer.objects.filter(customer_id=int(i.customer_id))[
-                0].first_name+Customer.objects.filter(customer_id=int(i.customer_id))[0].last_name,
+            i.customer.first_name+" "+i.customer.last_name,
+            # Customer.objects.filter(customer_id=int(i.customer_id))[
+            #     0].first_name+Customer.objects.filter(customer_id=int(i.customer_id))[0].last_name,
             i.date_time,
             i.customer_image
         ])
@@ -149,7 +159,7 @@ def Login(request):
         if(request.POST.get('who') == 'customer'):
             email = request.POST.get('email', '')
             number = request.POST.get('number', '')
-            password = request.POST.get('password')
+            password = hashing_256(request.POST.get('password'))
             if(email != ''):
                 User_Info = Customer.objects.filter(
                     email=email, password=password)
@@ -418,7 +428,7 @@ def SignUp(request):
             'Bank_Account': Bank_Account,
             'IFSC_code': IFSC_code,
             'branch': branch,
-            'password': password,
+            'password': hashing_256(password),
         }
         who = request.POST.get('who')
         return render(request, 'user/create_new_account.html', {
@@ -587,11 +597,11 @@ def forgot_password(request):
             Service_Boy_Exist = Service_Boy.objects.filter(email=email)
             if (User_Exist.exists()):
                 for User in User_Exist:
-                    User.password = password
+                    User.password = hashing_256(password)
                     User.save()
             elif (Service_Boy_Exist.exists()):
                 for User in Service_Boy_Exist:
-                    User.password = password
+                    User.password = hashing_256(password)
                     User.save()
             else:
                 return render(request, 'user/forgot_password.html', {

@@ -2,52 +2,41 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  {% load static %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'service/scss/base/base.css' %}">
-  <link rel="shortcut icon" href="{%static 'service/images/favicon.png'%}" type="image/x-icon">
-  {% block stylesheet %}{% endblock %}
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <title>{% block title %}{% endblock %}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'service/scss/base/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}">
+    <link rel="shortcut icon" href="{%static 'service/images/favicon.png'%}" type="image/x-icon"> {% block stylesheet %}{% endblock %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <title>{% block title %}{% endblock %}</title>
 
 </head>
 
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light"
-    style="position: fixed;top: 0;left: 0%;background-color: #fff!important;box-shadow: 1px 0px 5px black;z-index: 9;">
-    <div class="container-fluid">
-      <a href="/customer_dashboard/{{Active_User.customer_id}}"><img class="logo"
-          src="{% static 'service_boy/images/isTaker.png' %}" alt="logo.png" width="100px"
-          style="margin-right: 20px;"></a>
-      <button class="navbar-toggler" style="width:30px;height:30px;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed;top: 0;left: 0%;background-color: #fff!important;box-shadow: 1px 0px 5px black;z-index: 9;">
+        <div class="container-fluid">
+            <a href="/customer_dashboard/{{Active_User.customer_id}}"><img class="logo" src="{% static 'service_boy/images/isTaker.png' %}" alt="logo.png" width="100px" style="margin-right: 20px;"></a>
+            <button class="navbar-toggler" style="width:30px;height:30px;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" style="width:20px;height:20px;"></span>
       </button>
-      <div class=" collapse navbar-collapse" id="navbarSupportedContent">
+            <div class=" collapse navbar-collapse" id="navbarSupportedContent">
 
-        <form class="d-flex" action="/customer_dashboard/{{Active_User.customer_id}}/search" method="POST">
-          {% csrf_token %}
-          <input list="browsers" class="form-control" style="border-radius: 5px 0 0 5px;" type="search"
-            name="search_by_place" aria-label="Search" value="{{search_by_place}}"
-            placeholder="Search by Hospital" id="browser" autocomplete="off" required>
-          <datalist id="browsers">
+                <form class="d-flex" action="/customer_dashboard/{{Active_User.customer_id}}/search" method="POST">
+                    {% csrf_token %}
+                    <input list="browsers" class="form-control" style="border-radius: 5px 0 0 5px;" type="search" name="search_by_place" aria-label="Search" value="{{search_by_place}}" placeholder="Search by Hospital" id="browser" autocomplete="off" required>
+                    <datalist id="browsers">
             {% for hospital in hospital %}
             <option value="{{hospital}}">
               {% endfor %}
           </datalist>
-          <button id="btn_search_by_place" class="btn btn-outline-primary"
-            style="border-radius: 0 5px 5px 0;border-color:#ff844f" type="submit"><svg
+                    <button id="btn_search_by_place" class="btn btn-outline-primary" style="border-radius: 0 5px 5px 0;border-color:#ff844f" type="submit"><svg
               xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" class="svelte-gvo0bu">
               <path fill="#ff844f" class="search"
                 d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
@@ -55,41 +44,37 @@
               <path d="M0 0h24v24H0z" fill="none"></path>
             </svg>
           </button>
-        </form>
+                </form>
 
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/customer_dashboard/{{Active_User.customer_id}}/contact_us" tabindex="-1">Contact
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/customer_dashboard/{{Active_User.customer_id}}/contact_us" tabindex="-1">Contact
               Us</a>
-          </li>
-        </ul>
-        <form class="d-flex" action="/customer_dashboard/{{Active_User.customer_id}}/search" method="POST"
-          style="margin-right: 1%;">
-          {% csrf_token%}
-          <input class="form-control" name="search_by_pin" style="border-radius: 5px 0 0 5px;" type="number"
-            placeholder="Search by Pin" aria-label="Search" value="{{search_by_pin}}" required>
-          <button id="btn_search_by_pin" class="btn btn-outline-primary"
-            style="border-radius: 0 5px 5px 0;border-color:#ff844f" type="submit"><svg
+                    </li>
+                </ul>
+                <form class="d-flex" action="/customer_dashboard/{{Active_User.customer_id}}/search" method="POST" style="margin-right: 1%;">
+                    {% csrf_token%}
+                    <input class="form-control" name="search_by_pin" style="border-radius: 5px 0 0 5px;" type="number" placeholder="Search by Pin" aria-label="Search" value="{{search_by_pin}}" required>
+                    <button id="btn_search_by_pin" class="btn btn-outline-primary" style="border-radius: 0 5px 5px 0;border-color:#ff844f" type="submit"><svg
               xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" class="svelte-gvo0bu">
               <path fill="#ff844f" class="search"
                 d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
@@ -97,27 +82,25 @@
               <path d="M0 0h24v24H0z" fill="none"></path>
             </svg>
           </button>
-        </form>
-        <div class="btn-group dropdown">
-          <button type="button" style="border: 0px;background-color:transparent;line-height:normal;"
-            class="cartbutton dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                </form>
+                <div class="btn-group dropdown">
+                    <button type="button" style="border: 0px;background-color:transparent;line-height:normal;" class="cartbutton dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             Welcome {{Active_User.first_name}}
           </button>
-          <ul class="dropdown-menu dropdown-menu-end" style="width:max-content;">
-            <li><a class="dropdown-item" href="/customer_dashboard/{{Active_User.customer_id}}/my_account">Your
+                    <ul class="dropdown-menu dropdown-menu-end" style="width:max-content;">
+                        <li><a class="dropdown-item" href="/customer_dashboard/{{Active_User.customer_id}}/my_account">Your
                 Account</a></li>
-            <li><a class="dropdown-item" href="/customer_dashboard/{{Active_User.customer_id}}/orders">Your Orders</a>
-            </li>
-            <!-- <li><a class="dropdown-item" href="#">Contact Us</a></li> -->
-          </ul>
-        </div>
-        <form action="/logout" method="post">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-primary mx-2 custom_btn">Logout</button>
-        </form>
-        <div class="btn-group">
-          <button type="button" style="border: 0px;background-color:transparent;line-height:normal;" class="cartbutton"
-            data-bs-toggle="dropdown" aria-expanded="false">
+                        <li><a class="dropdown-item" href="/customer_dashboard/{{Active_User.customer_id}}/orders">Your Orders</a>
+                        </li>
+                        <!-- <li><a class="dropdown-item" href="#">Contact Us</a></li> -->
+                    </ul>
+                </div>
+                <form action="/logout" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary mx-2 custom_btn">Logout</button>
+                </form>
+                <div class="btn-group">
+                    <button type="button" style="border: 0px;background-color:transparent;line-height:normal;" class="cartbutton" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="cart">
               <span class="items">{{cart_length}}</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="2vw" height="2vw" fill="#ff844f" class="bi bi-cart"
@@ -127,21 +110,19 @@
               </svg>
             </div>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end" style="text-align: center; width:max-content;">
-            <!-- <input type="hidden" value=""> -->
-            {% if cart_length == 0 %}
-            <h4 style="padding: 5px 20px;">Cart is Empty</h4>
-            {% else %}
-            {% for i in cart %}
-            <li class="cart-items">
-              <form action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm" method="post">
-                {% csrf_token %}
-                <button class="cart_submit" name="cart_value_id" type="submit"
-                  value="{{i.service_chosen_id}}">{{i.hospital_name}}</button>
-              </form>
-              <form action="/customer_dashboard/{{Active_User.customer_id}}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="non_usage_btn" name="delete_service" value="{{i.service_chosen_id}}">
+                    <ul class="dropdown-menu dropdown-menu-end" style="text-align: center; width:max-content;">
+                        <!-- <input type="hidden" value=""> -->
+                        {% if cart_length == 0 %}
+                        <h4 style="padding: 5px 20px;">Cart is Empty</h4>
+                        {% else %} {% for i in cart %}
+                        <li class="cart-items">
+                            <form action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm" method="post">
+                                {% csrf_token %}
+                                <button class="cart_submit" name="cart_value_id" type="submit" value="{{i.service_chosen_id}}">{{i.hospital_name}}</button>
+                            </form>
+                            <form action="/customer_dashboard/{{Active_User.customer_id}}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="non_usage_btn" name="delete_service" value="{{i.service_chosen_id}}">
                   <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
                       viewBox="0 0 16 16">
@@ -150,94 +131,80 @@
                     </svg>
                   </span>
                 </button>
-              </form>
-            </li>
-            {% endfor %}
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <div class="top-container" style="margin-top: 70px;">
-    <div class="container side left-container">
-      <div class="mini top-rated" style="overflow: hidden;">
-        Top Rated Spot Filter on City Wise
-        <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
-        <div class="container_slider accordion accordion-flush all_city_list" style="height: 100%"
-          id="accordionFlushExample">
-          <ul class="hospitals slider" style="text-align: left;height: 80%">
-            <br>
-            {% for i in hospital_city_wise %}
-            <div class="hospital_name">
-              <h6>{{i}}</h6>
-              <div>
-                <p>{{i.hospital_pin}}</p>
-                {% if i.hospital_rating == 0%}
-                <p>No Rating</p>
-                {% endif %}
-                {% if i.hospital_rating > 0%}
-                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                <label for="rate-{{j}}" class="fas fa-star"></label>
-                {% endif %}
-                {% if i.hospital_rating > 1%}
-                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                <label for="rate-{{j}}" class="fas fa-star"></label>
-                {% endif %}
-                {% if i.hospital_rating > 2%}
-                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                <label for="rate-{{j}}" class="fas fa-star"></label>
-                {% endif %}
-                {% if i.hospital_rating > 3%}
-                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                <label for="rate-{{j}}" class="fas fa-star"></label>
-                {% endif %}
-                {% if i.hospital_rating > 4%}
-                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                <label for="rate-{{j}}" class="fas fa-star"></label>
-                {% endif %}
-              </div>
+                            </form>
+                        </li>
+                        {% endfor %} {% endif %}
+                    </ul>
+                </div>
             </div>
-            {% endfor %}
-          </ul>
         </div>
-      </div>
-      <div class="mini all-services" style="overflow: hidden;">
-        <div style="z-index:+2;">
-          All Service List
-          <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
+    </nav>
+
+    <div class="top-container" style="margin-top: 70px;">
+        <div class="container side left-container">
+            <div class="mini top-rated" style="overflow: hidden;">
+                Top Rated Spot Filter on City Wise
+                <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
+                <div class="container_slider accordion accordion-flush all_city_list" style="height: 100%" id="accordionFlushExample">
+                    <ul class="hospitals slider" style="text-align: left;height: 80%">
+                        <br> {% for i in hospital_city_wise %}
+                        <div class="hospital_name hospital_name_city_wise" id="{{forloop.counter}}">
+                            <p style="text-align: center;">{{i.hospital_city}}</p>
+                            <h6 style="text-align: center;">{{i}}</h6>
+                            <div>
+                                <p>{{i.hospital_pin}}</p>
+                                {% if i.hospital_rating == 0%}
+                                <p>No Rating</p>
+                                {% endif %} {% if i.hospital_rating > 0%}
+                                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                <label for="rate-{{j}}" class="fas fa-star"></label> {% endif %} {% if i.hospital_rating > 1%}
+                                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                <label for="rate-{{j}}" class="fas fa-star"></label> {% endif %} {% if i.hospital_rating > 2%}
+                                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                <label for="rate-{{j}}" class="fas fa-star"></label> {% endif %} {% if i.hospital_rating > 3%}
+                                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                <label for="rate-{{j}}" class="fas fa-star"></label> {% endif %} {% if i.hospital_rating > 4%}
+                                <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                <label for="rate-{{j}}" class="fas fa-star"></label> {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="mini all-services" style="overflow: hidden;">
+                <div style="z-index:+2;">
+                    All Service List
+                    <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
+                </div>
+                <div class="container_slider accordion accordion-flush all_service_list" style="height: 100%;overflow:hidden" id="accordionFlushExample">
+                    <ul class="slider" style="text-align: left;padding:0;">
+                        <br> {% for i in package_dict %}
+                        <ul id="package{{forloop.counter}}">
+                            {% for j in i %}
+                            <li style="list-style:none;" id="service_name_{{j.2}}">{{j.2}}</li>
+                            {% endfor %}
+                            <br>
+                        </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="container_slider accordion accordion-flush all_service_list" style="height: 100%;overflow:hidden"
-          id="accordionFlushExample">
-          <ul class="slider" style="text-align: left;padding:0;">
-            <br>
-            {% for i in package_dict %}
-            <ul id="package{{forloop.counter}}">
-              {% for j in i %}
-              <li style="list-style:none;" id="service_name_{{j.2}}">{{j.2}}</li>
-              {% endfor %}
-              <br>
-            </ul>
-            {% endfor %}
-          </ul>
+        <div class="container middle-container">
+            {% block body %} {% endblock %}
         </div>
-      </div>
-    </div>
-    <div class="container middle-container">
-      {% block body %} {% endblock %}
-    </div>
-    <div class="container side right-container">
-      <div class="mini top-rated">
-        Top Rating City
-        <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
-        <div class="">
-          <ol>
-            <li>Lucknow</li>
-            <li>Bangalore</li>
-          </ol>
-        </div>
-        <!-- <div id="carouselExampleControls" class="first-container carousel slide" data-bs-ride="carousel">
+        <div class="container side right-container">
+            <div class="mini top-rated">
+                Top Rating City
+                <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
+                <div class="">
+                    <ol>
+                        <li>Lucknow</li>
+                        <li>Bangalore</li>
+                    </ol>
+                </div>
+                <!-- <div id="carouselExampleControls" class="first-container carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img src="{% static 'service/images/picture1.jpg' %}" class="carousel-img d-block w-100" height="300px"
@@ -264,38 +231,37 @@
           </button>
         </div> -->
 
-      </div>
-      <div class="mini deals">
-        Deals and Offers
-        <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
-        <div class="accordion accordion-flush" style="height: 100%" id="accordionFlushExample">
-          <ul class="hospitals" style="text-align: left;height: 80%">
-            <br>
-            {% for i in deal_offers %}
-            <div class="hospital_name">
-              <h4>{{i.offer_name}}</h4>
-              <div>
-                <h6>{{i.offer_message}}</h6>
-              </div>
             </div>
-            {% endfor %}
-          </ul>
+            <div class="mini deals">
+                Deals and Offers
+                <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
+                <div class="accordion accordion-flush" style="height: 100%" id="accordionFlushExample">
+                    <ul class="hospitals" style="text-align: left;height: 80%">
+                        {% for i in deal_offers %}
+                        <div class="hospital_name">
+                            <h5 style="text-align: center;">{{i.offer_name}}</h5>
+                            <div>
+                                <h6 style="font-weight: normal;">{{i.offer_message}}</h6>
+                            </div>
+                            <p>Code: <b>{{i.offer_code}}</b></p>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-  </script>
-  <script>
-    $('button.cart_submit').click(function () {
-      $('input#cart_value_id').attr('value', $(this).attr('value'))
-    })
-  </script>
-  <script src="{% static 'user/js/navbar.js' %}"></script>
-  {% block javascript %}{% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script>
+        $('button.cart_submit').click(function() {
+            $('input#cart_value_id').attr('value', $(this).attr('value'))
+        })
+    </script>
+    <script src="{% static 'user/js/navbar.js' %}"></script>
+    {% block javascript %}{% endblock %}
 
 </body>
 

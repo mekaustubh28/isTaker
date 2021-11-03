@@ -18,3 +18,22 @@ class Hospital_Detail(models.Model):
 
     def __str__(self):
         return self.hospital_name
+
+class Hotel_Detail(models.Model):
+    hotel_id = models.AutoField(primary_key=True)
+    hotel_name = models.CharField(max_length=200)
+    hotel_pin = models.IntegerField(default=0)
+    hotel_rating = models.IntegerField(default=0)
+    hotel_price = models.IntegerField(default=0)
+    hotel_description = models.CharField(default='', max_length=5000)
+    hotel_contact = models.IntegerField(default=9876543210)
+    hotel_image_1 = models.FileField(upload_to='hotel/images', default='')
+    hotel_image_2 = models.FileField(upload_to='hotel/images', default='')
+    hotel_image_3 = models.FileField(upload_to='hotel/images', default='')
+    hotel_image_4 = models.FileField(upload_to='hotel/images', default='')
+    hotel_image_5 = models.FileField(upload_to='hotel/images', default='')
+    hotel_addition_date = models.DateField(default=timezone.now())
+
+    def __str__(self):
+        return self.hotel_name
+
