@@ -7,6 +7,7 @@ app_name = 'adminControl'
 urlpatterns = [
     path('jhbo92dasdSABoiu8o08BFjkl', views.admin_control, name='admin_control'),
     path('jhbo92dasdSABoiu8o08BFjkl/hospitals', views.hospitals, name='hospitals'),
+    path('jhbo92dasdSABoiu8o08BFjkl/hotels', views.hotels, name='hotels'),
     path('jhbo92dasdSABoiu8o08BFjkl/pending_service', views.pending_service, name='pending_service'),
     path('jhbo92dasdSABoiu8o08BFjkl/pending_applications', views.pending_applications, name='pending_applications'),
     path('jhbo92dasdSABoiu8o08BFjkl/all_services', views.all_services, name='all_services'),

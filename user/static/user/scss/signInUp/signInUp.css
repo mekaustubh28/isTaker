@@ -1,167 +1,169 @@
 body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 body * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 div.choice {
-  display: flex;
-  width: 100% !important;
-  width: max-content;
+    display: flex;
+    width: 100% !important;
+    width: max-content;
 }
 
 div.choice input {
-  width: 5% !important;
-  ;
+    width: 5% !important;
+    ;
 }
 
 body div.signInUp {
-  width: 100%;
+    width: 100%;
 }
 
 body div.signInUp div.Login {
-  text-align: center;
-}
-div.form-group{
-  padding:0;
-  text-align:left;
-  width: 80%;
-  margin: auto;
+    text-align: center;
 }
 
-div.form-group input{
-  margin-left: 0!important;
-  width: 100%!important;
+div.form-group {
+    padding: 0;
+    text-align: left;
+    width: 80%;
+    margin: auto;
 }
+
+div.form-group input {
+    margin-left: 0!important;
+    width: 100%!important;
+}
+
 body div.signInUp div.Login input.option {
-  display: none;
+    display: none;
 }
 
 body div.signInUp div.Login label.option {
-  cursor: pointer;
-  padding: 10px 20px;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 20px;
-  margin-right: 20px;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
 body div.signInUp div.Login label.option:hover {
-  background-color: rgba(0, 0, 255, 0.041);
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
+    background-color: rgba(0, 0, 255, 0.041);
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
 body div.signInUp div.Login input.option:checked+label.option {
-  background-color: #ff844f;
-  color: white;
+    background-color: #ff844f;
+    color: white;
 }
 
 body div.signInUp div.Login div.fill {
-  width: 50%;
-  margin: 50px auto;
-  position: relative;
+    width: 50%;
+    margin: 50px auto;
+    position: relative;
 }
 
 body div.signInUp div.Login div.fill div.customer,
 body div.signInUp div.Login div.fill div.service_boy {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 20px;
-  border: 2px solid gray;
-  border-radius: 10px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    border: 2px solid gray;
+    border-radius: 10px;
 }
 
 body div.signInUp div.Login div.fill div.customer a,
 body div.signInUp div.Login div.fill div.service_boy a {
-  font-size: small;
+    font-size: small;
 }
 
 body div.signInUp div.Login div.fill div.customer input,
 body div.signInUp div.Login div.fill div.service_boy input {
-  margin: 10px;
-  width: 80%;
-  padding: 10px;
-  font-size: 15px;
-  border: 1px solid gray;
-  outline: none;
-  color: black;
-  border-radius: 5px;
+    margin: 10px;
+    width: 80%;
+    padding: 0.6vw;
+    font-size: 1vw;
+    border: 1px solid gray;
+    outline: none;
+    color: black;
+    border-radius: 5px;
 }
 
-input[type='radio']{
-  opacity: 0;
+input[type='radio'] {
+    opacity: 0;
 }
 
 div.choice label:before {
-  width: 15px;
-  height: 15px;
-  border-radius: 15px;
-  top: 2px;
-  left: -10px;
-  position: relative;
-  background-color: #d1d3d1;
-  content: '';
-  display: inline-block;
-  visibility: visible;
-  border: 2px solid white;
+    width: 1vw;
+    height: 1vw;
+    border-radius: 15px;
+    top: 2px;
+    left: -10px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
 }
 
-
-div.choice input[type=radio]:checked + label:before {
-  width: 15px;
-  height: 15px;
-  border-radius: 15px;
-  top: 2px;
-  left: -10px;
-  position: relative;
-  background-color: #ffa500;
-  content: '';
-  display: inline-block;
-  visibility: visible;
-  border: 2px solid white;
+div.choice input[type=radio]:checked+label:before {
+    width: 1vw;
+    height: 1vw;
+    border-radius: 15px;
+    top: 2px;
+    left: -10px;
+    position: relative;
+    background-color: #ffa500;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
 }
-
 
 body div.signInUp div.Login div.fill div.customer input.submit,
 body div.signInUp div.Login div.fill div.service_boy input.submit {
-  width: 40%;
-  background-color: #ff844f;
-  font-size: 1.5vw;
-  color: white;
-  outline: none;
-  border: none;
+    width: 40%;
+    background-color: #ff844f;
+    font-size: 1.5vw;
+    color: white;
+    outline: none;
+    border: none;
 }
 
 body div.signInUp div.Login div.fill div.customer input.submit:hover,
 body div.signInUp div.Login div.fill div.service_boy input.submit:hover {
-  cursor: pointer;
-  background-color:#ee7946;
+    cursor: pointer;
+    background-color: #ee7946;
 }
 
 body div.signInUp div.Login div.fill div.hide {
-  display: none;
+    display: none;
 }
+
 
 /*# sourceMappingURL=signInUp.css.map */
-input.form-control{
-  height: 2.5vw!important;
+
+input.form-control {
+    height: 2.5vw!important;
 }
 
-a{
-  font-size: 1vw!important;
+a {
+    font-size: 1vw!important;
 }

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+
 # Create your models here.
 
 class Admin_Staff(models.Model):
@@ -29,6 +30,7 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.email
+
 
 
 class Service_Boy(models.Model):

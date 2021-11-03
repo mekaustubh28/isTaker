@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from user.models import Admin_Staff, Customer, Service_Boy
-from hospital.models import Hospital_Detail
+from hospital.models import Hospital_Detail, Hotel_Detail
 from admin_control.models import Customer_Ongoing_Trip, Customer_Service_Hist, Service_Boy_Ongoing_Trip, Service_Boy_Service_Hist
 
 import smtplib
@@ -12,6 +12,7 @@ def admin_control(request):
         customer = Customer.objects.all()
         service_boy = Service_Boy.objects.all().exclude(status=False)
         hospitals = Hospital_Detail.objects.all()
+        hotels = Hotel_Detail.objects.all()
         service_boy_pending = Service_Boy.objects.filter(status=False)
         service_boy_available = Service_Boy.objects.all().exclude(available=False)
         service_boy_not_available = Service_Boy.objects.filter(available=False)
@@ -21,18 +22,14 @@ def admin_control(request):
             status='pending')
         service_boy_ongoing_trip = Service_Boy_Ongoing_Trip.objects.all()
         service_boy_service_hist = Service_Boy_Service_Hist.objects.all()
-        #print(customer)
-        #print(service_boy)
-        #print(customer_ongoing_trip)
-        #print(customer_service_hist)
-        #print(service_boy_ongoing_trip)
-        #print(service_boy_service_hist)
+        
         return render(request, 'admin_control/index.html', {
             'active_link': 'Admin',
             'staff_admin': staff_admin,
             'customer': customer,
             'service_boy': service_boy,
             'hospitals': hospitals,
+            'hotels': hotels,
             'service_boy_pending': service_boy_pending,
             'service_boy_available': service_boy_available,
             'service_boy_not_available': service_boy_not_available,
@@ -117,6 +114,21 @@ def hospitals(request):
             'active_link': 'All Hosptails',
             'staff_admin': staff_admin,
             'hospitals': hospitals,
+        })
+    except:
+        return redirect('/jhbo92dasdSABoiu8o08BFjkl')
+
+def hotels(request):
+    try:
+        Session_ID = request.session['Admin_Staff']
+        staff_admin = Admin_Staff.objects.filter(admin_staff_id=Session_ID)[0]
+        hotels = Hotel_Detail.objects.all().values()
+
+        # service_boy_service_hist = Service_Boy_Service_Hist.objects.filter()
+        return render(request, 'admin_control/hotel.html', {
+            'active_link': 'All Hotels',
+            'staff_admin': staff_admin,
+            'hotels': hotels,
         })
     except:
         return redirect('/jhbo92dasdSABoiu8o08BFjkl')

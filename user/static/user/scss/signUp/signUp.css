@@ -1,228 +1,234 @@
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 div.signInUp {
-  width: 100%;
+    width: 100%;
 }
 
 div.signInUp div.Login {
-  text-align: center;
+    text-align: center;
 }
 
 div.signInUp div.Login input.option {
-  display: none;
+    display: none;
 }
 
 div.signInUp div.Login label.option {
-  cursor: pointer;
-  padding: 10px 20px;
-  margin: 0px 20px;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 0px 20px;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
 div.signInUp div.Login label.option:hover {
-  background-color: rgba(0, 0, 255, 0.041);
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
+    background-color: rgba(0, 0, 255, 0.041);
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
-div.signInUp div.Login input.option:checked + label.option {
-  background-color: #ff844f;
-  color: white;
+div.signInUp div.Login input.option:checked+label.option {
+    background-color: #ff844f;
+    color: white;
 }
 
 div.signInUp div.Login div.fill {
-  margin: 50px auto;
-  position: relative;
+    margin: 50px auto;
+    position: relative;
 }
 
 div.signInUp div.Login div.fill div.customer,
 div.signInUp div.Login div.fill div.service_boy {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 20px;
-  border: 2px solid gray;
-  border-radius: 10px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    border: 2px solid gray;
+    border-radius: 10px;
 }
 
 div.signInUp div.Login div.fill div.customer a,
 div.signInUp div.Login div.fill div.service_boy a {
-  font-size: small;
+    font-size: small;
 }
 
 div.signInUp div.Login div.fill div.customer input,
 div.signInUp div.Login div.fill div.customer select,
 div.signInUp div.Login div.fill div.service_boy input,
 div.signInUp div.Login div.fill div.service_boy select {
-  margin: 10px;
-  width: 90%;
-  padding: 10px;
-  font-size: 15px;
-  border: 1px solid gray;
-  color: black;
-  outline: none;
-  border-radius: 5px;
+    margin: 10px;
+    width: 90%;
+    padding: 0.6vw;
+    font-size: 1vw;
+    border: 1px solid gray;
+    color: black;
+    outline: none;
+    border-radius: 5px;
 }
 
 div.signInUp div.Login div.fill div.customer select,
 div.signInUp div.Login div.fill div.service_boy select {
-  outline: none;
-  width: 42%;
+    outline: none;
+    width: 42%;
 }
 
 div.signInUp div.Login div.fill div.customer input.submit,
 div.signInUp div.Login div.fill div.service_boy input.submit {
-  width: 40%;
-  background-color: #ff844f;
-  font-size: 20px;
-  color: white;
-  outline: none;
-  border: none;
+    width: 40%;
+    background-color: #ff844f;
+    font-size: 20px;
+    color: white;
+    outline: none;
+    border: none;
 }
 
 div.signInUp div.Login div.fill div.customer input.submit:hover,
 div.signInUp div.Login div.fill div.service_boy input.submit:hover {
-  cursor: pointer;
-  background-color: #ee7946;
+    cursor: pointer;
+    background-color: #ee7946;
 }
 
 div.signInUp div.Login div.fill div.hide {
-  display: none;
+    display: none;
 }
 
 div.signInUp div.Login div.fill div.signup-service_boy {
-  padding: 10px 5px;
+    padding: 10px 5px;
 }
 
-div.signInUp div.Login div.fill div.signup-service_boy input, div.signInUp div.Login div.fill div.signup-service_boy select {
-  margin: 6px;
-  width: 40%;
-  padding: 10px;
-  font-size: 15px;
-  border: 1px solid gray;
-  color: black;
-  outline: none;
-  border-radius: 5px;
+div.signInUp div.Login div.fill div.signup-service_boy input,
+div.signInUp div.Login div.fill div.signup-service_boy select {
+    margin: 6px;
+    width: 40%;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid gray;
+    color: black;
+    outline: none;
+    border-radius: 5px;
 }
 
 div.signInUp div.Login div.fill div.signup-service_boy select {
-  width: 42%;
+    width: 42%;
 }
+
+
 /*# sourceMappingURL=signUp.css.map */
 
-a.back,a.next {
-  border: 2px solid #ff844f;
-  padding: 10px;
-  border-radius: 50%;
-  transition: 0.3s ease-in-out;
-  margin: 20%;
+a.back,
+a.next {
+    border: 2px solid #ff844f;
+    padding: 10px;
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;
+    margin: 20%;
 }
 
-a.back svg{
-  transform: rotate(-90deg);
+a.back svg {
+    transform: rotate(-90deg);
 }
 
-a.next svg{
-  transform: rotate(90deg);
+a.next svg {
+    transform: rotate(90deg);
 }
 
-a.back:hover, a.next:hover {
-  background-color: #ff844f;
-  transition: 0.3s ease-in-out;
+a.back:hover,
+a.next:hover {
+    background-color: #ff844f;
+    transition: 0.3s ease-in-out;
 }
 
 a.back:hover svg path,
-a.next:hover svg path  {
-  fill: white;
-  transition: 0.3s ease-in-out;
+a.next:hover svg path {
+    fill: white;
+    transition: 0.3s ease-in-out;
 }
 
 div.progress {
-  position: absolute;
-  top: 0;
-  left: 0%;
-  width: 25%;
-  height: 2px;
-  background-color: #ff844f;
-  transition: 0.5s ease-in-out;
-  z-index: +99;
+    position: absolute;
+    top: 0;
+    left: 0%;
+    width: 25%;
+    height: 2px;
+    background-color: #ff844f;
+    transition: 0.5s ease-in-out;
+    z-index: +99;
 }
 
 .with_service_boy {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .display {
-  display: none;
+    display: none;
 }
 
 div.bootstrap-tagsinput {
-  width: 60%;
+    width: 60%;
 }
 
 div.bootstrap-tagsinput input {
-  float: right;
+    float: right;
 }
 
 span.label-info {
-  background-color: blue;
-  padding: 1%;
-  font-size: 17px;
-  float: left;
+    background-color: blue;
+    padding: 1%;
+    font-size: 17px;
+    float: left;
 }
 
 .message {
-  display: none;
-  color: #000;
-  position: relative;
-  padding: 0px 20px 0 100px;
-  text-align: left;
-  margin-top: 10px;
+    display: none;
+    color: #000;
+    position: relative;
+    padding: 0px 20px 0 100px;
+    text-align: left;
+    margin-top: 10px;
 }
 
 .message p {
-  padding: 0;
-  margin: 0;
-  font-size: 15px;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
 }
 
+
 /* Add a green text color and a checkmark when the requirements are right */
+
 .valid {
-  color: green;
+    color: green;
 }
 
 .valid:before {
-  position: relative;
-  left: -10px;
-  content: "✅";
+    position: relative;
+    left: -10px;
+    content: "✅";
 }
 
+
 /* Add a red text color and an "x" when the requirements are wrong */
+
 .invalid {
-  color: red;
-  margin-right: 10px;
-  flex: none;
-  width: max-content;
+    color: red;
+    margin-right: 10px;
+    flex: none;
+    width: max-content;
 }
 
 .invalid:before {
-  position: relative;
-  left: -10px;
-  content: "❌";
+    position: relative;
+    left: -10px;
+    content: "❌";
 }
 
 .disabled {
-  cursor: grab;
+    cursor: grab;
 }
 
-div.tnc input{
-  width: 20px!important;
+div.tnc input {
+    width: 20px!important;
 }
-
-
-
