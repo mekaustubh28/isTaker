@@ -167,3 +167,25 @@ input.form-control {
 a {
     font-size: 1vw!important;
 }
+
+@media screen and (max-width:900px) {
+    body div.signInUp div.Login div.fill {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width:500px) {
+    body div.signInUp div.Login div.fill {
+        width: 90%;
+    }
+    body div.signInUp div.Login input {
+        height: 5vw!important;
+    }
+    body div.signInUp div.Login form a {
+        font-size: 3vw!important;
+    }
+    body div.signInUp div.Login form a svg {
+        width: 3vw!important;
+        height: 3vw!important;
+    }
+}
