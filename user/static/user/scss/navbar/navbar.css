@@ -30,6 +30,10 @@
     background: #555;
 }
 
+.after_500 {
+    display: none;
+}
+
 .Hotbg-txt {
     /* background-color: red; */
     outline: none;
@@ -484,6 +488,12 @@ ul.all_services {
 }
 
 @media screen and (max-width:500px) {
+    .before_500 {
+        display: none;
+    }
+    .after_500 {
+        display: contents;
+    }
     div.carousel-item img {
         height: 30vh;
     }
@@ -491,12 +501,18 @@ ul.all_services {
         display: block;
     }
     div.top-container div.side {
-        width: 80%;
+        width: 100%;
         display: flex;
     }
     div.top-container div.side div.mini {
         width: 50%;
         flex: none;
+    }
+    div.middle-container {
+        width: 90%!important;
+    }
+    * {
+        font-size: 3vw!important;
     }
 }
 
