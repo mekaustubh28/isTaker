@@ -39,6 +39,7 @@ def hospital(request):
         hospital_available = ''
         # hospital_pin = Active_User['PIN']
         id_pin = ''
+        suggest_hotels = ''
         id_place = 'no-display'
         no_hospital = ''
         if request.method == 'POST':
@@ -117,7 +118,7 @@ def hospital(request):
             'id_pin': id_pin,
             'id_place': id_place,
             'no_hospital': no_hospital,
-            'cities': All_Cities(Hospital_Detail.objects.all())
+            'cities': All_Cities(Hospital_Detail.objects.all()),
         })
     except:
         return redirect("/")

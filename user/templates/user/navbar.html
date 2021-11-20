@@ -110,7 +110,7 @@
 
     <div class="top-container" style="margin-top: 70px;">
         <div class="container side left-container">
-            <div class="mini top-rated" style="overflow:hidden;">
+            <div class="mini top-rated filter-cities" style="overflow:hidden;">
                 <div class="Hotbg">
                     <span>
                         <li class="nav-item dropdown dropdown_city" style="border:1px solid #fd7034;border-radius:0.3vw;width:100%;" >
@@ -136,35 +136,40 @@
                         <br> {% for i in hospital_city_wise %}
                         <form action="/hospital_search" method="post">
                             {% csrf_token %}
-                            <button type="submit" name="search_by_id" value="{{i.hospital_id}}" class="no_button" style="color: #000;">
+                            <button type="submit" name="search_by_id" value="{{i.hospital_id}}" class="no_button filter_wise_cities" style="color: #000;">
+                                <!-- <div class="img_filter">
+                                    <img src="/media/{{i.hospital_image}}" alt="{{i}}">
+                                </div> -->
                                 <div class="hospital_name hospital_name_city_wise" id="{{forloop.counter}}">
-                                    <p>{{i.hospital_city}}</p>
                                     <h6>{{i}}</h6>
-                                    <div>
-                                        <p>{{i.hospital_pin}}</p>
-                                        {% if i.hospital_rating == 0%}
-                                        <p>No Rating</p>
-                                        {% endif %}
-                                        {% if i.hospital_rating > 0%}
-                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                                        <label for="rate-{{j}}" class="fas fa-star"></label>
-                                        {% endif %}
-                                        {% if i.hospital_rating > 1%}
-                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                                        <label for="rate-{{j}}" class="fas fa-star"></label>
-                                        {% endif %}
-                                        {% if i.hospital_rating > 2%}
-                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                                        <label for="rate-{{j}}" class="fas fa-star"></label>
-                                        {% endif %}
-                                        {% if i.hospital_rating > 3%}
-                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                                        <label for="rate-{{j}}" class="fas fa-star"></label>
-                                        {% endif %}
-                                        {% if i.hospital_rating > 4%}
-                                        <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
-                                        <label for="rate-{{j}}" class="fas fa-star"></label>
-                                        {% endif %}
+                                    <p>{{i.hospital_city}}</p>
+                                    <div class="rating_star_div">
+                                        <p class="hos_pin">{{i.hospital_pin}}</p>
+                                        <span>
+                                            {% if i.hospital_rating == 0%}
+                                            <p style="width: max-content;color:rgb(57, 57, 255);">No-Rating</p>
+                                            {% endif %}
+                                            {% if i.hospital_rating > 0%}
+                                            <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                            <label for="rate-{{j}}" class="fas fa-star"></label>
+                                            {% endif %}
+                                            {% if i.hospital_rating > 1%}
+                                            <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                            <label for="rate-{{j}}" class="fas fa-star"></label>
+                                            {% endif %}
+                                            {% if i.hospital_rating > 2%}
+                                            <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                            <label for="rate-{{j}}" class="fas fa-star"></label>
+                                            {% endif %}
+                                            {% if i.hospital_rating > 3%}
+                                            <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                            <label for="rate-{{j}}" class="fas fa-star"></label>
+                                            {% endif %}
+                                            {% if i.hospital_rating > 4%}
+                                            <input class="rating_star" type="radio" name="rate" id="rate-{{j}}">
+                                            <label for="rate-{{j}}" class="fas fa-star"></label>
+                                            {% endif %}
+                                        </span>
                                     </div>
                                 </div>
                             </button>
@@ -180,9 +185,9 @@
                 <div class="container_slider accordion accordion-flush all_service_list" style="height: 100%;overflow:hidden" id="accordionFlushExample">
                     <ul class="slider" style="text-align: left;padding:0">
                         <br> {% for i in package_dict %}
-                        <ul id="package{{forloop.counter}}">
+                        <ul id="package{{forloop.counter}}" class="all_services">
                             {% for j in i %}
-                            <li style="list-style:none;" id="service_name_{{j.2}}">{{j.2}}</li>
+                            <li style="" id="service_name_{{j.2}}">{{j.2}}</li>
                             {% endfor %}
                             <br>
                         </ul>
@@ -198,7 +203,7 @@
             <div class="mini top-rated">
                 <span class="heading">Top Rating City</span>
                 <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
-                <div class="">
+                <div class="top_rating_cities">
                     <ol>
                         {% for i in cities%}
                         <li>{{i}}</li>
@@ -209,11 +214,10 @@
             <div class="mini deals">
                 <span class="heading">Deals and Offers</span>
                 <hr style="padding:0;margin:10px auto 0 auto;width:80%;">
-
                 <div class="accordion accordion-flush" style="height: 100%" id="accordionFlushExample">
                     <ul class="hospitals" style="text-align: left;height: 80%">
                         {% for i in deal_offers %}
-                        <div class="hospital_name">
+                        <div class="hospital_name deals_offers">
                             <h5 style="text-align: center;">{{i.offer_name}}</h5>
                             <div>
                                 <h6 style="font-weight: normal;">{{i.offer_message}}</h6>

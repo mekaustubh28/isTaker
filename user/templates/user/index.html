@@ -42,7 +42,7 @@
     </div>
     <div class="service">
         <div class="second-container">
-            <h5>Available Services</h5>
+            <span class="heading">Available Services</span>
             <hr style="padding:0;margin:10px 0 0 0;width:90%;">
             <div class="available-services">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -60,16 +60,15 @@
                                     {% for j in i %}
                                     <div style="padding: 10px;background-color:transparent;" class="selected">
                                         <label style="width: 80%" for="{{j.2}}">{{j.2}}
-                                            <button 
-                                                style="outline: none!important;
+                                            <button style="outline: none!important;
                                                     border: 0!important;
-                                                    background: none!important;"
-                                            >
-                                                <span class="nav-link" href="#" id="navbarDropdown"
-                                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    background: none!important;">
+                                                <span class="nav-link" href="#" id="navbarDropdown" role="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fas fa-info-circle"></i>
                                                 </span>
-                                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 10vw;text-align:justify;padding:10px">
+                                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown"
+                                                    style="width: 10vw;text-align:justify;padding:10px">
                                                     {{j.3}}
                                                 </ul>
                                             </button>
@@ -86,7 +85,7 @@
             </div>
         </div>
         <div class="third-container">
-            <h5>Success Stories</h5>
+            <span class="heading">Success Stories</span>
             <hr style="padding:0;margin:10px 0 0 0;width:90%;">
             <div style="height:90%;overflow:hidden;overflow-y:scroll;text-align:center">
                 <div id="carouselTestimonailControls" class="first-container carousel slide" data-bs-ride="carousel" style="height: 100%;">
@@ -94,39 +93,42 @@
                         {% for j in testimonials %} {% if forloop.counter == 1%}
                         <div class="carousel-item active">
                             <span>
-                                <img src="/media/{{j.3}}" class="carousel-img d-block" style="height:10vh; width:10vw; margin:1vw auto;" alt="picture1">
+                                <img src="/media/{{j.3}}" class="carousel-img d-block"
+                                    style="height:6vw; width:10vw; margin:1vw auto;" alt="picture1">
                             </span> "{{j.0}}"
                             <br><br>
                             <div>
                                 <span>
                                     <span style="float: right;">-{{j.1}}<br><span class="submitted_on"
-                                            style="font-size: 10px;">{{j.2}}</span></span>
+                                            style="font-size: 1vw;">{{j.2}}</span></span>
                                 </span>
                             </div>
                         </div>
                         {% else %}
                         <div class="carousel-item">
                             <span>
-                                <img src="/media/{{j.3}}" class="carousel-img d-block" style="height:10vh; width:10vw; margin:1vw auto;" alt="picture1">
+                                <img src="/media/{{j.3}}" class="carousel-img d-block"
+                                    style="height:6vw; width:10vw; margin:1vw auto;" alt="picture1">
                             </span> "{{j.0}}"
                             <br><br>
                             <div>
                                 <span>
-                                <span style="float: right;">-{{j.1}}<br><span class="submitted_on"
-                                            style="font-size: 10px;">{{j.2}}</span></span>
+                                    <span style="float: right;">-{{j.1}}<br>
+                                        <span class="submitted_on" style="font-size: 1vw;">{{j.2}}</span>
+                                </span>
                                 </span>
                             </div>
                         </div>
                         {% endif %} {% endfor %}
                     </div>
                     <button class="carousel-control-prev arrow" type="button" data-bs-target="#carouselTestimonailControls" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" style="background-color:gray" aria-hidden="true"
-                            ></span>
+                        <span class="carousel-control-prev-icon" style="background-color:gray"
+                            aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next arrow" type="button" data-bs-target="#carouselTestimonailControls" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" style="background-color:gray" aria-hidden="true"
-                            ></span>
+                        <span class="carousel-control-next-icon" style="background-color:gray"
+                            aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>

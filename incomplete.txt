@@ -72,6 +72,10 @@ done 6. Top rating hosp table is not created city wise
 25. make section of hotels in Admin
 26. Contact Use
 
+
+27. mobile view
+28. font size
+
 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
 #ff844f
 #ee7946

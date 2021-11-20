@@ -1,12 +1,7 @@
-{% extends 'user/navbar.html' %}
-{% block title %} isTaker - SignUp {% endblock %}
-{% block stylesheet %}
-{% load static %}
+{% extends 'user/navbar.html' %} {% block title %} isTaker - SignUp {% endblock %} {% block stylesheet %} {% load static %}
 <link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-<link rel="stylesheet" type="text/css" href="{% static 'user/scss/signUp/signUp.css' %}">
-{% endblock %}
-{% block body %}
+<link rel="stylesheet" type="text/css" href="{% static 'user/scss/signUp/signUp.css' %}"> {% endblock %} {% block body %}
 <div class="signInUp">
 
     <div class="Login">
@@ -18,8 +13,8 @@
         <label for="service-boy" style="margin: 0;" class="service_boy option">Service-Boy</label>
         <div class="progress with_service_boy display">
         </div>
-        <div class="fill" style="width: 90%; margin-top:10px;">
-            <div class="customer">
+        <div class="fill" style="width: 90%; margin-top:10px;height:100%;">
+            <div class="customer" style="height:70vh;overflow:hidden;overflow-y:scroll;">
                 <form action="/signUp" method="post" class="customer_form">
                     {% csrf_token %}
                     <p class="error_msg" id="c_error_msg" style="color:red;margin:0;padding:0">{{found}}</p>
@@ -27,8 +22,7 @@
                     <input type="text" name="who" value="customer" style="display: none;">
                     <div class="form-group" style="text-align: left;">
                         <label for="c_fname">First Name</label>
-                        <input type="text" class="fname" id="c_fname" name="firstname" placeholder="First name"
-                            required>
+                        <input type="text" class="fname" id="c_fname" name="firstname" placeholder="First name" required>
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="c_lname">Last Name</label>
@@ -36,8 +30,7 @@
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="c_fathername">Father/Husband Name</label>
-                        <input type="text" class="father_husband_name" id="c_fathername" name="father_husband_name"
-                            placeholder="Father's/Husband's name" required>
+                        <input type="text" class="father_husband_name" id="c_fathername" name="father_husband_name" placeholder="Father's/Husband's name" required>
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="c_email">Email</label><br>
@@ -45,13 +38,11 @@
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="c_number">Contact Number</label>
-                        <input type="number" class="number" name="number" id="c_number" placeholder="(+91) 9876543210"
-                            required>
+                        <input type="number" class="number" name="number" id="c_number" placeholder="(+91) 9876543210" required>
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="c_address">Address</label><br>
-                        <input type="text" class="address" id="c_address" name="address" placeholder="Address"
-                            required><br>
+                        <input type="text" class="address" id="c_address" name="address" placeholder="Address" required><br>
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="c_state">State</label><br>
@@ -64,8 +55,7 @@
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="c_city_village">City/Village</label><br>
-                        <input type="text" class="city_village" id="c_city_village" name="city_village"
-                            placeholder="city/village" required><br>
+                        <input type="text" class="city_village" id="c_city_village" name="city_village" placeholder="city/village" required><br>
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="c_pin">PIN</label><br>
@@ -73,21 +63,16 @@
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="c_adhaar">Adhaar Number</label><br>
-                        <input class="adhaar" type="number" name="adhaar" id="c_adhaar"
-                            placeholder="Adhaar Card/ Passport Number" required>
+                        <input class="adhaar" type="number" name="adhaar" id="c_adhaar" placeholder="Adhaar Card/ Passport Number" required>
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="psw">Password</label><br>
-                        <input type="password" id="psw" name="password" placeholder="password"
-                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                            title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
+                        <input type="password" id="psw" name="password" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
                             required>
                     </div>
                     <div class="form-group" style="text-align: left;">
                         <label for="c_password">Confirm Password</label><br>
-                        <input type="password" id="c_password" name="again_password" placeholder="password confirm"
-                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                            title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
+                        <input type="password" id="c_password" name="again_password" placeholder="password confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
                             required>
                     </div>
                     <div class="tnc" style="width: fit-content;margin-left:60px">
@@ -111,7 +96,7 @@
                     <a href="/login">Already a member?</a>
                 </form>
             </div>
-            <div class="hide service_boy signup-service_boy" id="service_boy_signup">
+            <div class="hide service_boy signup-service_boy" id="service_boy_signup" style="height:70vh;overflow:hidden;overflow-y:scroll;">
                 <form action="/signUp" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <p class="error_msg" id="s_error_msg" style="color:red;margin:0;padding:0">{{found}}</p>
@@ -122,18 +107,15 @@
                         <input type="text" name="who" id="service_boy" value="service_boy" style="display: none;">
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_fname">First Name</label><br>
-                            <input type="text" style="width: 90%!important;" class="fname" id="s_fname" name="firstname"
-                                placeholder="First name" required>
+                            <input type="text" style="width: 90%!important;" class="fname" id="s_fname" name="firstname" placeholder="First name" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_lname">Last Name</label><br>
-                            <input type="text" style="width: 90%!important;" class="lname" id="s_lname" name="lastname"
-                                placeholder="Last name" required>
+                            <input type="text" style="width: 90%!important;" class="lname" id="s_lname" name="lastname" placeholder="Last name" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_fathername">Father Name</label><br>
-                            <input type="text" style="width: 90%!important;" class="fathername" id="s_fathername"
-                                name="father_husband_name" placeholder="Father's name" required>
+                            <input type="text" style="width: 90%!important;" class="fathername" id="s_fathername" name="father_husband_name" placeholder="Father's name" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_gender">Gender</label><br>
@@ -146,18 +128,15 @@
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_address">Address</label><br>
-                            <input type="text" class="address" id="s_address" name="address" placeholder="Address"
-                                required style="width: 90%;">
+                            <input type="text" class="address" id="s_address" name="address" placeholder="Address" required style="width: 90%;">
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_city_village">City Village</label><br>
-                            <input class="city_village" style="width: 90%;" type="text" id="s_city_village"
-                                name="city_village" placeholder="city/village" required>
+                            <input class="city_village" style="width: 90%;" type="text" id="s_city_village" name="city_village" placeholder="city/village" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_district">District</label><br>
-                            <input class="district" style="width: 90%;" type="text" name="district" is="s_district"
-                                placeholder="district" required>
+                            <input class="district" style="width: 90%;" type="text" name="district" is="s_district" placeholder="district" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_state">State</label><br>
@@ -170,8 +149,7 @@
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_pin_code">PIN</label><br>
-                            <input type="number" style="width: 90%;" class="pin_code" id="s_pin_code" name="pin"
-                                placeholder="pin code" required>
+                            <input type="number" style="width: 90%;" class="pin_code" id="s_pin_code" name="pin" placeholder="pin code" required>
                         </div>
                     </div>
                     <hr style="width: 70%; margin:20px auto;">
@@ -179,13 +157,11 @@
                     <div id="2" class="signUp_page background">
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_email">Email</label><br>
-                            <input type="email" style="width: 90%;" class="email" id="s_email" name="email"
-                                placeholder="email" required><br>
+                            <input type="email" style="width: 90%;" class="email" id="s_email" name="email" placeholder="email" required><br>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_mother_tongue">Mother Tongue</label><br>
-                            <input type="text" style="width: 90%;" class="mother_tongue" id="s_mother_tongue"
-                                name="mother_tongue" placeholder="Type Your Mother Tongue" required><br>
+                            <input type="text" style="width: 90%;" class="mother_tongue" id="s_mother_tongue" name="mother_tongue" placeholder="Type Your Mother Tongue" required><br>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_education">Education</label><br>
@@ -202,23 +178,18 @@
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_DOB">Date Of Birth</label><br>
-                            <input type="text" name="DOB" style="width: 90%;" id="s_DOB"
-                                placeholder="Select Date Of Birth" onfocus="(this.type='date')"
-                                onblur="(this.type='text')" required><br><br>
+                            <input type="text" name="DOB" style="width: 90%;" id="s_DOB" placeholder="Select Date Of Birth" onfocus="(this.type='date')" onblur="(this.type='text')" required><br><br>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="pin_dropdown">Select All PIN Serving</label><br>
-                            <input list="pin_dropdowns" class="form-control" style="width: 90%" type="search"
-                                name="PINs" aria-label="Search" value="" placeholder="Search for PIN" id="pin_dropdown"
-                                autocomplete="on">
+                            <input list="pin_dropdowns" class="form-control" style="width: 90%" type="search" name="PINs" aria-label="Search" value="" placeholder="Search for PIN" id="pin_dropdown" autocomplete="on">
                             <datalist id="pin_dropdowns">
                                 {% for i in PIN %}
                                 <option value="{{i}}" id="{{i}}">
                                     {% endfor %}
                             </datalist>
-                            <input type="text" id="s_pin_serve" style="width: 90%" class="PIN"
-                                value="" placeholder="All PIN Selected will be shown here" required>
-                                <input type="hidden" name="pin_serve" id="demo_pin_serve">
+                            <input type="text" id="s_pin_serve" style="width: 90%" class="PIN" value="" placeholder="All PIN Selected will be shown here" required>
+                            <input type="hidden" name="pin_serve" id="demo_pin_serve">
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="languages_dropdown">Select Language</label><br>
@@ -229,9 +200,8 @@
                                 <option class="lang" value="GERMAN">GERMAN</option>
                                 <option class="lang" value="FRENCH">FRENCH</option>
                             </select>
-                            <input type="text" style="width: 44%" id="s_languages" name="languages"
-                                class="languages" value="" placeholder="All languages Selected will be shown here">
-                                <input type="hidden" name="languages" id="demo_languages">
+                            <input type="text" style="width: 44%" id="s_languages" name="languages" class="languages" value="" placeholder="All languages Selected will be shown here">
+                            <input type="hidden" name="languages" id="demo_languages">
                         </div>
                     </div>
 
@@ -240,18 +210,15 @@
                     <div id="3" class="signUp_page government_req">
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_number">Contact Number</label><br>
-                            <input type="number" style="width: 90%;" class="number" name="number" id="s_number"
-                                placeholder="(+91) 9876543210" required>
+                            <input type="number" style="width: 90%;" class="number" name="number" id="s_number" placeholder="(+91) 9876543210" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_adhaar">Adhaar Card/Passport Number</label><br>
-                            <input class="adhaar" style="width: 90%;" type="number" name="adhaar" id="s_adhaar"
-                                placeholder="Adhaar Card/Passport Number" required>
+                            <input class="adhaar" style="width: 90%;" type="number" name="adhaar" id="s_adhaar" placeholder="Adhaar Card/Passport Number" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_pan">PAN Card</label><br>
-                            <input class="pan" type="number" style="width: 90%;" name="pan" id="s_pan"
-                                placeholder="Your Pan Card Number" required>
+                            <input class="pan" type="number" style="width: 90%;" name="pan" id="s_pan" placeholder="Your Pan Card Number" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_pan">Vehicle Details</label><br>
@@ -261,23 +228,19 @@
                                 <option value="bike">Bike</option>
                                 <option value="cycle">Cycle</option>
                             </select>
-                            <input class="pan" type="text" style="width: 44%;" name="vehicle_number" id="s_pan"
-                                placeholder="Your Vehicle Number" required>
+                            <input class="pan" type="text" style="width: 44%;" name="vehicle_number" id="s_pan" placeholder="Your Vehicle Number" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_Bank_Account">Bank Account Number</label><br>
-                            <input class="Bank_Account" style="width: 90%;" type="number" name="Bank_Account"
-                                id="s_Bank_Account" placeholder="Your Bank Account Number" required>
+                            <input class="Bank_Account" style="width: 90%;" type="number" name="Bank_Account" id="s_Bank_Account" placeholder="Your Bank Account Number" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_IFSC_code">IFSC Code</label><br>
-                            <input class="IFSC_code" style="width: 90%;" type="text" name="IFSC_code" id="s_IFSC_code"
-                                placeholder="Your IFSC code" required>
+                            <input class="IFSC_code" style="width: 90%;" type="text" name="IFSC_code" id="s_IFSC_code" placeholder="Your IFSC code" required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_branch">Bank Branch Name</label><br>
-                            <input class="branch" style="width: 90%;" type="text" name="branch" id="s_branch"
-                                placeholder="Your Bank Branch" required>
+                            <input class="branch" style="width: 90%;" type="text" name="branch" id="s_branch" placeholder="Your Bank Branch" required>
                         </div>
                     </div>
 
@@ -286,26 +249,20 @@
                     <div id="4" class="signUp_page confidential">
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="image">Profile Picture</label><br>
-                            <input type="file" style="width: 90%;" name="image" id="image" accept=".png,.jpeg,.jpg"
-                                required><br>
+                            <input type="file" style="width: 90%;" name="image" id="image" accept=".png,.jpeg,.jpg" required><br>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="psw_s">Password</label><br>
-                            <input type="password" style="width: 90%;" id="psw_s" name="password" placeholder="password"
-                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
+                            <input type="password" style="width: 90%;" id="psw_s" name="password" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
                                 required>
                         </div>
                         <div class="form-group" style="text-align: left; margin:1% 0 0 2%;">
                             <label for="s_pass">Confirm Password</label><br>
-                            <input type="password" id="s_pass" style="width: 90%;" name="again_password"
-                                placeholder="password confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
+                            <input type="password" id="s_pass" style="width: 90%;" name="again_password" placeholder="password confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
                                 required>
                         </div>
                         <div class="tnc" style="width: fit-content;margin-left:60px">
-                            <input type="checkbox" class="" id="service_boy_check" required
-                                style="width: 30px!important">
+                            <input type="checkbox" class="" id="service_boy_check" required style="width: 30px!important">
                             <label class="" for="service_boy_check">Please Check me to Accept <a href="">Terms and
                                     Condition</a> of isTaker</label>
                         </div>
@@ -320,8 +277,7 @@
                             </div>
                         </div>
                         <br>
-                        <input type="submit" class="submit" id="submit_customer_signup" value="Register"
-                            onclick="saveInfoServiceBoy()">
+                        <input type="submit" class="submit" id="submit_customer_signup" value="Register" onclick="saveInfoServiceBoy()">
                     </div>
                     <br>
                     <!-- <a id="back" class="back with_service_boy display">
@@ -360,13 +316,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 <script>
-    
-
-    $('label.customer').click(function () {
+    $('label.customer').click(function() {
         $('.with_service_boy').addClass('display')
     })
 
-    $('label.service_boy').click(function () {
+    $('label.service_boy').click(function() {
         $('.with_service_boy').removeClass('display')
     })
 
@@ -601,27 +555,27 @@
     var character_s = document.getElementById("character_s");
 
     // When the user clicks on the password field, show the message box
-    myInput.onfocus = function () {
+    myInput.onfocus = function() {
         document.getElementById("message").style.display = "block";
     }
 
     // When the user clicks outside of the password field, hide the message box
-    myInput.onblur = function () {
+    myInput.onblur = function() {
         document.getElementById("message").style.display = "none";
     }
 
     // When the service clicks on the password field, show the message box
-    myInput_s.onfocus = function () {
+    myInput_s.onfocus = function() {
         document.getElementById("message_s").style.display = "block";
     }
 
     // When the service clicks outside of the password field, hide the message box
-    myInput_s.onblur = function () {
+    myInput_s.onblur = function() {
         document.getElementById("message_s").style.display = "none";
     }
 
     // When the user starts to type something inside the password field
-    myInput.onkeyup = function () {
+    myInput.onkeyup = function() {
         // Validate lowercase letters
         var lowerCaseLetters = /[a-z]/g;
         if (myInput.value.match(lowerCaseLetters)) {
@@ -679,7 +633,7 @@
 
     }
 
-    myInput_s.onkeyup = function () {
+    myInput_s.onkeyup = function() {
         // Validate lowercase letters
         var lowerCaseLetters = /[a-z]/g;
         if (myInput_s.value.match(lowerCaseLetters)) {

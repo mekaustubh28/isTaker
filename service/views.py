@@ -9,6 +9,7 @@ from service_boy.ride_complete import ride_complete
 import math
 from datetime import datetime
 import random
+# from user.views import All_Cities
 # Create your views here.
 
 
@@ -35,6 +36,7 @@ def contact_us(request, myid):
             'cart': cart[0],
             'cart_length': cart[1],    
             'package_dict': package_dict,
+            'cities': All_Cities(Hospital_Detail.objects.all()),
         })
     except:
         return redirect('/')
@@ -90,6 +92,7 @@ def my_account(request, myid):
                 'cart': cart[0],
                 'cart_length': cart[1],    
                 'package_dict': package_dict,
+            'cities': All_Cities(Hospital_Detail.objects.all()),
             })
         else:
             return redirect('/')
@@ -173,6 +176,7 @@ def orders(request, myid):
             'current_date_time': current_date_time,    
             'package_dict': package_dict,
             'cart_length': cart[1],
+            'cities': All_Cities(Hospital_Detail.objects.all()),
         })
     except:
         return redirect('/')
@@ -311,6 +315,7 @@ def service_boy_on_way(request, myid):
             'cart_length': cart[1],
             'No_Service_Boy': request.session['No_Service_Boy'],
             'package_dict': package_dict,
+            'cities': All_Cities(Hospital_Detail.objects.all()),
         })
         # except:
         #     request.session['wrong'] = True
@@ -433,6 +438,7 @@ def order_confirm(request, myid):
             'cart_length': cart[1],
             'current_date_time': current_date_time,
             'package_dict': package_dict,
+            'cities': All_Cities(Hospital_Detail.objects.all()),
         })
     except:
         return redirect('/customer_dashboard/'+str(myid)+'/search')
@@ -457,6 +463,7 @@ def search(request, myid):
                 hospital_pin = Active_User['PIN']
                 id_pin = ''
                 id_place = 'no-display'
+                suggest_hotels = ''
                 no_hospital = ''
                 if request.method == 'POST':
                     service_list = request.POST.get('service', '')
@@ -497,6 +504,7 @@ def search(request, myid):
                             'cart_length': cart[1],
                             'hospital': Hospital_Detail.objects.all(),
                             'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer_chosen[0].city_village),
+                            'cities': All_Cities(Hospital_Detail.objects.all()),
                         })
 
                     elif search_by_place != '':
@@ -555,6 +563,7 @@ def search(request, myid):
                         'package_dict': package_dict,
                         'hospital': Hospital_Detail.objects.all(),
                         'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer_chosen[0].city_village),
+                        'cities': All_Cities(Hospital_Detail.objects.all()),
                     })
                 except:
                     # print('except2')
@@ -571,6 +580,7 @@ def search(request, myid):
             'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
             'cart': cart[0],
             'cart_length': cart[1],
+            'cities': All_Cities(Hospital_Detail.objects.all()),
         })
     except:
         return redirect('/customer_dashboard/'+str(myid))
@@ -610,6 +620,7 @@ def customer_dashboard(request, myid):
                     'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
                     'cart': cart[0],
                     'cart_length': cart[1],
+                    'cities': All_Cities(Hospital_Detail.objects.all()),
                 })
             else:
                 return redirect('users:Login')
@@ -621,6 +632,7 @@ def customer_dashboard(request, myid):
             'hospital': Hospital_Detail.objects.all(),
             'deal_offers':Deals_and_Offer.objects.all(),
             'hospital_city_wise': Hospital_Detail.objects.filter(hospital_city=customer.city_village),
+            'cities': All_Cities(Hospital_Detail.objects.all()),
         })
     except:
         return redirect('users:Login')
@@ -698,6 +710,14 @@ def otp_generator():
 
     return OTP
 
+def All_Cities(hospitals):
+    cities = []
+    for i in hospitals.values():
+        city_name = i['hospital_city']
+        if (city_name in cities) == False:
+            cities.append(city_name)
+    
+    return cities
 
 def convert_date_and_time(date_time):
     # 2021-08-14T14:02
