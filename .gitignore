@@ -1,5 +1,5 @@
 # /media/**
-/incomplete.txt
+incomplete.txt
 __pycache__
 /static/**
 /db.sqlite3
