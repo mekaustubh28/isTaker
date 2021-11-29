@@ -14,12 +14,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <title>{% block title %}{% endblock %}</title>
-
 </head>
 
+<style>
+    .hidden {
+        display: none;
+    }
+    
+    @media screen and (max-width:500px) {
+        svg.bi-cart {
+            width: 6vw;
+            height: 6vw;
+        }
+    }
+</style>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed;top: 0;left: 0%;background-color: #fff!important;box-shadow: 1px 0px 5px black;z-index: 9;">
         <div class="container-fluid">
             <a href="/customer_dashboard/{{Active_User.customer_id}}"><img class="logo" src="{% static 'service_boy/images/isTaker.png' %}" alt="logo.png" width="100px" style="margin-right: 20px;"></a>
@@ -144,6 +154,8 @@
     </nav>
 
     <div class="top-container" style="margin-top: 70px;">
+        <div class="container middle-container" id="after_500">
+        </div>
         <div class="container side left-container">
             <div class="mini top-rated filter-cities" style="overflow:hidden;">
                 <span class="heading">Top Rated Spot Filter on City Wise</span>
@@ -205,7 +217,7 @@
                 </div>
             </div>
         </div>
-        <div class="container middle-container">
+        <div class="container middle-container" id="before_500">
             {% block body %} {% endblock %}
         </div>
         <div class="container side right-container">

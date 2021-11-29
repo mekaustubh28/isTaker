@@ -1,16 +1,28 @@
-{% extends 'service/base.html' %}
-
-{% block title %} isTaker | Order Confirm {% endblock %}
-
-{% block stylesheet %}
-{% load static %}
+{% extends 'service/base.html' %} {% block title %} isTaker | Order Confirm {% endblock %} {% block stylesheet %} {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'service/scss/order_confirm/order_confirm.css' %}">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
-
-{% endblock %}
-
-{% block body %}
+<style>
+    @media screen and (max-width:500px) {
+        div.order {
+            display: block;
+        }
+        div.order div.list_selected {
+            margin-top: 2vw;
+            width: 100%;
+        }
+        div.selected_hospital {
+            width: 90%;
+        }
+        div.confirm {
+            width: 100%;
+            margin: auto;
+            margin-top: 5vw;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %} {% block body %}
 <br>
 <div class="order_cont">
 
@@ -26,9 +38,7 @@
         <h3 class="timeleft">Time Left : <span id="timer">60</span>s</h3>
     </div>
     <div id="select_date_time" class="alert alert-custom d-flex align-items-center my-2" role="alert">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-            class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
-            aria-label="Warning:">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
             <path
                 d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
         </svg>
@@ -41,13 +51,11 @@
     <div class="alert alert-danger" role="alert">
         {{offer_failure}}
     </div>
-    {% endif %}
-    {% if offer_success != 'no_sucess' %}
+    {% endif %} {% if offer_success != 'no_sucess' %}
     <div class="alert alert-success" role="alert">
         {{offer_success}}
     </div>
-    {% endif %}
-    {% if offer_amount != 0 %}
+    {% endif %} {% if offer_amount != 0 %}
     <div class="alert alert-primary" role="alert">
         Coupon Already Applied
     </div>
@@ -60,12 +68,11 @@
             <p><b style="color: #fd7034;">Address:</b> {{selected_hospital.hospital_address}}</p>
         </div>
         <div class="order">
-            <div>
+            <div class="list_selected">
                 <div class="col-md-5 col-lg-4 services order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span class="text-primary" style="color: #fd7034!important">Current Service</span>
-                        <span class="badge bg-primary rounded-pill"
-                            style="background-color: #fd7034!important">{{Active_Service.total_items}}</span>
+                        <span class="badge bg-primary rounded-pill" style="background-color: #fd7034!important">{{Active_Service.total_items}}</span>
                     </h4>
                     <ul class="list-group mb-3">
                         {% for i in Active_Service.service_list%}
@@ -73,14 +80,10 @@
                             <div>
                                 <h6 class="my-2">{{i}}</h6>
                             </div>
-                            {% for j in Active_Service.total_price %}
-                            {% if forloop.parentloop.counter == forloop.counter%}
-                            <span class="text-muted">₹{{j}}/-</span>
-                            {% endif %}
-                            {% endfor %}
+                            {% for j in Active_Service.total_price %} {% if forloop.parentloop.counter == forloop.counter%}
+                            <span class="text-muted">₹{{j}}/-</span> {% endif %} {% endfor %}
                         </li>
-                        {% endfor %}
-                        {% if coupon%}
+                        {% endfor %} {% if coupon%}
                         <li class="list-group-item d-flex justify-content-between bg-light">
                             <div class="text-primary promo_code">
                                 <h6 class="my-0">Promo code</h6>
@@ -94,12 +97,10 @@
                             <strong>₹{{Active_Service.price}}/-</strong>
                         </li>
                     </ul>
-                    <form class="card p-2 promo" action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm"
-                        method="POST">
+                    <form class="card p-2 promo" action="/customer_dashboard/{{Active_User.customer_id}}/order_confirm" method="POST">
                         {% csrf_token %}
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Promo code" name="coupon"
-                                value="{{coupon}}" id="redeem">
+                            <input type="text" class="form-control" placeholder="Promo code" name="coupon" value="{{coupon}}" id="redeem">
                             <button type="submit" class="btn btn-secondary">Redeem</button>
                         </div>
                     </form>
@@ -110,10 +111,8 @@
                 <br>
                 <form action="/customer_dashboard/{{Active_User.customer_id}}/service_boy_on_way" method="post">
                     {% csrf_token %}
-                    <input type="datetime-local" id="meeting_time" name="service_date_time"
-                        value="{{current_date_time}}" min="{{current_date_time}}">
-                    <button class="btn btn-success mx-2" style="border-radius:5px;" id="order_confirm_semi"
-                        onclick="time_left()" type="submit" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                    <input type="datetime-local" id="meeting_time" name="service_date_time" value="{{current_date_time}}" min="{{current_date_time}}">
+                    <button class="btn btn-success mx-2" style="border-radius:5px;" id="order_confirm_semi" onclick="time_left()" type="submit" data-bs-toggle="modal" data-bs-target="#confirmModal">
                         Confirm
                     </button>
                 </form>
@@ -132,9 +131,7 @@
     </div>
 
 </div>
-{% endblock %}
-
-{% block javascript %}
+{% endblock %} {% block javascript %}
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{% static 'service/js/customer_dashboard.js' %}"></script>

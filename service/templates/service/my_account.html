@@ -1,15 +1,22 @@
-{% extends 'service/base.html' %}
-
-{% block title %} isTaker | My Account {% endblock %}
-
-{% block stylesheet %}
-{% load static %}
+{% extends 'service/base.html' %} {% block title %} isTaker | My Account {% endblock %} {% block stylesheet %} {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'service/scss/my_account/my_account.css' %}">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-{% endblock %}
-
-{% block body %}
+<style>
+    @media screen and (max-width:500px) {
+        div.info_control,
+        div.info_control div {
+            display: block;
+            width: 98%;
+        }
+        div.info_control input {
+            width: 100%!important;
+        }
+        div.info_panel {
+            display: none!important;
+        }
+    }
+</style>
+{% endblock %} {% block body %}
 <br><br>
 <div class="my_account">
     <h2>Profile Section</h2>
@@ -28,8 +35,7 @@
                             <a href="/customer_dashboard/{{Active_User.customer_id}}/orders" target="_blank" class="orders">
                                 <span style="margin-right: 20px;">
                                     <img src="{% static 'service/images/order.png' %}" alt="" style="width: 2vw;height:2vw">
-                                </span>
-                                My Orders
+                                </span> My Orders
                             </a>
                         </li>
                     </ul>
@@ -39,8 +45,7 @@
                         <li>
                             <span style="margin-right: 20px;margin-left: 5px;">
                                 <img src="{% static 'service/images/profile.png' %}" alt="" style="width: 2vw;height:2vw">
-                            </span>
-                            Profile Information
+                            </span> Profile Information
                         </li>
                     </ul>
                     <ul class="subcategory">
@@ -63,15 +68,11 @@
                         {% csrf_token %}
                         <div class="customer_name">
                             <div class="form-floating">
-                                <input class="form-control name" name="first_name"
-                                    placeholder="{{Active_User.first_name}}" id="first_name" maxlength="200"
-                                    value="{{Active_User.first_name}}" disabled></textarea>
+                                <input class="form-control name" name="first_name" placeholder="{{Active_User.first_name}}" id="first_name" maxlength="200" value="{{Active_User.first_name}}" disabled></textarea>
                                 <label for="first_name">First Name</label>
                             </div>
                             <div class="form-floating">
-                                <input class="form-control name" name="last_name"
-                                    placeholder="{{Active_User.last_name}}" id="last_name" maxlength="200"
-                                    value="{{Active_User.last_name}}" disabled></textarea>
+                                <input class="form-control name" name="last_name" placeholder="{{Active_User.last_name}}" id="last_name" maxlength="200" value="{{Active_User.last_name}}" disabled></textarea>
                                 <label for="last_name">Last Name</label>
                             </div>
                         </div>
@@ -88,10 +89,7 @@
                         {% csrf_token %}
                         <div class="customer_name">
                             <div class="form-floating">
-                                <input class="form-control father_name" name="father_name"
-                                    placeholder="{{Active_User.father_husband_name}}" id="father_name" maxlength="200"
-                                    value="{{Active_User.father_husband_name}}" disabled
-                                    style="width: 120%;"></textarea>
+                                <input class="form-control father_name" name="father_name" placeholder="{{Active_User.father_husband_name}}" id="father_name" maxlength="200" value="{{Active_User.father_husband_name}}" disabled style="width: 120%;"></textarea>
                                 <label for="father_name">Father/Hustand Name</label>
                             </div>
                         </div>
@@ -109,9 +107,7 @@
                             {%csrf_token%}
                             <div class="customer_name">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control email" name="email"
-                                        placeholder="{{Active_User.email}}" id="email" maxlength="200"
-                                        value="{{Active_User.email}}" disabled style="width:120%;"></textarea>
+                                    <input type="email" class="form-control email" name="email" placeholder="{{Active_User.email}}" id="email" maxlength="200" value="{{Active_User.email}}" disabled style="width:120%;"></textarea>
                                     <label for="email">Email</label>
                                 </div>
                             </div>
@@ -128,9 +124,7 @@
                             {%csrf_token%}
                             <div class="customer_name">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control mobile" name="mobile"
-                                        placeholder="{{Active_User.mobile}}" id="mobile" maxlength="200"
-                                        value="{{Active_User.mobile}}" disabled style="width:120%;"></textarea>
+                                    <input type="number" class="form-control mobile" name="mobile" placeholder="{{Active_User.mobile}}" id="mobile" maxlength="200" value="{{Active_User.mobile}}" disabled style="width:120%;"></textarea>
                                     <label for="mobile">Contact</label>
                                 </div>
                             </div>
@@ -151,9 +145,7 @@
                         {%csrf_token%}
                         <div class="customer_name">
                             <div class="form-floating">
-                                <input class="form-control address" name="address" placeholder="{{Active_User.address}}"
-                                    id="address" maxlength="200" value="{{Active_User.address}}" disabled
-                                    style="width: 200%;">
+                                <input class="form-control address" name="address" placeholder="{{Active_User.address}}" id="address" maxlength="200" value="{{Active_User.address}}" disabled style="width: 200%;">
                                 <label for="address">Address</label>
                             </div>
                         </div>
@@ -171,9 +163,7 @@
                             {%csrf_token%}
                             <div class="customer_name">
                                 <div class="form-floating">
-                                    <select name="state" class="form-select state form-select-lg mb-3" id="state"
-                                        aria-label=".form-select-lg example" disabled
-                                        style="margin-bottom: 0!important;">
+                                    <select name="state" class="form-select state form-select-lg mb-3" id="state" aria-label=".form-select-lg example" disabled style="margin-bottom: 0!important;">
                                         <option selected>{{Active_User.state}}</option>
                                         <option value="delhi">delhi</option>
                                         <option value="telangana">telangana</option>
@@ -195,10 +185,7 @@
                             {%csrf_token%}
                             <div class="customer_name">
                                 <div class="form-floating">
-                                    <input class="form-control city" name="city_village"
-                                        placeholder="{{Active_User.city_village}}" id="city" maxlength="200"
-                                        value="{{Active_User.city_village}}" disabled
-                                        style="width: 80%;margin-right: 0!important;">
+                                    <input class="form-control city" name="city_village" placeholder="{{Active_User.city_village}}" id="city" maxlength="200" value="{{Active_User.city_village}}" disabled style="width: 80%;margin-right: 0!important;">
                                     <label for="city">City/Village</label>
                                 </div>
                             </div>
@@ -215,9 +202,7 @@
                             {%csrf_token%}
                             <div class="customer_name">
                                 <div class="form-floating">
-                                    <input class="form-control pin" type="number" name="PIN"
-                                        placeholder="{{Active_User.PIN}}" id="pin" maxlength="200"
-                                        value="{{Active_User.PIN}}" disabled style="width: 100%;">
+                                    <input class="form-control pin" type="number" name="PIN" placeholder="{{Active_User.PIN}}" id="pin" maxlength="200" value="{{Active_User.PIN}}" disabled style="width: 100%;">
                                     <label for="pin">PIN</label>
                                 </div>
                             </div>
@@ -236,9 +221,7 @@
                     <form action="">
                         <div class="customer_name">
                             <div class="form-floating">
-                                <input class="form-control adhaar" name="adhaar" placeholder="{{Active_User.Adhaar}}"
-                                    id="adhaar" maxlength="200" value="{{Active_User.Adhaar}}" disabled
-                                    style="width: 150%;">
+                                <input class="form-control adhaar" name="adhaar" placeholder="{{Active_User.Adhaar}}" id="adhaar" maxlength="200" value="{{Active_User.Adhaar}}" disabled style="width: 150%;">
                                 <label for="adhaar">Address</label>
                             </div>
                         </div>
@@ -251,9 +234,7 @@
     <!-- Button trigger modal -->
 
 </div>
-{% endblock %}
-
-{% block javascript %}
+{% endblock %} {% block javascript %}
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{% static 'service/js/customer_dashboard.js' %}"></script>

@@ -477,6 +477,10 @@ ul.all_services {
     }
 }
 
+.hidden {
+    display: none;
+}
+
 @media screen and (max-width:1194px) {
     div.carousel-item img {
         height: 45vh;

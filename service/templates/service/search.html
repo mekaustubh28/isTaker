@@ -18,6 +18,35 @@
         overflow: hidden;
         overflow-y: scroll;
     }
+    
+    @media screen and (max-width:500px) {
+        div.search_by_pin,
+        div.search_by_place {
+            margin-top: 10vw;
+        }
+        div.search_by_pin div.hospital {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        div.search_by_pin div.hospital img,
+        div.search_by_place div.hospital img,
+        div.search_by_place div.suggest_hospitals img {
+            width: 25vw!important;
+            height: 25vw!important;
+        }
+        div.search_by_pin div.hospital input {
+            width: 3vw!important;
+            height: 3vw!important;
+        }
+        div.search_by_place {
+            display: block;
+            width: 90%!important;
+        }
+        div.search_by_place div.hospital {
+            width: 100%!important;
+        }
+    }
 </style>
 {% endblock %} {% block body %}
 <div class="main-container">

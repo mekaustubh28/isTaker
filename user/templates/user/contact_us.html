@@ -5,11 +5,12 @@
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}"> -->
 <style>
     div.contact_us {
-        width: max-content;
+        width: 100%;
         margin: 2% auto;
         background-color: rgba(128, 128, 128, 0.048);
         padding: 30px;
         border-radius: 10px;
+        height: max-content;
     }
     
     button.send_msg {
@@ -30,6 +31,14 @@
         margin-top: 50px;
         font-weight: 400;
         width: max-content;
+    }
+    
+    @media screen and (max-width:500px) {
+        div.contact_us {
+            width: 100%;
+            height: 85vh;
+            overflow-y: scroll;
+        }
     }
 </style>
 {% endblock %} {% block body %}

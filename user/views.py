@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Service_Boy, Customer, Temp
+from .models import Service_Boy, Customer, Temp, Admin_Staff
 from service.views import covnert_Set_to_dict
 from hospital.models import Hospital_Detail, Hotel_Detail
 from admin_control.models import Testimonial
@@ -222,52 +222,50 @@ def Login(request):
                 number = request.POST.get('number', '')
                 password = request.POST.get('password')
 
-                if (ID == '123456' and email == 'isTaker@isTaker.com' and password == 'isTaker@123'):
+                admin = Admin_Staff.objects.filter(admin_staff_id=ID, email=email, password=hashing_256(password))
+                print('admin', admin)
+                if(admin):
                     request.session['Admin_Staff'] = ID
                     return redirect('/jhbo92dasdSABoiu8o08BFjkl')
+                else:
+                    if(email != ''):
+                        Service_Boy_Info = Service_Boy.objects.filter(
+                            ID=ID, email=email, password=hashing_256(password))
+                    if(number != ''):
+                        Service_Boy_Info = Service_Boy.objects.filter(
+                            ID=ID, mobile=int(number), password=hashing_256(password))
 
-                if (ID == '654321' and email == 'vermakaustubh28@gmail.com' and password == 'isTaker@123'):
-                    request.session['Admin_Staff'] = ID
-                    return redirect('/jhbo92dasdSABoiu8o08BFjkl')
-
-                if(email != ''):
-                    Service_Boy_Info = Service_Boy.objects.filter(
-                        ID=ID, email=email, password=hashing_256(password))
-                if(number != ''):
-                    Service_Boy_Info = Service_Boy.objects.filter(
-                        ID=ID, mobile=int(number), password=hashing_256(password))
-
-                if Service_Boy_Info.exists():
-                    if Service_Boy_Info[0].status == False:
+                    if Service_Boy_Info.exists():
+                        if Service_Boy_Info[0].status == False:
+                            return render(request, 'user/login.html', {
+                                'not_found': 'Your Application is Under Process.',
+                                'package_dict': package_dict,
+                                'hospital': Hospital_Detail.objects.all(),
+                                'deal_offers': Deals_and_Offer.objects.all(),
+                                'hospital_city_wise': Hospital_Detail.objects.all(),
+                'cities': All_Cities(Hospital_Detail.objects.all())
+                            })
+                        else:
+                            pass
+                        # print('service_boy exists')
+                    else:
                         return render(request, 'user/login.html', {
-                            'not_found': 'Your Application is Under Process.',
+                            'not_found': 'No service_boy found with given Credentials',
                             'package_dict': package_dict,
                             'hospital': Hospital_Detail.objects.all(),
                             'deal_offers': Deals_and_Offer.objects.all(),
                             'hospital_city_wise': Hospital_Detail.objects.all(),
-            'cities': All_Cities(Hospital_Detail.objects.all())
+                'cities': All_Cities(Hospital_Detail.objects.all())
                         })
-                    else:
-                        pass
-                    # print('service_boy exists')
-                else:
-                    return render(request, 'user/login.html', {
-                        'not_found': 'No service_boy found with given Credentials',
-                        'package_dict': package_dict,
-                        'hospital': Hospital_Detail.objects.all(),
-                        'deal_offers': Deals_and_Offer.objects.all(),
-                        'hospital_city_wise': Hospital_Detail.objects.all(),
-            'cities': All_Cities(Hospital_Detail.objects.all())
-                    })
 
-                Current_Service_Boy = Service_Boy_Info.values()[0]
-                Current_Service_Boy['created_on'] = str(
-                    Service_Boy_Info.values()[0]['created_on'])
+                    Current_Service_Boy = Service_Boy_Info.values()[0]
+                    Current_Service_Boy['created_on'] = str(
+                        Service_Boy_Info.values()[0]['created_on'])
 
-                request.session['Active_Service_Boy'] = Current_Service_Boy
-                # print(request.session['Active_Service_Boy'],
-                #       '********************************')
-                return redirect('service_boy/'+str(Current_Service_Boy['ID']))
+                    request.session['Active_Service_Boy'] = Current_Service_Boy
+                    # print(request.session['Active_Service_Boy'],
+                    #       '********************************')
+                    return redirect('service_boy/'+str(Current_Service_Boy['ID']))
 
         return render(request, "user/login.html", {
             'package_dict': package_dict,

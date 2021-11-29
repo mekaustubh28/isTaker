@@ -1,130 +1,119 @@
-{% extends 'service/base.html' %}
-
-{% block title %} isTaker - Contact Us {% endblock %}
-
-{% block stylesheet %}
-{% load static %}
+{% extends 'service/base.html' %} {% block title %} isTaker - Contact Us {% endblock %} {% block stylesheet %} {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'user/scss/signInUp/signInUp.css' %}">
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'user/scss/navbar/navbar.css' %}"> -->
 <style>
-  div.contact_us {
-    width: max-content;
-    margin: 2% auto;
-    background-color: rgba(128, 128, 128, 0.048);
-    padding: 30px;
-    border-radius: 10px;
-  }
-
-  button.send_msg {
-    background-color: #fd7034;
-    border-color: #fd7034;
-  }
-
-  button.send_msg:hover {
-    background-color: #df5b23;
-    border-color: #df5b23;
-  }
-
-  div.row {
-    justify-content: space-around;
-  }
-
-  div.address {
-    margin-top: 50px;
-    font-weight: 400;
-    width: max-content;
-  }
+    div.contact_us {
+        width: 100%;
+        margin: 2% auto;
+        background-color: rgba(128, 128, 128, 0.048);
+        padding: 30px;
+        border-radius: 10px;
+        height: max-content;
+    }
+    
+    button.send_msg {
+        background-color: #fd7034;
+        border-color: #fd7034;
+    }
+    
+    button.send_msg:hover {
+        background-color: #df5b23;
+        border-color: #df5b23;
+    }
+    
+    div.row {
+        justify-content: space-around;
+    }
+    
+    div.address {
+        margin-top: 50px;
+        font-weight: 400;
+        width: max-content;
+    }
+    
+    @media screen and (max-width:500px) {
+        div.contact_us {
+            width: 100%;
+            height: 85vh;
+            overflow-y: scroll;
+        }
+    }
 </style>
-{% endblock %}
-
-
-{% block body %}
+{% endblock %} {% block body %}
 <div class="contact_us">
-  <h1>Contact Us</h1>
-  <section class="form-section">
-    <div class="row">
-      <div class="col-md-6">
-        <form>
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="validationDefault01">First name</label>
-              <input type="text" class="form-control" id="validationDefault01" placeholder="First name" required>
+    <h1>Contact Us</h1>
+    <section class="form-section">
+        <div class="row">
+            <div class="col-md-6">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationDefault01">First name</label>
+                            <input type="text" class="form-control" id="validationDefault01" placeholder="First name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationDefault02">Last name</label>
+                            <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationDefault03">City, State</label>
+                            <input type="text" class="form-control" id="validationDefault03" placeholder="eg Mumbai, Maharashtra" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationDefault04">Contact Number</label>
+                            <input type="number" class="form-control" id="validationDefault04" placeholder="Contact Number" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="validationDefault03">Subject</label>
+                            <input type="text" class="form-control" id="validationDefault03" placeholder="Subject" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="validationDefault03">Message</label>
+                            <textarea class="form-control" id="validationDefault03" rows="5" placeholder="Message" required></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 text-center">
+                            <button class="btn btn-primary send_msg" type="submit"><i class="fas fa-paper-plane"></i> Send
+                          Message</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="col-md-6 mb-3">
-              <label for="validationDefault02">Last name</label>
-              <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" required>
+            <div class="col-md-6 address">
+                <h5>Call Us / Whatsapp</h5>
+                <p><a style="color: #fd7034!important;" href="https://wa.me/+919874563210" target="_blank"><i class="fas fa-phone"> +(91) 9874563210</i></a><br>
+                </p>
+                <h5>Email / Website</h5>
+                <p>
+                    <a style="color: #fd7034!important;" href="mailto:isTaker@gmail.com" target="_blank"><i class="fas fa-envelope"></i> isTaker@gmail.com</a><br>
+                    <a style="color: #fd7034!important;" href="/" target="_blank"><i class="fas fa-globe"></i> www.isTaker.herokuapp.com</a>
+                </p>
+                <h5>Calling Hours</h5>
+                <p>Mon - Fri : 9am - 6pm (IST) </p>
+                <h5>Address</h5>
+                <p>xyz state, mumbai, south colnoy, 2204022.</p>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="validationDefault03">City, State</label>
-              <input type="text" class="form-control" id="validationDefault03" placeholder="eg Mumbai, Maharashtra"
-                required>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="validationDefault04">Contact Number</label>
-              <input type="number" class="form-control" id="validationDefault04" placeholder="Contact Number" required>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 mb-3">
-              <label for="validationDefault03">Subject</label>
-              <input type="text" class="form-control" id="validationDefault03" placeholder="Subject" required>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 mb-3">
-              <label for="validationDefault03">Message</label>
-              <textarea class="form-control" id="validationDefault03" rows="5" placeholder="Message"
-                required></textarea>
-            </div>
-          </div>
-          <br>
-          <div class="form-row">
-            <div class="form-group col-md-12 text-center">
-              <button class="btn btn-primary send_msg" type="submit"><i class="fas fa-paper-plane"></i> Send
-                Message</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col-md-6 address">
-        <h5>Call Us / Whatsapp</h5>
-        <p><a style="color: #fd7034!important;" href="https://wa.me/+919874563210" target="_blank"><i
-              class="fas fa-phone"> +(91) 9874563210</i></a><br>
-        </p>
-        <h5>Email / Website</h5>
-        <p>
-          <a style="color: #fd7034!important;" href="mailto:isTaker_wsfl@outlook.com" target="_blank"><i
-              class="fas fa-envelope"></i>isTaker_wsfl@outlook.com</a><br>
-          <a style="color: #fd7034!important;" href="/" target="_blank"><i class="fas fa-globe"></i>
-            www.isTaker.herokuapp.com</a>
-        </p>
-        <h5>Calling Hours</h5>
-        <p>Mon - Fri : 9am - 6pm (IST) </p>
-        <h5>Address</h5>
-        <p>xyz state, mumbai, south colnoy, 2204022.</p>
-      </div>
-    </div><br><br>
-  </section>
-  <section class="my-3">
-    <div class="container">
-      <!-- <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d578.1071830606437!2d77.60990391956831!3d12.90604561866035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1506d9ce6f55%3A0x51feb056f4926585!2sMadeena%20Masjid!5e0!3m2!1sen!2sin!4v1634495357471!5m2!1sen!2sin"
-        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d972.257428392023!2d77.60987962919572!3d12.905810899431204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae14e180878581%3A0xb402f6e5d32af6ef!2s13th%20Main%20Rd%2C%20Mahadeshwara%20Nagar%2C%20Stage%202%2C%20BTM%202nd%20Stage%2C%20Bengaluru%2C%20Karnataka%20560076!5e0!3m2!1sen!2sin!4v1634495532045!5m2!1sen!2sin"
-        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-    </div>
-  </section>
+        </div><br><br>
+    </section>
+    <section class="my-3">
+        <div class="container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d972.257428392023!2d77.60987962919572!3d12.905810899431204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae14e180878581%3A0xb402f6e5d32af6ef!2s13th%20Main%20Rd%2C%20Mahadeshwara%20Nagar%2C%20Stage%202%2C%20BTM%202nd%20Stage%2C%20Bengaluru%2C%20Karnataka%20560076!5e0!3m2!1sen!2sin!4v1634495532045!5m2!1sen!2sin"
+                width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
 </div>
 
-{% endblock %}
-
-{% block javascript %}
+{% endblock %} {% block javascript %}
 <script src="{% static 'user/js/signIn.js' %}"></script>
 <script>
-
 </script>
 {% endblock %}
