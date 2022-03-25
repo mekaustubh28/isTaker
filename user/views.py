@@ -326,8 +326,8 @@ def SignUp(request):
                     'hospital': Hospital_Detail.objects.all(),
                     'deal_offers': Deals_and_Offer.objects.all(),
                     'hospital_city_wise': Hospital_Detail.objects.all(),
-            'cities': All_Cities(Hospital_Detail.objects.all()),
-            'PIN': All_PIN(Hospital_Detail.objects.all())
+                    'cities': All_Cities(Hospital_Detail.objects.all()),
+                    'PIN': All_PIN(Hospital_Detail.objects.all())
                 })
 
             adhaar = request.POST.get('adhaar', '')
