@@ -17,9 +17,9 @@ jaraco.collections==3.3.0
 jaraco.functools==3.3.0
 jaraco.text==3.5.1
 more-itertools==8.8.0
-numpy==1.21.1
-panda==0.3.1
-pandas==1.3.1
+numpy
+panda
+pandas
 portend==2.7.1
 PyJWT==1.7.1
 python-dateutil==2.8.2
